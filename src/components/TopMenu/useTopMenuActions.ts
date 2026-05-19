@@ -23,7 +23,6 @@ import {
 	latencyTestDialogAtom,
 	metadataEditorDialogAtom,
 	settingsDialogAtom,
-	submitToAMLLDBDialogAtom,
 	timeShiftDialogAtom,
 } from "$/states/dialogs.ts";
 import {
@@ -128,10 +127,10 @@ export const useTopMenuActions = () => {
 		if (isDirty) {
 			setConfirmDialog({
 				open: true,
-				title: t("confirmDialog.newFile.title", "确认新建文件"),
+				title: t("confirmDialog.newFile.title", "新規ファイル作成の確認"),
 				description: t(
 					"confirmDialog.newFile.description",
-					"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要新建文件吗？",
+					"未保存の変更があります。続行すると変更内容は失われます。新しいファイルを作成しますか？",
 				),
 				onConfirm: action,
 			});
@@ -203,10 +202,6 @@ export const useTopMenuActions = () => {
 		} catch (e) {
 			error("Failed to save TTML file into clipboard", e);
 		}
-	}, [store]);
-
-	const onSubmitToAMLLDB = useCallback(() => {
-		store.set(submitToAMLLDBDialogAtom, true);
 	}, [store]);
 
 	const onOpenMetadataEditor = useCallback(() => {
@@ -389,10 +384,10 @@ export const useTopMenuActions = () => {
 
 		setConfirmDialog({
 			open: true,
-			title: t("confirmDialog.syncLineTimestamps.title", "确认同步行时间戳"),
+			title: t("confirmDialog.syncLineTimestamps.title", "行のタイムスタンプ同期の確認"),
 			description: t(
 				"confirmDialog.syncLineTimestamps.description",
-				"此操作将根据每行单词的时间戳自动同步所有行的起始和结束时间为第一个和最后一个音节的开始和结束时间。确定要继续吗？",
+				"各行に含まれる単語のタイムスタンプをもとに、すべての行の開始時刻と終了時刻を、最初と最後の音節に合わせて自動で同期します。続行しますか？",
 			),
 			onConfirm: action,
 		});
@@ -467,7 +462,6 @@ export const useTopMenuActions = () => {
 		onSaveFile,
 		onOpenHistoryRestore,
 		onSaveFileToClipboard,
-		onSubmitToAMLLDB,
 		onUndo,
 		onRedo,
 		onSelectAll,

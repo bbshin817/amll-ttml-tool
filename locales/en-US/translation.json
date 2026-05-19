@@ -20,6 +20,7 @@
 	"confirmDialog": {
 		"cancel": "Cancel",
 		"confirm": "Confirm",
+		"ok": "OK",
 		"newFile": {
 			"title": "Confirm New File",
 			"description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to create a new file?"
@@ -52,6 +53,7 @@
 			"lineTiming": "Line Timing",
 			"startTime": "Start Time",
 			"endTime": "End Time",
+			"duration": "Duration",
 			"lineProperties": "Line Properties",
 			"bgLyric": "Background Vocal",
 			"duetLyric": "Duet Vocal",
@@ -183,7 +185,6 @@
 			"saveLyric": "Save lyrics",
 			"restoreFromHistory": "Restore from history…",
 			"saveLyricToClipboard": "Save TTML to clipboard",
-			"uploadToAMLLDB": "Upload to database (CN only)",
 			"edit": "Edit",
 			"undo": "Undo",
 			"redo": "Redo",
@@ -211,20 +212,13 @@
 				"import": "Import lyrics",
 				"fromPlainText": "Import from plain text…",
 				"fromLRCLIB": "Import from LRCLIB...",
-				"fromLyRiC": "Import from LyRiC file…",
-				"fromESLyRiC": "Import from ESLyRiC file…",
-				"fromQRC": "Import from QRC file…",
-				"fromYRC": "Import from YRC file…",
-				"fromLrcfySylb": "Import from Lyricify Syllable file…"
+				"fromTTML": "Import from TTML file…",
+				"fromSpotifyJson": "Import from Spotify JSON file…"
 			},
 			"exportLyric": {
 				"export": "Export lyrics",
-				"toLyRiC": "Export to LyRiC",
-				"toESLyRiC": "Export to ESLyRiC",
-				"toQRC": "Export to QRC",
-				"toYRC": "Export to YRC",
-				"toLrcfySylb": "Export to Lyricify Syllable",
-				"toASS": "Export to ASS subtitles"
+				"toTTML": "TTML",
+				"toSpotifyJson": "JSON (Spotify)"
 			}
 		}
 	},
@@ -361,7 +355,8 @@
 		"import": "Load",
 		"errors": {
 			"invalidUrl": "Please enter a valid Apple Music track URL",
-			"fetchFailed": "Failed to fetch lyrics. Check the URL or your network connection"
+			"fetchFailed": "Failed to fetch lyrics. Check the URL or your network connection",
+			"apiErrorTitle": "Error"
 		}
 	},
 	"lrclib": {
@@ -502,7 +497,14 @@
 		"bgLyricPrefix": "Background Lyric Prefix",
 		"duetLyricPrefix": "Duet Lyric Prefix",
 		"enableEmptyBeat": "Enable Empty Beat",
-		"emptyBeatSymbol": "Empty Beat Symbol"
+		"emptyBeatSymbol": "Empty Beat Symbol",
+		"importFailed": "Failed to import plain text lyrics. Check the input or import settings."
+	},
+	"rubyEditor": {
+		"warningTitle": "You are using the experimental ruby feature",
+		"warningBody1": "After adding ruby, parsers that do not support this structure may fail to read the file.",
+		"warningBody2": "Using it with unsupported parsers may cause missing characters or other issues.",
+		"understood": "I understand"
 	},
 	"metadataDialog": {
 		"openLink": "Open link",
@@ -539,38 +541,6 @@
 		"addPresets": "Add all preset keys",
 		"clear": "Clear",
 		"info": "Learn more"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "Metadata missing track name",
-			"missingArtists": "Metadata missing track artists",
-			"missingAlbum": "Metadata missing album name",
-			"missingMusicId": "Metadata missing platform track ID"
-		},
-		"defaultReason": "New lyrics submission",
-		"errors": {
-			"validation": "Submission validation failed:\n{errors}",
-			"noLyrics": "There's no lyrics content yet?",
-			"uploadFailed": "Failed to request upload lyrics file: {status} {statusText}",
-			"submitFailed": "Submission failed, check console for reason!"
-		},
-		"labels": {
-			"submit": "Lyrics Submit/Correction"
-		},
-		"issueTitle": "[Lyrics Submit/Fix] {name}",
-		"unknownTitle": "Unknown Title",
-		"unknownArtist": "Unknown Artist",
-		"description": "Submit lyrics to AMLL Lyrics Database",
-		"title": "Submit lyrics to AMLL Lyrics Database (Simplified Chinese users only)",
-		"chineseOnlyWarning": "This feature is only available to Simplified Chinese users of AMLL Lyrics Database. If you are editing lyrics to use them in other software, please follow that software's way to submit lyrics!",
-		"thankYou": "First of all, thank you for your generous lyrics contribution!",
-		"cc0Agreement": "By submitting you agree to",
-		"cc0Rights": "use the CC0 license and fully waive ownership of the lyrics",
-		"andSubmit": "and submit to the lyrics database!",
-		"futureUse": "And the lyrics will be used as default TTML source by AMLL systems in the future!",
-		"rightsWarning": "If you value retaining ownership, please do NOT submit!",
-		"submitInstructions": "Enter the following info then jump to the GitHub issue submission page!",
-		"closeWarning": "Close warning message"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Space x{count}",

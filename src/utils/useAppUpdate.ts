@@ -87,7 +87,7 @@ export function useAppUpdate() {
 		} catch (e) {
 			console.error("Failed to install update", e);
 			setStatus("error");
-			setErrorMsg(t("app.update.installError", "安装更新失败"));
+			setErrorMsg(t("app.update.installError", "アップデートのインストールに失敗しました"));
 		}
 	}, [update, t, setStatus, setProgress, setErrorMsg]);
 

@@ -166,7 +166,6 @@
 			"saveLyric": "Salvar letra",
 			"restoreFromHistory": "Restaurar do histórico…",
 			"saveLyricToClipboard": "Salvar TTML na área de transferência",
-			"uploadToAMLLDB": "Enviar para banco de dados (apenas CN)",
 			"edit": "Editar",
 			"undo": "Desfazer",
 			"redo": "Refazer",
@@ -484,38 +483,6 @@
 		"addPresets": "Adicionar todas as chaves predefinidas",
 		"clear": "Limpar",
 		"info": "Saiba mais"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "Nome da faixa ausente nos metadados",
-			"missingArtists": "Artistas da faixa ausentes nos metadados",
-			"missingAlbum": "Nome do álbum ausente nos metadados",
-			"missingMusicId": "ID da faixa da plataforma ausente nos metadados"
-		},
-		"defaultReason": "Nova submissão de letras",
-		"errors": {
-			"validation": "Falha na validação da submissão:\n{errors}",
-			"noLyrics": "Ainda não há conteúdo de letras?",
-			"uploadFailed": "Falha ao solicitar upload do arquivo de letras: {status} {statusText}",
-			"submitFailed": "A submissão falhou, verifique o console para ver o motivo!"
-		},
-		"labels": {
-			"submit": "Submeter/Corrigir letras"
-		},
-		"issueTitle": "[Submissão/Correção de letras] {name}",
-		"unknownTitle": "Título desconhecido",
-		"unknownArtist": "Artista desconhecido",
-		"description": "Submeter letras para o banco de dados AMLL",
-		"title": "Submeter letras para o banco de dados AMLL (apenas usuários de chinês simplificado)",
-		"chineseOnlyWarning": "Este recurso está disponível apenas para usuários de chinês simplificado do banco de dados AMLL. Se você está editando letras para usar em outro software, siga a forma desse software para submeter letras!",
-		"thankYou": "Primeiramente, obrigado por sua generosa contribuição de letras!",
-		"cc0Agreement": "Ao submeter, você concorda em",
-		"cc0Rights": "usar a licença CC0 e renunciar totalmente à propriedade das letras",
-		"andSubmit": "e submeter ao banco de dados de letras!",
-		"futureUse": "E as letras serão usadas como fonte TTML padrão pelos sistemas AMLL no futuro!",
-		"rightsWarning": "Se você valoriza manter a propriedade, NÃO submeta!",
-		"submitInstructions": "Digite as informações a seguir e vá para a página de submissão de issues do GitHub!",
-		"closeWarning": "Fechar mensagem de aviso"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Espaço x{count}",

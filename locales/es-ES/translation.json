@@ -166,7 +166,6 @@
 			"saveLyric": "Guardar letra",
 			"restoreFromHistory": "Restaurar desde historial…",
 			"saveLyricToClipboard": "Guardar TTML en portapapeles",
-			"uploadToAMLLDB": "Subir a base de datos (solo CN)",
 			"edit": "Editar",
 			"undo": "Deshacer",
 			"redo": "Rehacer",
@@ -484,38 +483,6 @@
 		"addPresets": "Añadir todas las claves predefinidas",
 		"clear": "Limpiar",
 		"info": "Más información"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "Falta el nombre de la pista en los metadatos",
-			"missingArtists": "Faltan los artistas de la pista en los metadatos",
-			"missingAlbum": "Falta el nombre del álbum en los metadatos",
-			"missingMusicId": "Falta el ID de pista de la plataforma en los metadatos"
-		},
-		"defaultReason": "Nueva presentación de letras",
-		"errors": {
-			"validation": "La validación de la presentación falló:\n{errors}",
-			"noLyrics": "¿Aún no hay contenido de letras?",
-			"uploadFailed": "Error al solicitar subir archivo de letras: {status} {statusText}",
-			"submitFailed": "La presentación falló, ¡revisa la consola para ver el motivo!"
-		},
-		"labels": {
-			"submit": "Presentar/Corregir letras"
-		},
-		"issueTitle": "[Presentar/Corregir letras] {name}",
-		"unknownTitle": "Título desconocido",
-		"unknownArtist": "Artista desconocido",
-		"description": "Presentar letras a la base de datos de AMLL",
-		"title": "Presentar letras a la base de datos de AMLL (solo usuarios de chino simplificado)",
-		"chineseOnlyWarning": "Esta función solo está disponible para usuarios de chino simplificado de la base de datos de AMLL. Si estás editando letras para usarlas en otro software, ¡sigue la forma de ese software para presentar letras!",
-		"thankYou": "¡Ante todo, gracias por tu generosa contribución de letras!",
-		"cc0Agreement": "Al presentar aceptas",
-		"cc0Rights": "usar la licencia CC0 y renunciar completamente a la propiedad de las letras",
-		"andSubmit": "¡y presentar a la base de datos de letras!",
-		"futureUse": "¡Y las letras se usarán como fuente TTML predeterminada por los sistemas AMLL en el futuro!",
-		"rightsWarning": "Si valoras conservar la propiedad, ¡NO presentes!",
-		"submitInstructions": "¡Ingresa la siguiente información y salta a la página de presentación de issues de GitHub!",
-		"closeWarning": "Cerrar mensaje de advertencia"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Espacio x{count}",

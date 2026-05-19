@@ -18,41 +18,41 @@ const ToolMenuItems = () => {
 		<>
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
-					{t("topBar.menu.segmentationTools", "分词")}
+					{t("topBar.menu.segmentationTools", "分割ツール")}
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
 					<DropdownMenu.Item onSelect={menu.onAutoSegment}>
-						{t("topBar.menu.autoSegment", "自动分词")}
+						{t("topBar.menu.autoSegment", "自動分割")}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item onSelect={menu.onRubySegment}>
-						{t("topBar.menu.rubySegment", "注音分词")}
+						{t("topBar.menu.rubySegment", "ルビ分割")}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item onSelect={menu.onOpenAdvancedSegmentation}>
-						{t("topBar.menu.advancedSegment", "高级分词...")}
+						{t("topBar.menu.advancedSegment", "詳細分割…")}
 					</DropdownMenu.Item>
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>
 			<DropdownMenu.Item onSelect={menu.onSyncLineTimestamps}>
-				{t("topBar.menu.syncLineTimestamps", "同步行时间戳")}
+				{t("topBar.menu.syncLineTimestamps", "行のタイムスタンプを同期")}
 			</DropdownMenu.Item>
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
-					{t("topBar.menu.perWordRomanization.index", "逐字音译")}
+					{t("topBar.menu.perWordRomanization.index", "単語ごとのローマ字")}
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
 					<DropdownMenu.Item onSelect={menu.onOpenDistributeRomanization}>
-						{t("topBar.menu.perWordRomanization.distribute", "自动分配罗马音...")}
+						{t("topBar.menu.perWordRomanization.distribute", "ローマ字を分配…")}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item onSelect={menu.onCheckRomanizationWarnings}>
-						{t("topBar.menu.perWordRomanization.check", "检查")}
+						{t("topBar.menu.perWordRomanization.check", "単語ごとのローマ字を確認")}
 					</DropdownMenu.Item>
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>
 			<DropdownMenu.Item onSelect={menu.onAutoRuby}>
-				{t("topBar.menu.perWordRomanization.autoRuby", "自动注音")}
+				{t("topBar.menu.perWordRomanization.autoRuby", "自動ルビ")}
 			</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenLatencyTest}>
-				{t("settingsDialog.common.latencyTest", "音频/输入延迟测试")}
+				{t("settingsDialog.common.latencyTest", "音声／入力レイテンシのテスト")}
 			</DropdownMenu.Item>
 		</>
 	);
@@ -63,7 +63,7 @@ export const ToolMenu = (props: ToolMenuProps) => {
 		return (
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
-					<Trans i18nKey="topBar.menu.tool">工具</Trans>
+					<Trans i18nKey="topBar.menu.tool">ツール</Trans>
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
 					<ToolMenuItems />
@@ -77,7 +77,7 @@ export const ToolMenu = (props: ToolMenuProps) => {
 			<Toolbar.Button asChild>
 				<DropdownMenu.Trigger style={props.triggerStyle}>
 					<Button variant="soft" style={props.buttonStyle}>
-						<Trans i18nKey="topBar.menu.tool">工具</Trans>
+						<Trans i18nKey="topBar.menu.tool">ツール</Trans>
 					</Button>
 				</DropdownMenu.Trigger>
 			</Toolbar.Button>

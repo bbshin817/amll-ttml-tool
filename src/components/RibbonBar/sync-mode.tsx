@@ -52,7 +52,7 @@ const EmptyBeatField = () => {
 	return (
 		<>
 			<Text wrap="nowrap" size="1">
-				{t("ribbonBar.syncMode.currentEmptyBeat", "当前空拍")}
+				{t("ribbonBar.syncMode.currentEmptyBeat", "現在の空拍")}
 			</Text>
 			<Slider
 				value={[currentEmptyBeat]}
@@ -99,18 +99,18 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 		return (
 			<RibbonFrame ref={ref}>
 				<RibbonSection
-					label={t("ribbonBar.syncMode.currentEmptyBeat", "当前空拍")}
+					label={t("ribbonBar.syncMode.currentEmptyBeat", "現在の空拍")}
 				>
 					<Grid columns="0fr 4em" gap="4" gapY="1" flexGrow="1" align="center">
 						<EmptyBeatField />
 					</Grid>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.syncMode.syncAdjustment", "打轴调整")}
+					label={t("ribbonBar.syncMode.syncAdjustment", "タイミング補正")}
 				>
 					<Grid columns="0fr 0fr" gap="4" gapY="1" flexGrow="1" align="center">
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.syncMode.timeOffset", "时间戳位移")}
+							{t("ribbonBar.syncMode.timeOffset", "時間オフセット")}
 						</Text>
 						<TextField.Root
 							type="number"
@@ -129,28 +129,25 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					</Grid>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.syncMode.assistSettings", "辅助设置")}
+					label={t("ribbonBar.syncMode.assistSettings", "アシスト設定")}
 				>
 					<Grid columns="0fr 0fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.syncMode.showTimestampUpdate", "呈现时间戳更新")}
+							{t("ribbonBar.syncMode.showTimestampUpdate", "タイムスタンプの更新を表示")}
 						</Text>
 						<Checkbox
 							checked={visualizeTimestampUpdate}
 							onCheckedChange={(v) => setVisualizeTimestampUpdate(!!v)}
 						/>
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.syncMode.touchSyncPanel", "触控打轴辅助面板")}
+							{t("ribbonBar.syncMode.touchSyncPanel", "タッチ同期パネル")}
 						</Text>
 						<Checkbox
 							checked={showTouchSyncPanel}
 							onCheckedChange={(v) => setShowTouchSyncPanel(!!v)}
 						/>
 						<Text wrap="nowrap" size="1">
-							{t(
-								"ribbonBar.syncMode.bgLyricIgnoreSync",
-								"背景歌词忽略打轴",
-							)}
+							{t("ribbonBar.syncMode.bgLyricIgnoreSync", "バックボーカルを同期対象外にする")}
 						</Text>
 						<Checkbox
 							checked={bgLyricIgnoreSync}
@@ -170,25 +167,25 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					</Grid>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.syncMode.displayOptions", "显示选项")}
+					label={t("ribbonBar.syncMode.displayOptions", "表示オプション")}
 				>
 					<Grid columns="0fr 0fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.syncMode.showTimestamps", "显示时间戳")}
+							{t("ribbonBar.syncMode.showTimestamps", "タイムスタンプを表示")}
 						</Text>
 						<Checkbox
 							checked={showTimestamps}
 							onCheckedChange={(v) => setShowTimestamps(!!v)}
 						/>
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.syncMode.highlightActiveWord", "高亮当前音节")}
+							{t("ribbonBar.syncMode.highlightActiveWord", "アクティブな単語をハイライト")}
 						</Text>
 						<Checkbox
 							checked={highlightActiveWord}
 							onCheckedChange={(v) => setHighlightActiveWord(!!v)}
 						/>
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.syncMode.highlightErrors", "高亮错误")}
+							{t("ribbonBar.syncMode.highlightErrors", "エラーをハイライト")}
 						</Text>
 						<Checkbox
 							checked={highlightErrors}
@@ -197,10 +194,7 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 						{showWordRomanizationInput && (
 							<>
 								<Text wrap="nowrap" size="1">
-									{t(
-										"ribbonBar.syncMode.showPerWordRomanization",
-										"显示逐字音译",
-									)}
+									{t("ribbonBar.syncMode.showPerWordRomanization", "単語ごとのローマ字を表示")}
 								</Text>
 								<Checkbox
 									checked={displayRomanizationInSync}
@@ -211,7 +205,7 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					</Grid>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.syncMode.keyBindingReference", "打轴键位速查")}
+					label={t("ribbonBar.syncMode.keyBindingReference", "ショートカット一覧")}
 				>
 					<Flex gap="4">
 						<Grid
@@ -223,15 +217,15 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							justify="center"
 						>
 							<Text wrap="nowrap" size="1">
-								{t("ribbonBar.syncMode.startSync", "起始轴")}
+								{t("ribbonBar.syncMode.startSync", "開始位置を記録")}
 							</Text>
 							<KeyBinding kbdAtom={keySyncStartAtom} />
 							<Text wrap="nowrap" size="1">
-								{t("ribbonBar.syncMode.continuousSync", "连续轴")}
+								{t("ribbonBar.syncMode.continuousSync", "確定")}
 							</Text>
 							<KeyBinding kbdAtom={keySyncNextAtom} />
 							<Text wrap="nowrap" size="1">
-								{t("ribbonBar.syncMode.endSync", "结束轴")}
+								{t("ribbonBar.syncMode.endSync", "終了位置を記録")}
 							</Text>
 							<KeyBinding kbdAtom={keySyncEndAtom} />
 						</Grid>

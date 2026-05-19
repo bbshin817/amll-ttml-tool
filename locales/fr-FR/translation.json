@@ -166,7 +166,6 @@
 			"saveLyric": "Enregistrer les paroles",
 			"restoreFromHistory": "Restaurer depuis l'historique…",
 			"saveLyricToClipboard": "Enregistrer TTML dans le presse-papiers",
-			"uploadToAMLLDB": "Téléverser vers la base de données (CN uniquement)",
 			"edit": "Édition",
 			"undo": "Annuler",
 			"redo": "Rétablir",
@@ -484,38 +483,6 @@
 		"addPresets": "Ajouter toutes les clés prédéfinies",
 		"clear": "Effacer",
 		"info": "En savoir plus"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "Nom de la piste manquant dans les métadonnées",
-			"missingArtists": "Artistes de la piste manquants dans les métadonnées",
-			"missingAlbum": "Nom de l'album manquant dans les métadonnées",
-			"missingMusicId": "ID de piste de la plateforme manquant dans les métadonnées"
-		},
-		"defaultReason": "Nouvelle soumission de paroles",
-		"errors": {
-			"validation": "Échec de la validation de la soumission :\n{errors}",
-			"noLyrics": "Il n'y a pas encore de contenu de paroles ?",
-			"uploadFailed": "Échec de la demande de téléversement du fichier de paroles : {status} {statusText}",
-			"submitFailed": "La soumission a échoué, vérifiez la console pour la raison !"
-		},
-		"labels": {
-			"submit": "Soumettre/Corriger les paroles"
-		},
-		"issueTitle": "[Soumission/Correction de paroles] {name}",
-		"unknownTitle": "Titre inconnu",
-		"unknownArtist": "Artiste inconnu",
-		"description": "Soumettre des paroles à la base de données AMLL",
-		"title": "Soumettre des paroles à la base de données AMLL (utilisateurs chinois simplifiés uniquement)",
-		"chineseOnlyWarning": "Cette fonctionnalité n'est disponible que pour les utilisateurs chinois simplifiés de la base de données AMLL. Si vous éditez des paroles pour les utiliser dans un autre logiciel, suivez la méthode de soumission de ce logiciel !",
-		"thankYou": "Tout d'abord, merci pour votre généreuse contribution de paroles !",
-		"cc0Agreement": "En soumettant, vous acceptez",
-		"cc0Rights": "d'utiliser la licence CC0 et de renoncer entièrement à la propriété des paroles",
-		"andSubmit": "et de soumettre à la base de données de paroles !",
-		"futureUse": "Et les paroles seront utilisées comme source TTML par défaut par les systèmes AMLL à l'avenir !",
-		"rightsWarning": "Si vous tenez à conserver la propriété, NE soumettez PAS !",
-		"submitInstructions": "Entrez les informations suivantes puis accédez à la page de soumission d'issue GitHub !",
-		"closeWarning": "Fermer le message d'avertissement"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Espace x{count}",

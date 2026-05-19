@@ -115,7 +115,7 @@ export const DistributeRomanizationDialog = () => {
 		<Dialog.Root open={open} onOpenChange={setOpen}>
 			<Dialog.Content maxWidth="450px">
 				<Dialog.Title>
-					{t("distributeRomanDialog.title", "应用逐行音译到逐字")}
+					{t("distributeRomanDialog.title", "行のローマ字を単語ごとに分配")}
 				</Dialog.Title>
 
 				<Flex direction="column" gap="4">
@@ -124,27 +124,24 @@ export const DistributeRomanizationDialog = () => {
 							<InfoRegular />
 						</Callout.Icon>
 						<Callout.Text>
-							{t(
-								"distributeRomanDialog.warning",
-								"此功能将读取整行音译并自动分配给每个单词。算法专为日语罗马音设计，对其他语言可能效果不佳。",
-							)}
+							{t("distributeRomanDialog.warning", "この操作では、行単位のローマ字表記を読み取り、各単語に分配します。アルゴリズムは日本語のローマ字表記向けに最適化されているため、他の言語では期待どおりに動作しない場合があります。")}
 						</Callout.Text>
 					</Callout.Root>
 
 					<Flex direction="column" gap="2">
 						<Text size="2" weight="bold">
-							{t("common.applyScope", "应用于")}
+							{t("common.applyScope", "適用範囲")}
 						</Text>
 						<RadioGroup.Root
 							value={scope}
 							onValueChange={(v) => setScope(v as Scope)}
 						>
 							<RadioGroup.Item value="all">
-								{t("common.scope.all", "所有行")}
+								{t("common.scope.all", "すべての歌詞行")}
 							</RadioGroup.Item>
 
 							<RadioGroup.Item value="selected" disabled={!hasSelection}>
-								{t("common.scope.selected", "所选行")}
+								{t("common.scope.selected", "選択した歌詞行")}
 								{hasSelection && ` (${selectedLines.size})`}
 							</RadioGroup.Item>
 
@@ -152,18 +149,18 @@ export const DistributeRomanizationDialog = () => {
 								value="selected-following"
 								disabled={!hasSelection}
 							>
-								{t("common.scope.selectedFollowing", "所选行及其后续")}
+								{t("common.scope.selectedFollowing", "選択行と以降")}
 							</RadioGroup.Item>
 
 							<RadioGroup.Item value="custom">
-								{t("common.scope.custom", "自定义范围")}
+								{t("common.scope.custom", "カスタム範囲")}
 							</RadioGroup.Item>
 						</RadioGroup.Root>
 					</Flex>
 
 					{scope === "custom" && (
 						<Flex align="center" gap="2" ml="4">
-							<Text size="2">{t("common.fromLine", "从")}</Text>
+							<Text size="2">{t("common.fromLine", "開始行")}</Text>
 							<TextField.Root
 								style={{ width: "60px" }}
 								size="1"
@@ -171,7 +168,7 @@ export const DistributeRomanizationDialog = () => {
 								value={customStart}
 								onChange={(e) => setCustomStart(e.target.value)}
 							/>
-							<Text size="2">{t("common.toLine", "行 到")}</Text>
+							<Text size="2">{t("common.toLine", "終了行")}</Text>
 							<TextField.Root
 								style={{ width: "60px" }}
 								size="1"
@@ -187,10 +184,10 @@ export const DistributeRomanizationDialog = () => {
 				<Flex gap="3" mt="5" justify="end">
 					<Dialog.Close>
 						<Button variant="soft" color="gray">
-							{t("common.cancel", "取消")}
+							{t("common.cancel", "キャンセル")}
 						</Button>
 					</Dialog.Close>
-					<Button onClick={handleConfirm}>{t("common.apply", "应用")}</Button>
+					<Button onClick={handleConfirm}>{t("common.apply", "適用")}</Button>
 				</Flex>
 			</Dialog.Content>
 		</Dialog.Root>

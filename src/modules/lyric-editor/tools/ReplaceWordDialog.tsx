@@ -70,16 +70,16 @@ export const ReplaceWordDialog = memo(() => {
 	return (
 		<Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
 			<Dialog.Content maxWidth="400px">
-				<Dialog.Title>{t("replaceWordDialog.title", "替换单词")}</Dialog.Title>
+				<Dialog.Title>{t("replaceWordDialog.title", "単語を置換")}</Dialog.Title>
 				<Dialog.Description size="2" mb="4">
-					{t("replaceWordDialog.description", "新的单词内容:")}
+					{t("replaceWordDialog.description", "新しい単語：")}
 				</Dialog.Description>
 
 				<Flex direction="column" gap="3">
 					<TextField.Root
 						value={replacementText}
 						onChange={(e) => setReplacementText(e.target.value)}
-						placeholder={t("replaceWordDialog.placeholder", "新单词")}
+						placeholder={t("replaceWordDialog.placeholder", "新しい単語")}
 						onKeyDown={(e) => {
 							if (e.key === "Enter") handleConfirm();
 						}}
@@ -93,10 +93,7 @@ export const ReplaceWordDialog = memo(() => {
 									checked={applyToAll}
 									onCheckedChange={(c) => setApplyToAll(c as boolean)}
 								/>
-								{t(
-									"replaceWordDialog.applyToAll",
-									"将替换应用于所有相同的单词",
-								)}
+								{t("replaceWordDialog.applyToAll", "同じ単語すべてにこの置換を適用する")}
 							</Flex>
 						</Text>
 
@@ -114,7 +111,7 @@ export const ReplaceWordDialog = memo(() => {
 									onCheckedChange={(c) => setIgnoreCase(c as boolean)}
 									disabled={!applyToAll}
 								/>
-								{t("replaceWordDialog.ignoreCase", "忽略大小写")}
+								{t("replaceWordDialog.ignoreCase", "大文字小文字を無視")}
 							</Flex>
 						</Text>
 					</Flex>
@@ -123,10 +120,10 @@ export const ReplaceWordDialog = memo(() => {
 				<Flex gap="3" mt="4" justify="end">
 					<Dialog.Close>
 						<Button variant="soft" color="gray">
-							{t("common.cancel", "取消")}
+							{t("common.cancel", "キャンセル")}
 						</Button>
 					</Dialog.Close>
-					<Button onClick={handleConfirm}>{t("common.confirm", "确认")}</Button>
+					<Button onClick={handleConfirm}>{t("common.confirm", "確定")}</Button>
 				</Flex>
 			</Dialog.Content>
 		</Dialog.Root>

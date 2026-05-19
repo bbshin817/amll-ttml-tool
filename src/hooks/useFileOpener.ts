@@ -17,6 +17,7 @@ import { uid } from "uid";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { getProjectList } from "$/modules/project/autosave/autosave";
 import { isProjectMatch } from "$/modules/project/logic/project-match";
+import { decodeSpotifyJsonToTtml } from "$/modules/project/logic/spotify-json";
 import { parseLyric as parseTTML } from "$/modules/project/logic/ttml-parser";
 import { getSuggestedTtmlFileName } from "$/modules/project/logic/metadata-filename";
 import { confirmDialogAtom } from "$/states/dialogs.ts";
@@ -98,15 +99,20 @@ export const useFileOpener = () => {
 
 				if (ext === "ttml") {
 					lyricData = parseTTML(text);
+				} else if (ext === "json") {
+					const ttml = decodeSpotifyJsonToTtml(text);
+					lyricData = parseTTML(ttml);
 				} else if (ext in LYRIC_PARSERS) {
 					const parser = LYRIC_PARSERS[ext];
 					const rawLines = parser(text);
 					lyricData = normalizeLyricLines(rawLines);
 				} else {
 					toast.error(
-						t("error.unsupportedFileFormat", "不支持的文件格式: {ext}", {
-							ext,
-						}),
+						t(
+							"error.unsupportedFileFormat",
+							"サポートされていないファイル形式: {ext}",
+							{ ext },
+						),
 					);
 					return;
 				}
@@ -124,26 +130,30 @@ export const useFileOpener = () => {
 
 						if (matchedProject) {
 							log(
-								`匹配到了已有项目: ${matchedProject.name} (${matchedProject.id})`,
+								`既存プロジェクトに一致: ${matchedProject.name} (${matchedProject.id})`,
 							);
 							resolvedProjectId = matchedProject.id;
 						} else {
-							log("未匹配已有项目");
+							log("既存プロジェクトに一致しませんでした");
 						}
 					}
 				} catch (e) {
-					logError("解析项目数据时失败", e);
+					logError("プロジェクトデータの解析に失敗しました", e);
 				}
 
 				setProjectId(resolvedProjectId);
 				setNewLyricLines(lyricData);
 				const suggestedFile = getSuggestedTtmlFileName(lyricData.metadata);
 				const nextFileName =
-					ext === "ttml" ? file.name : (suggestedFile?.fileName ?? file.name);
+					ext === "ttml" || ext === "json"
+						? ext === "ttml"
+							? file.name
+							: (suggestedFile?.fileName ?? file.name.replace(/\.json$/i, ".ttml"))
+						: (suggestedFile?.fileName ?? file.name);
 				setSaveFileName(nextFileName);
 			} catch (e) {
 				logError(`Failed to open file: ${file.name}`, e);
-				toast.error(t("error.openFileFailed", "打开文件失败"));
+				toast.error(t("error.openFileFailed", "ファイルを開けませんでした"));
 			}
 		},
 		[setNewLyricLines, setProjectId, setSaveFileName, normalizeLyricLines, t],
@@ -169,10 +179,10 @@ export const useFileOpener = () => {
 			if (isDirty) {
 				setConfirmDialog({
 					open: true,
-					title: t("confirmDialog.openFile.title", "确认打开文件"),
+					title: t("confirmDialog.openFile.title", "ファイルを開く前の確認"),
 					description: t(
 						"confirmDialog.openFile.description",
-						"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要打开新文件吗？",
+						"未保存の変更があります。続行すると変更内容は失われます。新しいファイルを開きますか？",
 					),
 					onConfirm: run,
 				});

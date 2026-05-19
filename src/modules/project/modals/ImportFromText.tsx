@@ -288,7 +288,7 @@ export const ImportFromText = () => {
 								flex: "1 1 auto",
 							}}
 						>
-							{t("textImportDialog.title", "导入纯文本歌词")}
+							{t("textImportDialog.title", "プレーンテキストから歌詞をインポート")}
 						</Dialog.Title>
 						<Button
 							onClick={() => {
@@ -300,26 +300,26 @@ export const ImportFromText = () => {
 									if (isDirty)
 										setConfirmDialog({
 											open: true,
-											title: t(
-												"confirmDialog.importFile.title",
-												"确认导入歌词",
-											),
+											title: t("confirmDialog.importFile.title", "歌詞インポートの確認"),
 											description: t(
 												"confirmDialog.importFile.description",
-												"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要导入歌词吗？",
+												"未保存の変更があります。続行すると変更内容は失われます。新しい歌詞をインポートしますか？",
 											),
 											onConfirm: () => importAction(),
 										});
 									else importAction();
 								} catch (e) {
 									error(
-										"导入纯文本歌词失败，请检查输入的文本是否正确，或者导入设置是否正确",
+										t(
+											"textImportDialog.importFailed",
+											"プレーンテキスト歌詞のインポートに失敗しました。入力内容またはインポート設定を確認してください",
+										)
 									);
 									logError(e);
 								}
 							}}
 						>
-							{t("textImportDialog.actionButton", "导入歌词")}
+							{t("textImportDialog.actionButton", "インポート")}
 						</Button>
 					</Flex>
 					<Flex
@@ -356,7 +356,7 @@ export const ImportFromText = () => {
 							}}
 						>
 							<PrefText>
-								{t("textImportDialog.contentMode.caption", "导入模式")}
+								{t("textImportDialog.contentMode.caption", "テキスト内容")}
 							</PrefText>
 							<Select.Root
 								value={importMode}
@@ -365,34 +365,22 @@ export const ImportFromText = () => {
 								<Select.Trigger />
 								<Select.Content>
 									<Select.Item value={ImportMode.Lyric}>
-										{t("textImportDialog.contentMode.lyric", "仅歌词")}
+										{t("textImportDialog.contentMode.lyric", "歌詞のみ")}
 									</Select.Item>
 									<Select.Item value={ImportMode.LyricTrans}>
-										{t(
-											"textImportDialog.contentMode.withTranslation",
-											"歌词和翻译歌词",
-										)}
+										{t("textImportDialog.contentMode.withTranslation", "歌詞と翻訳")}
 									</Select.Item>
 									<Select.Item value={ImportMode.LyricRoman}>
-										{t(
-											"textImportDialog.contentMode.withRoman",
-											"歌词和音译歌词",
-										)}
+										{t("textImportDialog.contentMode.withRoman", "歌詞とローマ字")}
 									</Select.Item>
 									<Select.Item value={ImportMode.LyricTransRoman}>
-										{t(
-											"textImportDialog.contentMode.withBoth",
-											"歌词和翻译、音译歌词",
-										)}
+										{t("textImportDialog.contentMode.withBoth", "歌詞・翻訳・ローマ字")}
 									</Select.Item>
 								</Select.Content>
 							</Select.Root>
 
 							<PrefText>
-								{t(
-									"textImportDialog.separationMode.caption",
-									"歌词分行（翻译和音译）模式",
-								)}
+								{t("textImportDialog.separationMode.caption", "翻訳／ローマ字の形式")}
 							</PrefText>
 							<Select.Root
 								disabled={importMode === ImportMode.Lyric}
@@ -404,19 +392,16 @@ export const ImportFromText = () => {
 								<Select.Trigger />
 								<Select.Content>
 									<Select.Item value={LineSeparatorMode.Interleaved}>
-										{t(
-											"textImportDialog.separationMode.multipleLine",
-											"多行交错分隔",
-										)}
+										{t("textImportDialog.separationMode.multipleLine", "複数行で交互に配置")}
 									</Select.Item>
 									<Select.Item value={LineSeparatorMode.SameLineSeparator}>
-										{t("textImportDialog.separationMode.sameLine", "同行分隔")}
+										{t("textImportDialog.separationMode.sameLine", "同じ行内で区切る")}
 									</Select.Item>
 								</Select.Content>
 							</Select.Root>
 
 							<PrefText>
-								{t("textImportDialog.separator", "歌词行分隔符")}
+								{t("textImportDialog.separator", "行の区切り文字")}
 							</PrefText>
 							<TextField.Root
 								disabled={
@@ -428,7 +413,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.swapTransAndRoman", "交换翻译行和音译行")}
+								{t("textImportDialog.swapTransAndRoman", "翻訳行とローマ字行を入れ替える")}
 							</PrefText>
 							<Switch
 								checked={swapTransAndRoman}
@@ -436,7 +421,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.wordSeparator", "单词分隔符")}
+								{t("textImportDialog.wordSeparator", "単語の区切り文字")}
 							</PrefText>
 							<TextField.Root
 								value={wordSeparator}
@@ -444,7 +429,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.enableSpecialPrefix", "启用特殊前缀")}
+								{t("textImportDialog.enableSpecialPrefix", "特殊プレフィックスを有効にする")}
 							</PrefText>
 							<Switch
 								checked={enableSpecialPrefix}
@@ -452,7 +437,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.bgLyricPrefix", "背景歌词前缀")}
+								{t("textImportDialog.bgLyricPrefix", "バックボーカル歌詞のプレフィックス")}
 							</PrefText>
 							<TextField.Root
 								disabled={!enableSpecialPrefix}
@@ -461,7 +446,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.duetLyricPrefix", "对唱歌词前缀")}
+								{t("textImportDialog.duetLyricPrefix", "デュエット歌詞のプレフィックス")}
 							</PrefText>
 							<TextField.Root
 								disabled={!enableSpecialPrefix}
@@ -470,7 +455,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.enableEmptyBeat", "启用空拍")}
+								{t("textImportDialog.enableEmptyBeat", "空拍を有効にする")}
 							</PrefText>
 							<Switch
 								checked={enableEmptyBeat}
@@ -478,7 +463,7 @@ export const ImportFromText = () => {
 							/>
 
 							<PrefText>
-								{t("textImportDialog.emptyBeatSymbol", "空拍符号")}
+								{t("textImportDialog.emptyBeatSymbol", "空拍の記号")}
 							</PrefText>
 							<TextField.Root
 								disabled={!enableEmptyBeat}

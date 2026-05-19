@@ -17,7 +17,7 @@ const HelpMenuItems = () => {
 		<>
 			<DropdownMenu.Item onSelect={menu.onOpenGitHub}>GitHub</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenWiki}>
-				{t("topBar.menu.helpDoc", "使用说明")}
+				{t("topBar.menu.helpDoc", "ドキュメント（中国語）")}
 			</DropdownMenu.Item>
 		</>
 	);
@@ -28,7 +28,7 @@ export const HelpMenu = (props: HelpMenuProps) => {
 		return (
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
-					<Trans i18nKey="topBar.menu.help">帮助</Trans>
+					<Trans i18nKey="topBar.menu.help">ヘルプ</Trans>
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
 					<HelpMenuItems />
@@ -42,7 +42,7 @@ export const HelpMenu = (props: HelpMenuProps) => {
 			<Toolbar.Button asChild>
 				<DropdownMenu.Trigger>
 					<Button variant="soft" style={props.buttonStyle}>
-						<Trans i18nKey="topBar.menu.help">帮助</Trans>
+						<Trans i18nKey="topBar.menu.help">ヘルプ</Trans>
 					</Button>
 				</DropdownMenu.Trigger>
 			</Toolbar.Button>

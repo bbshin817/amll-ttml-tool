@@ -4,7 +4,11 @@ import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
-import { AppleMusicApi } from "$/modules/apple-music/api/client";
+import {
+	AppleMusicApi,
+	AppleMusicApiError,
+	sanitizeTtmlFileName,
+} from "$/modules/apple-music/api/client";
 import { extractAppleMusicTrackId } from "$/modules/apple-music/utils/parse-track-id";
 import {
 	confirmDialogAtom,
@@ -28,6 +32,18 @@ export const ImportFromAppleMusic = () => {
 		setLoading(false);
 	}, []);
 
+	const showApiError = useCallback(
+		(message: string) => {
+			setConfirmDialog({
+				open: true,
+				alertOnly: true,
+				title: t("appleMusicImport.errors.apiErrorTitle", "エラー"),
+				description: message,
+			});
+		},
+		[setConfirmDialog, t],
+	);
+
 	const performImport = useCallback(
 		async (inputUrl: string) => {
 			const trackId = extractAppleMusicTrackId(inputUrl);
@@ -44,7 +60,20 @@ export const ImportFromAppleMusic = () => {
 			setLoading(true);
 			try {
 				const ttmlText = await AppleMusicApi.fetchSyllableLyrics(trackId);
-				const file = new File([ttmlText], `apple-music-${trackId}.ttml`, {
+
+				let songName: string | null = null;
+				try {
+					songName = await AppleMusicApi.fetchSongName(trackId);
+				} catch (e) {
+					if (e instanceof AppleMusicApiError) {
+						showApiError(e.apiMessage);
+					}
+				}
+
+				const fileName = songName
+					? sanitizeTtmlFileName(songName)
+					: `apple-music-${trackId}.ttml`;
+				const file = new File([ttmlText], fileName, {
 					type: "application/xml",
 				});
 				openFile(file);
@@ -52,17 +81,21 @@ export const ImportFromAppleMusic = () => {
 				resetForm();
 			} catch (e) {
 				logError("Apple Music import error", e);
-				toast.error(
-					t(
-						"appleMusicImport.errors.fetchFailed",
-						"歌詞の取得に失敗しました。URL またはネットワークを確認してください",
-					),
-				);
+				if (e instanceof AppleMusicApiError) {
+					showApiError(e.apiMessage);
+				} else {
+					toast.error(
+						t(
+							"appleMusicImport.errors.fetchFailed",
+							"歌詞の取得に失敗しました。URL またはネットワーク接続を確認してください",
+						),
+					);
+				}
 			} finally {
 				setLoading(false);
 			}
 		},
-		[openFile, resetForm, setIsOpen, t],
+		[openFile, resetForm, setIsOpen, showApiError, t],
 	);
 
 	const onTriggerImport = useCallback(() => {
@@ -71,10 +104,10 @@ export const ImportFromAppleMusic = () => {
 		if (isDirty) {
 			setConfirmDialog({
 				open: true,
-				title: t("confirmDialog.importFile.title", "確認导入歌词"),
+				title: t("confirmDialog.importFile.title", "歌詞インポートの確認"),
 				description: t(
 					"confirmDialog.importFile.description",
-					"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要导入歌词吗？",
+					"未保存の変更があります。続行すると変更内容は失われます。新しい歌詞をインポートしますか？",
 				),
 				onConfirm: () => performImport(url),
 			});
@@ -92,13 +125,10 @@ export const ImportFromAppleMusic = () => {
 		<Dialog.Root open={isOpen} onOpenChange={handleOpenChange}>
 			<Dialog.Content maxWidth="480px">
 				<Dialog.Title>
-					{t("appleMusicImport.title", "Apple Music から参照")}
+					{t("appleMusicImport.title", "Apple Music から取得")}
 				</Dialog.Title>
 				<Dialog.Description size="2" mb="4">
-					{t(
-						"appleMusicImport.description",
-						"Apple Music のトラック URL を貼り付けて、歌詞を読み込みます。",
-					)}
+					{t("appleMusicImport.description", "Apple Music のトラック URL を貼り付けて、歌詞を読み込みます。")}
 				</Dialog.Description>
 
 				<Flex direction="column" gap="2">

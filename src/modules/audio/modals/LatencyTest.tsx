@@ -203,13 +203,13 @@ export const LatencyTestDialog = memo(() => {
 		<Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
 			<Dialog.Content>
 				<Dialog.Title>
-					{t("latencyTestDialog.title", "打轴延迟测试")}
+					{t("latencyTestDialog.title", "タイミング補正レイテンシテスト")}
 				</Dialog.Title>
 				<Flex direction="column" gap="2">
 					<Text>
 						{t(
 							"latencyTestDialog.description",
-							"请选择自己喜欢的 BPM，并在每个蜂鸣声响起时按下 {key} 键，以测量音频/输入延迟差",
+							"任意の BPM を選択し、ビート音に合わせて {key} キーを押して、音声と入力のレイテンシを測定してください。",
 							{
 								key: <KeyBinding kbdAtom={keySyncNextAtom} />,
 							},
@@ -236,7 +236,7 @@ export const LatencyTestDialog = memo(() => {
 					>
 						<Text>
 							{hitOffset === null
-								? t("latencyTestDialog.latencyDisplay.fastest", "最快延迟")
+								? t("latencyTestDialog.latencyDisplay.fastest", "最速")
 								: `${hitOffset.max}ms`}
 						</Text>
 
@@ -252,22 +252,22 @@ export const LatencyTestDialog = memo(() => {
 							}
 						>
 							{hitOffset === null
-								? t("latencyTestDialog.latencyDisplay.current.none", "未测量")
+								? t("latencyTestDialog.latencyDisplay.current.none", "未測定")
 								: hitOffset.cur > 0
-									? t("latencyTestDialog.latencyDisplay.current.fast", "快") +
+									? t("latencyTestDialog.latencyDisplay.current.fast", "早め") +
 										` ${hitOffset.cur}ms`
 									: hitOffset.cur < 0
-										? t("latencyTestDialog.latencyDisplay.current.slow", "慢") +
+										? t("latencyTestDialog.latencyDisplay.current.slow", "遅め") +
 											` ${hitOffset.cur}ms`
 										: t(
 												"latencyTestDialog.latencyDisplay.current.perfect",
-												"完美",
+												"ぴったり",
 											) + " 0ms"}
 						</Text>
 
 						<Text>
 							{hitOffset === null
-								? t("latencyTestDialog.latencyDisplay.slowest", "最慢延迟")
+								? t("latencyTestDialog.latencyDisplay.slowest", "最遅")
 								: `${-hitOffset.min}ms`}
 						</Text>
 					</Flex>
@@ -286,7 +286,7 @@ export const LatencyTestDialog = memo(() => {
 
 					<Text as="label" size="2">
 						<Flex direction="column" gap="2">
-							{t("latencyTestDialog.bpmInputLabel", "节拍 BPM")}
+							{t("latencyTestDialog.bpmInputLabel", "テンポ（BPM）")}
 							<TextField.Root
 								type="number"
 								min={60}
@@ -300,8 +300,8 @@ export const LatencyTestDialog = memo(() => {
 					<Flex gap="2">
 						<Button onClick={() => setStart((v) => !v)}>
 							{start
-								? t("latencyTestDialog.button.stop", "结束")
-								: t("latencyTestDialog.button.start", "开始")}
+								? t("latencyTestDialog.button.stop", "停止")
+								: t("latencyTestDialog.button.start", "開始")}
 						</Button>
 					</Flex>
 				</Flex>

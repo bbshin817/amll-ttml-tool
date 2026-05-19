@@ -1,17 +1,10 @@
-import {
-	type LyricLine,
-	stringifyAss,
-	stringifyEslrc,
-	stringifyLrc,
-	stringifyLys,
-	stringifyQrc,
-	stringifyYrc,
-} from "@applemusic-like-lyrics/lyric";
 import { DropdownMenu } from "@radix-ui/themes";
 import { useSetAtom, useStore } from "jotai";
 import { useTranslation } from "react-i18next";
 import saveFile from "save-file";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
+import exportTTMLText from "$/modules/project/logic/ttml-writer";
+import { encodeSpotifyJson } from "$/modules/project/logic/spotify-json";
 import {
 	importFromLRCLIBDialogAtom,
 	importFromTextDialogAtom,
@@ -44,90 +37,70 @@ export const ImportExportLyric = () => {
 		);
 		inputEl.click();
 	};
-	const onExportLyric =
-		(stringifier: (lines: LyricLine[]) => string, extension: string) =>
-		async () => {
-			const lyric = store.get(lyricLinesAtom).lyricLines;
-			const lyricForExport = lyric.map((line) => ({
-				...line,
-				startTime: Math.round(line.startTime),
-				endTime: Math.round(line.endTime),
-				words: line.words.map((word) => ({
-					...word,
-					startTime: Math.round(word.startTime),
-					endTime: Math.round(word.endTime),
-				})),
-			}));
-			const saveFileName = store.get(saveFileNameAtom);
-			const baseName = saveFileName.replace(/\.[^.]*$/, "");
-			const fileName = `${baseName}.${extension}`;
-			try {
-				const data = stringifier(lyricForExport);
-				const b = new Blob([data], { type: "text/plain" });
-				await saveFile(b, fileName);
-			} catch (e) {
-				error(`Failed to export lyric with format "${extension}"`, e);
-			}
-		};
+
+	const saveExport = async (data: string, extension: string, mimeType: string) => {
+		const saveFileName = store.get(saveFileNameAtom);
+		const baseName = saveFileName.replace(/\.[^.]*$/, "");
+		const fileName = `${baseName}.${extension}`;
+		const blob = new Blob([data], { type: mimeType });
+		await saveFile(blob, fileName);
+	};
+
+	const onExportTtml = async () => {
+		try {
+			const lyric = store.get(lyricLinesAtom);
+			const data = exportTTMLText(lyric);
+			await saveExport(data, "ttml", "application/xml");
+		} catch (e) {
+			error("Failed to export lyric as TTML", e);
+		}
+	};
+
+	const onExportSpotifyJson = async () => {
+		try {
+			const lyric = store.get(lyricLinesAtom);
+			const ttml = exportTTMLText(lyric);
+			const data = encodeSpotifyJson(ttml);
+			await saveExport(data, "json", "application/json");
+		} catch (e) {
+			error("Failed to export lyric as Spotify JSON", e);
+		}
+	};
 
 	return (
 		<>
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
-					{t("topBar.menu.importLyric.import", "导入歌词...")}
+					{t("topBar.menu.importLyric.import", "歌詞をインポート")}
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
 					<DropdownMenu.Item onClick={() => setImportFromTextDialog(true)}>
-						{t("topBar.menu.importLyric.fromPlainText", "从纯文本导入")}
+						{t("topBar.menu.importLyric.fromPlainText", "プレーンテキストからインポート…")}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item onClick={() => setImportFromLRCLIBDialog(true)}>
-						{t("topBar.menu.importLyric.fromLRCLIB", "从 LRCLIB 导入...")}
+						{t("topBar.menu.importLyric.fromLRCLIB", "LRCLIB からインポート…")}
 					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={() => onImportLyric("lrc")}>
-						{t("topBar.menu.importLyric.fromLyRiC", "从 LyRiC 文件导入")}
+					<DropdownMenu.Item onClick={() => onImportLyric("ttml")}>
+						{t("topBar.menu.importLyric.fromTTML", "TTML ファイルからインポート…")}
 					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={() => onImportLyric("eslrc")}>
-						{t("topBar.menu.importLyric.fromESLyRiC", "从 ESLyRiC 文件导入")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={() => onImportLyric("qrc")}>
-						{t("topBar.menu.importLyric.fromQRC", "从 QRC 文件导入")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={() => onImportLyric("yrc")}>
-						{t("topBar.menu.importLyric.fromYRC", "从 YRC 文件导入")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={() => onImportLyric("lys")}>
+					<DropdownMenu.Item onClick={() => onImportLyric("json")}>
 						{t(
-							"topBar.menu.importLyric.fromLrcfySylb",
-							"从 Lyricify Syllable 文件导入",
+							"topBar.menu.importLyric.fromSpotifyJson",
+							"Spotify JSON ファイルからインポート…",
 						)}
 					</DropdownMenu.Item>
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
-					{t("topBar.menu.exportLyric.export", "导出歌词...")}
+					{t("topBar.menu.exportLyric.export", "歌詞をエクスポート")}
 				</DropdownMenu.SubTrigger>
 				<DropdownMenu.SubContent>
-					<DropdownMenu.Item onClick={onExportLyric(stringifyLrc, "lrc")}>
-						{t("topBar.menu.exportLyric.toLyRiC", "导出到 LyRiC")}
+					<DropdownMenu.Item onClick={onExportTtml}>
+						{t("topBar.menu.exportLyric.toTTML", "TTML")}
 					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={onExportLyric(stringifyEslrc, "lrc")}>
-						{t("topBar.menu.exportLyric.toESLyRiC", "导出到 ESLyRiC")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={onExportLyric(stringifyQrc, "qrc")}>
-						{t("topBar.menu.exportLyric.toQRC", "导出到 QRC")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={onExportLyric(stringifyYrc, "yrc")}>
-						{t("topBar.menu.exportLyric.toYRC", "导出到 YRC")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={onExportLyric(stringifyLys, "lys")}>
-						{t(
-							"topBar.menu.exportLyric.toLrcfySylb",
-							"导出到 Lyricify Syllable",
-						)}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={onExportLyric(stringifyAss, "ass")}>
-						{t("topBar.menu.exportLyric.toASS", "导出到 ASS 字幕")}
+					<DropdownMenu.Item onClick={onExportSpotifyJson}>
+						{t("topBar.menu.exportLyric.toSpotifyJson", "JSON (Spotify)")}
 					</DropdownMenu.Item>
 				</DropdownMenu.SubContent>
 			</DropdownMenu.Sub>

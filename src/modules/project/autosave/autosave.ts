@@ -142,7 +142,7 @@ function getDB() {
 							name: "Legacy Snapshots Archive",
 							lastModified: latestSnapshot.timestamp,
 							latestState: latestSnapshot.lyrics,
-							preview: "(来自旧版自动保存的历史数据)",
+							preview: "(旧バージョンの自動保存履歴から)",
 						});
 						const versionStore = transaction.objectStore("versions");
 						for (const snap of oldSnapshots) {

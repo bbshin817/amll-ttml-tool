@@ -208,7 +208,7 @@ export const AudioControls: FC = memo(() => {
 											{(volume * 100).toFixed()}%
 										</Text>
 										<Text wrap="nowrap">
-											{t("audioPanel.playbackRate", "播放速度")}
+											{t("audioPanel.playbackRate", "再生速度")}
 										</Text>
 										<Slider
 											min={0.1}
@@ -228,12 +228,12 @@ export const AudioControls: FC = memo(() => {
 										size="1"
 										color="gray"
 									>
-										{t("audioPanel.clickToLoadMusic", "点击图标按钮以加载音乐")}
+										{t("audioPanel.clickToLoadMusic", "アイコンボタンをクリックして音声を読み込む")}
 									</Text>
 								</Flex>
 							</HoverCard.Content>
 						</HoverCard.Root>
-						<Tooltip content={t("audioPanel.playPause", "暂停 / 播放音乐")}>
+						<Tooltip content={t("audioPanel.playPause", "音声を再生／一時停止")}>
 							<IconButton
 								my="2"
 								ml="0"
@@ -263,7 +263,7 @@ export const AudioControls: FC = memo(() => {
 							{msToTimestamp(currentDuration)}
 						</Text>
 						<Tooltip
-							content={t("audioPanel.expandSpectrogram", "展开 / 收起频谱图")}
+							content={t("audioPanel.expandSpectrogram", "スペクトログラムを展開／折りたたみ")}
 						>
 							<IconButton
 								my="2"

@@ -53,7 +53,7 @@ export const LyricWordMenu = ({
 					setOpenSplitWordDialog(true);
 				}}
 			>
-				{t("contextMenu.splitWord", "拆分单词…")}
+				{t("contextMenu.splitWord", "単語を分割…")}
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				disabled={selectedWordsSize !== 1}
@@ -66,7 +66,7 @@ export const LyricWordMenu = ({
 					setOpenReplaceWordDialog(true);
 				}}
 			>
-				{t("contextMenu.replaceWord", "替换单词…")}
+				{t("contextMenu.replaceWord", "単語を置換…")}
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				disabled={!(selectedWordsSize > 1 && selectedLinesSize === 1)}
@@ -108,7 +108,7 @@ export const LyricWordMenu = ({
 					});
 				}}
 			>
-				{t("contextMenu.combineWords", "合并单词")}
+				{t("contextMenu.combineWords", "単語を結合")}
 			</ContextMenu.Item>
 
 			<ContextMenu.Item
@@ -130,7 +130,7 @@ export const LyricWordMenu = ({
 			>
 				{t("contextMenu.deleteWords", {
 					count: selectedWordsSize,
-					defaultValue: "删除选定单词",
+					defaultValue: "{{count}}個の単語を削除",
 				})}
 			</ContextMenu.Item>
 
@@ -140,7 +140,7 @@ export const LyricWordMenu = ({
 				disabled={selectedWordsSize !== 1}
 				onSelect={() => afterToNewLine()}
 			>
-				{t("contextMenu.moveFollowingWordToNewLine", "此后单词拆至新行")}
+				{t("contextMenu.moveFollowingWordToNewLine", "以降の単語を新しい行に移動")}
 			</ContextMenu.Item>
 
 			<ContextMenu.Item
@@ -149,7 +149,7 @@ export const LyricWordMenu = ({
 			>
 				{t("contextMenu.moveWordToNewLine", {
 					count: selectedWordsSize,
-					defaultValue: "所选单词拆至新行",
+					defaultValue: "{{count}}個の単語を新しい行に移動",
 				})}
 			</ContextMenu.Item>
 

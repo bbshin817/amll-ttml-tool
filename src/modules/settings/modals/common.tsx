@@ -97,7 +97,7 @@ export const SettingsCommonTab = () => {
 	return (
 		<Flex direction="column" gap="4">
 			<Flex direction="column" gap="2">
-				<Heading size="4">{t("settings.group.display", "显示")}</Heading>
+				<Heading size="4">{t("settings.group.display", "表示")}</Heading>
 
 				<Card>
 					<Flex gap="3" align="center">
@@ -105,9 +105,9 @@ export const SettingsCommonTab = () => {
 						<Box flexGrow="1">
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
-									<Text>{t("settings.common.language", "界面语言")}</Text>
+									<Text>{t("settings.common.language", "表示言語")}</Text>
 									<Text size="1" color="gray">
-										{t("settings.common.languageDesc", "选择界面显示的语言")}
+										{t("settings.common.languageDesc", "インターフェースに表示する言語を選択します")}
 									</Text>
 								</Flex>
 
@@ -139,17 +139,11 @@ export const SettingsCommonTab = () => {
 						<Box flexGrow="1">
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
-									<Text>{t("settings.common.layoutMode", "编辑布局模式")}</Text>
+									<Text>{t("settings.common.layoutMode", "エディターのレイアウト")}</Text>
 									<Text size="1" color="gray">
-										{t(
-											"settings.common.layoutModeDesc.line1",
-											"简单布局能够满足大部分使用者的基本需求",
-										)}
+										{t("settings.common.layoutModeDesc.line1", "シンプルレイアウトで基本的な操作を行えます")}
 										<br />
-										{t(
-											"settings.common.layoutModeDesc.line2",
-											"如果你需要更加高效的打轴的话，可以考虑切换到高级模式",
-										)}
+										{t("settings.common.layoutModeDesc.line2", "より効率よく同期したい場合は高度モードに切り替えてください")}
 									</Text>
 								</Flex>
 
@@ -160,16 +154,10 @@ export const SettingsCommonTab = () => {
 									<Select.Trigger />
 									<Select.Content>
 										<Select.Item value={LayoutMode.Simple}>
-											{t(
-												"settings.common.layoutModeOptions.simple",
-												"简单模式",
-											)}
+											{t("settings.common.layoutModeOptions.simple", "シンプルモード")}
 										</Select.Item>
 										<Select.Item value={LayoutMode.Advance}>
-											{t(
-												"settings.common.layoutModeOptions.advance",
-												"高级模式",
-											)}
+											{t("settings.common.layoutModeOptions.advance", "高度モード")}
 										</Select.Item>
 									</Select.Content>
 								</Select.Root>
@@ -184,7 +172,7 @@ export const SettingsCommonTab = () => {
 			</Flex>
 
 			<Flex direction="column" gap="3">
-				<Heading size="4">{t("settings.group.timing", "打轴")}</Heading>
+				<Heading size="4">{t("settings.group.timing", "タイミング")}</Heading>
 
 				<Card>
 					<Flex gap="3" align="center">
@@ -193,13 +181,10 @@ export const SettingsCommonTab = () => {
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
 									<Text>
-										{t("settings.common.syncJudgeMode", "打轴时间戳判定模式")}
+										{t("settings.common.syncJudgeMode", "同期タイムスタンプの判定方法")}
 									</Text>
 									<Text size="1" color="gray">
-										{t(
-											"settings.common.syncJudgeModeDesc",
-											'设置打轴时间戳的判定模式，默认为"首个按键按下时间"。',
-										)}
+										{t("settings.common.syncJudgeModeDesc", "同期時にタイムスタンプをどのタイミングで判定するかを設定します。デフォルトは「最初のキー押下時刻」です。")}
 									</Text>
 								</Flex>
 
@@ -210,28 +195,16 @@ export const SettingsCommonTab = () => {
 									<Select.Trigger />
 									<Select.Content>
 										<Select.Item value={SyncJudgeMode.FirstKeyDownTime}>
-											{t(
-												"settings.common.syncJudgeModeOptions.firstKeyDown",
-												"首个按键按下时间",
-											)}
+											{t("settings.common.syncJudgeModeOptions.firstKeyDown", "最初にキーを押した時刻")}
 										</Select.Item>
 										<Select.Item value={SyncJudgeMode.LastKeyUpTime}>
-											{t(
-												"settings.common.syncJudgeModeOptions.lastKeyUp",
-												"最后一个按键抬起时间",
-											)}
+											{t("settings.common.syncJudgeModeOptions.lastKeyUp", "最後にキーを離した時刻")}
 										</Select.Item>
 										<Select.Item value={SyncJudgeMode.MiddleKeyTime}>
-											{t(
-												"settings.common.syncJudgeModeOptions.middleKey",
-												"取按键按下和抬起的中间值",
-											)}
+											{t("settings.common.syncJudgeModeOptions.middleKey", "キーを押してから離すまでの中間")}
 										</Select.Item>
 										<Select.Item value={SyncJudgeMode.FirstKeyDownTimeLegacy}>
-											{t(
-												"settings.common.syncJudgeModeOptions.firstKeyDownLegacy",
-												"首个按键按下时间（旧版）",
-											)}
+											{t("settings.common.syncJudgeModeOptions.firstKeyDownLegacy", "最初にキーを押した時刻（旧方式）")}
 										</Select.Item>
 									</Select.Content>
 								</Select.Root>
@@ -247,13 +220,10 @@ export const SettingsCommonTab = () => {
 							<Flex align="center" justify="between" gap="4">
 								<Flex direction="column" gap="1">
 									<Text>
-										{t("settings.common.keyBindingTrigger", "快捷键触发时机")}
+										{t("settings.common.keyBindingTrigger", "ショートカットの発動タイミング")}
 									</Text>
 									<Text size="1" color="gray">
-										{t(
-											"settings.common.keyBindingTriggerDesc",
-											"快捷键是在按下时触发还是在松开时触发",
-										)}
+										{t("settings.common.keyBindingTriggerDesc", "ショートカットを、キーを押したときに発動するか、離したときに発動するかを設定します。")}
 									</Text>
 								</Flex>
 
@@ -266,16 +236,10 @@ export const SettingsCommonTab = () => {
 									<Select.Trigger />
 									<Select.Content>
 										<Select.Item value={KeyBindingTriggerMode.KeyDown}>
-											{t(
-												"settings.common.keyBindingTriggerOptions.keyDown",
-												"按下时触发",
-											)}
+											{t("settings.common.keyBindingTriggerOptions.keyDown", "キー押下時に発動")}
 										</Select.Item>
 										<Select.Item value={KeyBindingTriggerMode.KeyUp}>
-											{t(
-												"settings.common.keyBindingTriggerOptions.keyUp",
-												"松开时触发",
-											)}
+											{t("settings.common.keyBindingTriggerOptions.keyUp", "キー解放時に発動")}
 										</Select.Item>
 									</Select.Content>
 								</Select.Root>
@@ -292,13 +256,10 @@ export const SettingsCommonTab = () => {
 								<Flex gap="2" align="center" justify="between">
 									<Flex direction="column" gap="1">
 										<Text>
-											{t("settings.common.smartFirstWord", "智能首字")}
+											{t("settings.common.smartFirstWord", "先頭単語のスマート同期")}
 										</Text>
 										<Text size="1" color="gray">
-											{t(
-												"settings.common.smartFirstWordDesc",
-												"对行首第一个音节打轴时，第一次按下“起始轴”按钮会设置其开始时间，但不会设置其结束时间。",
-											)}
+											{t("settings.common.smartFirstWordDesc", "行の最初の単語を同期する際、最初のキー入力では開始時刻のみを設定し、終了時刻はすぐには設定しません。")}
 										</Text>
 									</Flex>
 									<Switch
@@ -319,13 +280,10 @@ export const SettingsCommonTab = () => {
 								<Flex gap="2" align="center" justify="between">
 									<Flex direction="column" gap="1">
 										<Text>
-											{t("settings.common.smartLastWord", "智能尾字")}
+											{t("settings.common.smartLastWord", "末尾単語のスマート同期")}
 										</Text>
 										<Text size="1" color="gray">
-											{t(
-												"settings.common.smartLastWordDesc",
-												"对行末最后一个音节打轴时，最后一次按下“结束轴”按钮会设置其结束时间，但不会设置下一行第一个音节的开始时间。",
-											)}
+											{t("settings.common.smartLastWordDesc", "行の最後の単語を同期する際、キー入力で終了時刻を設定し、次の行の最初の単語の開始時刻は自動設定しません。")}
 										</Text>
 									</Flex>
 									<Switch
@@ -340,7 +298,7 @@ export const SettingsCommonTab = () => {
 			</Flex>
 
 			<Flex direction="column" gap="2">
-				<Heading size="4">{t("settings.group.playback", "播放")}</Heading>
+				<Heading size="4">{t("settings.group.playback", "再生")}</Heading>
 
 				<Card>
 					<Flex gap="3" align="center">
@@ -352,7 +310,7 @@ export const SettingsCommonTab = () => {
 									justify="between"
 									style={{ alignSelf: "stretch" }}
 								>
-									<Text>{t("settings.common.volume", "音乐音量")}</Text>
+									<Text>{t("settings.common.volume", "音楽の音量")}</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{(volume * 100).toFixed()}%
 									</Text>
@@ -379,7 +337,7 @@ export const SettingsCommonTab = () => {
 									justify="between"
 									style={{ alignSelf: "stretch" }}
 								>
-									<Text>{t("settings.common.playbackRate", "播放速度")}</Text>
+									<Text>{t("settings.common.playbackRate", "再生速度")}</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{playbackRate.toFixed(2)}x
 									</Text>
@@ -398,7 +356,7 @@ export const SettingsCommonTab = () => {
 			</Flex>
 
 			<Flex direction="column" gap="2">
-				<Heading size="4">{t("settings.group.autosave", "自动保存")}</Heading>
+				<Heading size="4">{t("settings.group.autosave", "自動保存")}</Heading>
 
 				<Card>
 					<Text as="label">
@@ -407,7 +365,7 @@ export const SettingsCommonTab = () => {
 							<Box flexGrow="1">
 								<Flex gap="2" align="center" justify="between">
 									<Text>
-										{t("settings.common.autosave.enable", "启用自动保存")}
+										{t("settings.common.autosave.enable", "自動保存を有効にする")}
 									</Text>
 									<Switch
 										checked={autosaveEnabled}
@@ -426,7 +384,7 @@ export const SettingsCommonTab = () => {
 							<Box flexGrow="1">
 								<Flex direction="column" gap="2" align="start">
 									<Text>
-										{t("settings.common.autosave.interval", "保存间隔 (分钟)")}
+										{t("settings.common.autosave.interval", "保存間隔（分）")}
 									</Text>
 									<TextField.Root
 										type="number"
@@ -455,7 +413,7 @@ export const SettingsCommonTab = () => {
 									style={{ alignSelf: "stretch" }}
 								>
 									<Text>
-										{t("settings.common.autosave.limit", "保留快照数量")}
+										{t("settings.common.autosave.limit", "保持するスナップショット数")}
 									</Text>
 									<Text wrap="nowrap" color="gray" size="1">
 										{autosaveLimit}

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { type Atom, useAtomValue, useStore } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { type ComponentPropsWithoutRef, useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { recalculateWordTime } from "$/modules/segmentation/utils/segmentation.ts";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig.ts";
 import { lyricLinesAtom, projectIdAtom, rubyWarningShownProjectIdsAtom } from "$/states/main.ts";
@@ -52,6 +53,7 @@ export const RubyEditor = ({
 	showIcon?: boolean;
 	className?: string;
 }) => {
+	const { t } = useTranslation();
 	const word = useAtomValue(wordAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const store = useStore();
@@ -240,22 +242,27 @@ export const RubyEditor = ({
 						>
 							<Warning48Color />
 							<Text size="5">
-								你正在使用测试中的
-								<Text as="span" weight="bold">
-									{" "}
-									注音
-									{" "}
-								</Text>
-								功能
+								{t(
+									"rubyEditor.warningTitle",
+									"テスト中のルビ機能を使用しています",
+								)}
 							</Text>
 							<Text size="4" align="center">
-								一旦你添加了注音内容，保存的文件将无法被不支持该结构的解析器使用
+								{t(
+									"rubyEditor.warningBody1",
+									"ルビを追加すると、対応していないパーサーではファイルを正しく読み込めない場合があります。",
+								)}
 							</Text>
 							<Text size="4" align="center">
-								如果仍要在不支持的解析器中使用，可能会出现缺少文字等现象
+								{t(
+									"rubyEditor.warningBody2",
+									"非対応のパーサーで使用すると、文字が欠落するなどの問題が発生する可能性があります。",
+								)}
 							</Text>
 							<Dialog.Close>
-								<Button>我已了解</Button>
+								<Button>
+									{t("rubyEditor.understood", "理解しました")}
+								</Button>
 							</Dialog.Close>
 						</Flex>
 					</Flex>

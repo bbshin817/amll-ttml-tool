@@ -98,9 +98,9 @@ const getDisplayWordText = (
 ) => {
 	if (displayRomanizationInSync && romanWord && romanWord.trim() !== "")
 		return romanWord;
-	if (word === "") return t("lyricWordView.empty", "空白");
+	if (word === "") return t("lyricWordView.empty", "空");
 	if (isWordBlank)
-		return t("lyricWordView.spaceCount", "空格 x{count}", {
+		return t("lyricWordView.spaceCount", "スペース x{count}", {
 			count: word.length,
 		});
 	return word;

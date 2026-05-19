@@ -166,7 +166,6 @@
 			"saveLyric": "Zapisz tekst",
 			"restoreFromHistory": "Przywróć z historii…",
 			"saveLyricToClipboard": "Zapisz TTML do schowka",
-			"uploadToAMLLDB": "Wyślij do bazy danych (tylko CN)",
 			"edit": "Edycja",
 			"undo": "Cofnij",
 			"redo": "Ponów",
@@ -484,38 +483,6 @@
 		"addPresets": "Dodaj wszystkie predefiniowane klucze",
 		"clear": "Wyczyść",
 		"info": "Dowiedz się więcej"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "W metadanych brakuje nazwy utworu",
-			"missingArtists": "W metadanych brakuje artystów utworu",
-			"missingAlbum": "W metadanych brakuje nazwy albumu",
-			"missingMusicId": "W metadanych brakuje ID utworu platformy"
-		},
-		"defaultReason": "Nowe przesłanie tekstów",
-		"errors": {
-			"validation": "Walidacja przesłania nie powiodła się:\n{errors}",
-			"noLyrics": "Nie ma jeszcze żadnej zawartości tekstów?",
-			"uploadFailed": "Nie udało się zażądać przesłania pliku tekstów: {status} {statusText}",
-			"submitFailed": "Przesłanie nie powiodło się, sprawdź konsolę, aby poznać przyczynę!"
-		},
-		"labels": {
-			"submit": "Prześlij/Popraw teksty"
-		},
-		"issueTitle": "[Przesłanie/Poprawka tekstów] {name}",
-		"unknownTitle": "Nieznany tytuł",
-		"unknownArtist": "Nieznany artysta",
-		"description": "Prześlij teksty do bazy danych AMLL",
-		"title": "Prześlij teksty do bazy danych AMLL (tylko użytkownicy uproszczonego chińskiego)",
-		"chineseOnlyWarning": "Ta funkcja jest dostępna tylko dla użytkowników uproszczonego chińskiego bazy danych AMLL. Jeśli edytujesz teksty do użycia w innym oprogramowaniu, postępuj zgodnie ze sposobem przesyłania tekstów tego oprogramowania!",
-		"thankYou": "Przede wszystkim dziękujemy za Twój hojny wkład tekstów!",
-		"cc0Agreement": "Przesyłając, zgadzasz się",
-		"cc0Rights": "użyć licencji CC0 i całkowicie zrzec się własności tekstów",
-		"andSubmit": "i przesłać do bazy danych tekstów!",
-		"futureUse": "A teksty będą w przyszłości używane jako domyślne źródło TTML przez systemy AMLL!",
-		"rightsWarning": "Jeśli cenisz zachowanie własności, NIE przesyłaj!",
-		"submitInstructions": "Wprowadź poniższe informacje, a następnie przejdź do strony przesyłania zgłoszenia na GitHub!",
-		"closeWarning": "Zamknij komunikat ostrzegawczy"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Spacja x{count}",

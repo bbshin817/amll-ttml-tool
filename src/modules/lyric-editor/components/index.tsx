@@ -130,12 +130,9 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 				height="100%"
 				ref={ref}
 			>
-				<Text color="gray">{t("app.empty.title", "没有歌词行")}</Text>
+				<Text color="gray">{t("app.empty.title", "歌詞行がありません")}</Text>
 				<Text color="gray">
-					{t(
-						"app.empty.description",
-						"在顶部面板中添加新歌词行或从菜单栏打开 / 导入已有歌词",
-					)}
+					{t("app.empty.description", "上部パネルで歌詞行を追加するか、メニューから既存の歌詞を開く／インポートしてください")}
 				</Text>
 			</Flex>
 		);

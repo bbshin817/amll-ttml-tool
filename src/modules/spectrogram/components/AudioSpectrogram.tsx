@@ -272,15 +272,15 @@ export const AudioSpectrogram: FC = () => {
 	let hoverLineColor: string | undefined;
 
 	if (isInvalidEndTime) {
-		hoverTimeFormatted = t("spectrogram.invalidEndTime", "不能选择此结束时间");
+		hoverTimeFormatted = t("spectrogram.invalidEndTime", "この終了時刻は選択できません");
 		tooltipBgColor = "var(--red-9)";
 		hoverLineColor = "var(--red-9)";
 	} else if (editingTimeField && !editingTimeField.isWord) {
 		const fieldName =
 			editingTimeField.field === "startTime"
-				? t("ribbonBar.editMode.startTime", "起始时间")
-				: t("ribbonBar.editMode.endTime", "结束时间");
-		hoverTimeFormatted = `${t("common.clickToSet", "点击设置")}${fieldName}: ${hoverTimeFormatted}`;
+				? t("ribbonBar.editMode.startTime", "開始時刻")
+				: t("ribbonBar.editMode.endTime", "終了時刻");
+		hoverTimeFormatted = `${t("common.clickToSet", "クリックして設定")}${fieldName}: ${hoverTimeFormatted}`;
 		tooltipBgColor = "var(--accent-9)";
 	}
 
@@ -352,13 +352,10 @@ export const AudioSpectrogram: FC = () => {
 									style={{ opacity: 0.5 }}
 								/>
 								<Text color="gray" size="3">
-									{t(
-										"spectrogram.noAudioLoaded",
-										"请先加载一个音频文件来渲染频谱图哦",
-									)}
+									{t("spectrogram.noAudioLoaded", "スペクトログラムを表示するには、音声ファイルを読み込んでください")}
 								</Text>
 								<Button variant="soft" onClick={handleLoadMusic}>
-									{t("spectrogram.loadAudio", "加载音频文件")}
+									{t("spectrogram.loadAudio", "音声ファイルを読み込む")}
 								</Button>
 							</Flex>
 						</div>
@@ -499,7 +496,7 @@ export const AudioSpectrogram: FC = () => {
 
 				<div className={`${styles.sidebar} ${styles.rightSidebar}`}>
 					<Tooltip
-						content={t("spectrogram.showUnselectedLines", "显示未选中行")}
+						content={t("spectrogram.showUnselectedLines", "未選択の行を表示")}
 						side="left"
 					>
 						<IconButton

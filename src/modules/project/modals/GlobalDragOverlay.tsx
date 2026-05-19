@@ -43,7 +43,7 @@ export const GlobalDragOverlay = () => {
 							weight="bold"
 							style={{ color: "white", marginTop: "20px" }}
 						>
-							{t("globalDragOverlay.title", "拖放到此处以加载")}
+							{t("globalDragOverlay.title", "離すと読み込みます")}
 						</Text>
 					</Flex>
 				</motion.div>

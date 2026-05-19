@@ -209,8 +209,8 @@ const SubLineEdit = memo(
 		const label = useMemo(
 			() =>
 				type === "translatedLyric"
-					? t("lyricLineView.translatedLabel", "翻译：")
-					: t("lyricLineView.romanLabel", "音译："),
+					? t("lyricLineView.translatedLabel", "翻訳：")
+					: t("lyricLineView.romanLabel", "ローマ字："),
 			[type, t],
 		);
 
@@ -240,7 +240,7 @@ const SubLineEdit = memo(
 						}}
 					>
 						{line[type] || (
-							<Text color="gray">{t("lyricLineView.empty", "无")}</Text>
+							<Text color="gray">{t("lyricLineView.empty", "なし")}</Text>
 						)}
 					</Button>
 				)}
@@ -491,7 +491,7 @@ export const LyricLineView: FC<{
 						setEnableInsert(false);
 					}}
 				>
-					{t("lyricLineView.insertLine", "在此插入新行")}
+					{t("lyricLineView.insertLine", "ここに新しい行を挿入")}
 				</Button>
 			)}
 			<ContextMenu.Root
@@ -739,7 +739,7 @@ export const LyricLineView: FC<{
 									)}
 									{toolMode === ToolMode.Edit && (
 										<TextField.Root
-											placeholder={t("lyricLineView.insertWord", "插入单词…")}
+											placeholder={t("lyricLineView.insertWord", "ここに単語を挿入…")}
 											className={classNames(
 												styles.insertWordField,
 												words.length === 0 && styles.empty,
@@ -865,7 +865,7 @@ export const LyricLineView: FC<{
 						setEnableInsert(false);
 					}}
 				>
-					{t("lyricLineView.insertLine", "在此插入新行")}
+					{t("lyricLineView.insertLine", "ここに新しい行を挿入")}
 				</Button>
 			)}
 		</>

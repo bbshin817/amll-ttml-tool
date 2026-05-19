@@ -79,7 +79,7 @@ export async function loadHyphenator(
 		}
 		return null;
 	} catch (error) {
-		console.error(`为 ${lang} 加载分词引擎失败:`, error);
+		console.error(`${lang} の分詞エンジンの読み込みに失敗しました:`, error);
 		return null;
 	}
 }

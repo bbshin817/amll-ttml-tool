@@ -287,7 +287,7 @@ const MetadataEntry = memo(
 											disabled={!isButtonEnabled}
 											asChild={isButtonEnabled}
 											variant="soft"
-											title={t("metadataDialog.openLink", "打开链接")}
+											title={t("metadataDialog.openLink", "リンクを開く")}
 										>
 											{isButtonEnabled ? (
 												<a
@@ -337,7 +337,7 @@ const MetadataEntry = memo(
 							)}
 							{rowHasDuplicate && (
 								<Text color="red" size="1" mb="1" mt="1" wrap="wrap">
-									{t("metadataDialog.duplicateMsg", "存在重复的元数据值")}
+									{t("metadataDialog.duplicateMsg", "重複するメタデータ値が見つかりました")}
 								</Text>
 							)}
 							<Button
@@ -349,7 +349,7 @@ const MetadataEntry = memo(
 									});
 								}}
 							>
-								{t("metadataDialog.addValue", "添加")}
+								{t("metadataDialog.addValue", "追加")}
 							</Button>
 						</Flex>
 					</td>
@@ -410,44 +410,44 @@ export const MetadataEditor = () => {
 		return [
 			{
 				// 歌词所匹配的歌曲名
-				label: t("metadataDialog.builtinOptions.musicName", "歌曲名称"),
+				label: t("metadataDialog.builtinOptions.musicName", "曲名"),
 				value: "musicName",
 				icon: <MusicNote1Regular />,
 			},
 			{
 				// 歌词所匹配的歌手名
-				label: t("metadataDialog.builtinOptions.artists", "歌曲的艺术家"),
+				label: t("metadataDialog.builtinOptions.artists", "アーティスト"),
 				value: "artists",
 				icon: <Person16Regular />,
 				validation: {
 					verifier: (value: string) => !/^.+[,;&，；、].+$/.test(value),
 					message: t(
 						"metadataDialog.builtinOptions.artistsInvalidMsg",
-						"如果有多个艺术家，请多次添加该键值，避免使用分隔符",
+						"複数のアーティストがいる場合は、区切り文字を使わず、このキーを複数回追加してください。アーティスト名自体に区切り文字が含まれる場合は、このメッセージを無視してください",
 					),
 				},
 			},
 			{
-				label: t("metadataDialog.builtinOptions.songwriter", "词曲作者"),
+				label: t("metadataDialog.builtinOptions.songwriter", "作詞・作曲者"),
 				value: "songwriter",
 				icon: <Person16Regular />,
 				validation: {
 					verifier: (value: string) => !/^.+[,;&，；、].+$/.test(value),
 					message: t(
 						"metadataDialog.builtinOptions.songwriterInvalidMsg",
-						"如果有多个词曲作者，请多次添加该键值，避免使用分隔符",
+						"複数の作詞・作曲者がいる場合は、区切り文字を使わず、このキーを複数回追加してください",
 					),
 				},
 			},
 			{
 				// 歌词所匹配的专辑名
-				label: t("metadataDialog.builtinOptions.album", "歌曲的专辑名"),
+				label: t("metadataDialog.builtinOptions.album", "アルバム名"),
 				value: "album",
 				icon: <AlbumRegular />,
 			},
 			{
 				// 歌词所匹配的网易云音乐 ID
-				label: t("metadataDialog.builtinOptions.ncmMusicId", "网易云音乐 ID"),
+				label: t("metadataDialog.builtinOptions.ncmMusicId", "NetEase Music ID"),
 				value: "ncmMusicId",
 				icon: <NeteaseIcon />,
 				isLinkable: true,
@@ -456,14 +456,14 @@ export const MetadataEditor = () => {
 					verifier: numeric,
 					message: t(
 						"metadataDialog.builtinOptions.ncmMusicIdInvalidMsg",
-						"网易云音乐 ID 应为纯数字",
+						"NetEase Music ID は数値で入力してください",
 					),
 					severe: true,
 				},
 			},
 			{
 				// 歌词所匹配的 QQ 音乐 ID
-				label: t("metadataDialog.builtinOptions.qqMusicId", "QQ 音乐 ID"),
+				label: t("metadataDialog.builtinOptions.qqMusicId", "QQ Music ID"),
 				value: "qqMusicId",
 				icon: <QQMusicIcon />,
 				isLinkable: true,
@@ -472,14 +472,14 @@ export const MetadataEditor = () => {
 					verifier: alphanumeric,
 					message: t(
 						"metadataDialog.builtinOptions.qqMusicIdInvalidMsg",
-						"QQ 音乐 ID 应为字母或数字",
+						"QQ Music ID は英数字で入力してください",
 					),
 					severe: true,
 				},
 			},
 			{
 				// 歌词所匹配的 Spotify 音乐 ID
-				label: t("metadataDialog.builtinOptions.spotifyId", "Spotify 音乐 ID"),
+				label: t("metadataDialog.builtinOptions.spotifyId", "Spotify トラック ID"),
 				value: "spotifyId",
 				icon: <SpotifyIcon />,
 				isLinkable: true,
@@ -488,17 +488,14 @@ export const MetadataEditor = () => {
 					verifier: alphanumeric,
 					message: t(
 						"metadataDialog.builtinOptions.spotifyIdInvalidMsg",
-						"Spotify ID 应为字母或数字",
+						"Spotify トラック ID は英数字で入力してください",
 					),
 					severe: true,
 				},
 			},
 			{
 				// 歌词所匹配的 Apple Music 音乐 ID
-				label: t(
-					"metadataDialog.builtinOptions.appleMusicId",
-					"Apple Music 音乐 ID",
-				),
+				label: t("metadataDialog.builtinOptions.appleMusicId", "Apple Music トラック ID"),
 				value: "appleMusicId",
 				icon: <AppleMusicIcon />,
 				isLinkable: true,
@@ -507,14 +504,14 @@ export const MetadataEditor = () => {
 					verifier: numeric,
 					message: t(
 						"metadataDialog.builtinOptions.appleMusicIdInvalidMsg",
-						"Apple Music ID 应为纯数字",
+						"Apple Music トラック ID は数値で入力してください",
 					),
 					severe: true,
 				},
 			},
 			{
 				// 歌词所匹配的 ISRC 编码
-				label: t("metadataDialog.builtinOptions.isrc", "歌曲的 ISRC 号码"),
+				label: t("metadataDialog.builtinOptions.isrc", "トラック ISRC コード"),
 				value: "isrc",
 				icon: <NumberSymbol16Regular />,
 				isLinkable: true,
@@ -524,24 +521,21 @@ export const MetadataEditor = () => {
 						/^[A-Z]{2}-?[A-Z0-9]{3}-?\d{2}-?\d{5}$/.test(value),
 					message: t(
 						"metadataDialog.builtinOptions.isrcInvalidMsg",
-						"ISRC 编码格式应为 CC-XXX-YY-NNNNN",
+						"ISRC コードの形式は CC-XXX-YY-NNNNN です",
 					),
 					severe: true,
 				},
 			},
 			{
 				// 逐词歌词作者 GitHub ID，例如 39523898
-				label: t(
-					"metadataDialog.builtinOptions.ttmlAuthorGithub",
-					"歌词作者 GitHub ID",
-				),
+				label: t("metadataDialog.builtinOptions.ttmlAuthorGithub", "歌詞作者の GitHub ID"),
 				value: "ttmlAuthorGithub",
 				icon: <GithubIcon />,
 				validation: {
 					verifier: numeric,
 					message: t(
 						"metadataDialog.builtinOptions.ttmlAuthorGithubInvalidMsg",
-						"GitHub ID 应为纯数字",
+						"GitHub ID は数値で入力してください",
 					),
 					severe: true,
 				},
@@ -550,7 +544,7 @@ export const MetadataEditor = () => {
 				// 逐词歌词作者 GitHub 用户名，例如 Steve-xmh
 				label: t(
 					"metadataDialog.builtinOptions.ttmlAuthorGithubLogin",
-					"歌词作者 GitHub 用户名",
+					"歌詞作者の GitHub ユーザー名",
 				),
 				value: "ttmlAuthorGithubLogin",
 				icon: <GithubIcon />,
@@ -590,7 +584,7 @@ export const MetadataEditor = () => {
 			<Dialog.Content className={styles.dialogContent}>
 				<div className={styles.dialogHeader}>
 					<Dialog.Title style={{ margin: 0 }}>
-						{t("metadataDialog.title", "元数据编辑器")}
+						{t("metadataDialog.title", "メタデータエディター")}
 					</Dialog.Title>
 				</div>
 
@@ -599,9 +593,9 @@ export const MetadataEditor = () => {
 						<thead>
 							<tr>
 								<th className={styles.keyColumn}>
-									{t("metadataDialog.key", "元数据类型")}
+									{t("metadataDialog.key", "キー")}
 								</th>
-								<th>{t("metadataDialog.value", "值")}</th>
+								<th>{t("metadataDialog.value", "値")}</th>
 							</tr>
 						</thead>
 						{lyricLines.metadata.length === 0 && (
@@ -611,7 +605,7 @@ export const MetadataEditor = () => {
 										colSpan={2}
 										style={{ color: "var(--gray-9)", textAlign: "center" }}
 									>
-										{t("metadataDialog.empty", "无任何元数据")}
+										{t("metadataDialog.empty", "メタデータなし")}
 									</td>
 								</tr>
 							</tbody>
@@ -643,7 +637,7 @@ export const MetadataEditor = () => {
 							}}
 						>
 							<Button variant="soft" ref={addKeyButtonRef}>
-								{t("metadataDialog.addKeyValue", "添加新键值")}
+								{t("metadataDialog.addKeyValue", "新しいキーと値を追加")}
 								<DropdownMenu.TriggerIcon />
 							</Button>
 						</DropdownMenu.Trigger>
@@ -653,7 +647,7 @@ export const MetadataEditor = () => {
 									style={{
 										flexGrow: "1",
 									}}
-									placeholder={t("metadataDialog.customKey", "自定义键名")}
+									placeholder={t("metadataDialog.customKey", "カスタムキー")}
 									value={customKey}
 									onChange={(e) => setCustomKey(e.currentTarget.value)}
 								/>
@@ -727,7 +721,7 @@ export const MetadataEditor = () => {
 							});
 						}}
 					>
-						{t("metadataDialog.addPresets", "一键添加所有预设键")}
+						{t("metadataDialog.addPresets", "すべてのプリセットキーを追加")}
 					</Button>
 					<Button
 						style={{ flex: "1 0 auto" }}
@@ -740,7 +734,7 @@ export const MetadataEditor = () => {
 						}}
 					>
 						<Delete16Regular />
-						{t("metadataDialog.clear", "清空")}
+						{t("metadataDialog.clear", "クリア")}
 					</Button>
 					<Button asChild variant="soft">
 						<a
@@ -749,7 +743,7 @@ export const MetadataEditor = () => {
 							href="https://github.com/amll-dev/amll-ttml-tool/wiki/%E6%AD%8C%E8%AF%8D%E5%85%83%E6%95%B0%E6%8D%AE"
 						>
 							<Info16Regular />
-							{t("metadataDialog.info", "了解详情")}
+							{t("metadataDialog.info", "詳細を見る")}
 						</a>
 					</Button>
 				</Flex>

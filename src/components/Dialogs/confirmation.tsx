@@ -22,11 +22,15 @@ export const ConfirmationDialog = () => {
 				<Dialog.Title>{dialogState.title}</Dialog.Title>
 				<Dialog.Description>{dialogState.description}</Dialog.Description>
 				<Flex gap="3" mt="4" justify="end">
-					<Button variant="soft" color="gray" onClick={handleCancel}>
-						{t("confirmDialog.cancel", "取消")}
-					</Button>
+					{!dialogState.alertOnly && (
+						<Button variant="soft" color="gray" onClick={handleCancel}>
+							{t("confirmDialog.cancel", "キャンセル")}
+						</Button>
+					)}
 					<Button onClick={handleConfirm}>
-						{t("confirmDialog.confirm", "确认")}
+						{dialogState.alertOnly
+							? t("confirmDialog.ok", "OK")
+							: t("confirmDialog.confirm", "確認")}
 					</Button>
 				</Flex>
 			</Dialog.Content>

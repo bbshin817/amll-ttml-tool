@@ -90,7 +90,7 @@ export const ImportFromLRCLIB = () => {
 			setResults(data);
 		} catch (e) {
 			logError("LRCLIB Search Error", e);
-			toast.error(t("lrclib.searchError", "搜索失败，请检查网络或稍后重试"));
+			toast.error(t("lrclib.searchError", "検索に失敗しました。ネットワーク接続を確認するか、時間をおいて再度お試しください"));
 		} finally {
 			setLoading(false);
 		}
@@ -141,7 +141,7 @@ export const ImportFromLRCLIB = () => {
 				setHasSearched(false);
 			} catch (e) {
 				logError("LRCLIB Import Error", e);
-				toast.error(t("lrclib.importError", "导入歌词时发生错误"));
+				toast.error(t("lrclib.importError", "歌詞のインポート中にエラーが発生しました"));
 			}
 		},
 		[
@@ -161,10 +161,10 @@ export const ImportFromLRCLIB = () => {
 			if (isDirty) {
 				setConfirmDialog({
 					open: true,
-					title: t("confirmDialog.importFile.title", "确认导入歌词"),
+					title: t("confirmDialog.importFile.title", "歌詞インポートの確認"),
 					description: t(
 						"confirmDialog.importFile.description",
-						"当前文件有未保存的更改。如果继续，这些更改将会丢失。确定要导入歌词吗？",
+						"未保存の変更があります。続行すると変更内容は失われます。新しい歌詞をインポートしますか？",
 					),
 					onConfirm: () => performImport(track),
 				});
@@ -184,12 +184,12 @@ export const ImportFromLRCLIB = () => {
 				}}
 			>
 				<Dialog.Content className={styles.dialogContent}>
-					<Dialog.Title>{t("lrclib.title", "从 LRCLIB 导入歌词")}</Dialog.Title>
+					<Dialog.Title>{t("lrclib.title", "LRCLIB から歌詞をインポート")}</Dialog.Title>
 
 					<Flex gap="3" mb="4">
 						<TextField.Root
 							className={styles.searchBar}
-							placeholder={t("lrclib.placeholder", "歌名 歌手...")}
+							placeholder={t("lrclib.placeholder", "曲名 アーティスト…")}
 							value={query}
 							onChange={(e) => setQuery(e.target.value)}
 							onKeyDown={onKeyDown}
@@ -199,7 +199,7 @@ export const ImportFromLRCLIB = () => {
 							</TextField.Slot>
 						</TextField.Root>
 						<Button onClick={handleSearch} disabled={loading}>
-							{loading ? <Spinner /> : t("common.search", "搜索")}
+							{loading ? <Spinner /> : t("common.search", "検索")}
 						</Button>
 					</Flex>
 
@@ -282,14 +282,14 @@ export const ImportFromLRCLIB = () => {
 																<CheckmarkCircle24Regular
 																	className={styles.badgeIcon}
 																/>
-																{t("lrclib.synced", "有时间轴")}
+																{t("lrclib.synced", "同期済み")}
 															</Badge>
 														) : (
 															<Badge color="gray" size="1">
 																<ErrorCircle24Regular
 																	className={styles.badgeIcon}
 																/>
-																{t("lrclib.unsynced", "无时间轴")}
+																{t("lrclib.unsynced", "未同期")}
 															</Badge>
 														)}
 													</Flex>
@@ -310,16 +310,13 @@ export const ImportFromLRCLIB = () => {
 												className={styles.emptyStateIcon}
 											/>
 											<Text>
-												{t(
-													"lrclib.notFound",
-													"未找到相关结果，请尝试更换关键词",
-												)}
+												{t("lrclib.notFound", "結果が見つかりませんでした。別のキーワードをお試しください")}
 											</Text>
 										</>
 									) : (
 										<>
 											<Search24Regular className={styles.emptyStateIcon} />
-											<Text>{t("lrclib.noResult", "输入关键词开始搜索")}</Text>
+											<Text>{t("lrclib.noResult", "キーワードを入力すると検索できます")}</Text>
 										</>
 									)}
 								</Flex>
@@ -330,7 +327,7 @@ export const ImportFromLRCLIB = () => {
 					<Flex justify="end" mt="4">
 						<Dialog.Close>
 							<Button variant="soft" color="gray">
-								{t("common.close", "关闭")}
+								{t("common.close", "閉じる")}
 							</Button>
 						</Dialog.Close>
 					</Flex>
@@ -372,7 +369,7 @@ export const ImportFromLRCLIB = () => {
 						) : (
 							<Flex className={styles.previewEmptyState}>
 								<DocumentDismiss24Regular className={styles.emptyStateIcon} />
-								<Text>{t("lrclib.noLyrics", "该歌曲暂无歌词内容")}</Text>
+								<Text>{t("lrclib.noLyrics", "このトラックには歌詞がありません")}</Text>
 							</Flex>
 						)}
 					</Box>
@@ -384,7 +381,7 @@ export const ImportFromLRCLIB = () => {
 									checked={extractBg}
 									onCheckedChange={(c) => setExtractBg(!!c)}
 								/>
-								{t("lrclib.extractBg", "提取括号内容为背景人声")}
+								{t("lrclib.extractBg", "括弧内をバックボーカルとして抽出")}
 							</Flex>
 						</Text>
 
@@ -394,19 +391,19 @@ export const ImportFromLRCLIB = () => {
 									checked={autoSegment}
 									onCheckedChange={(c) => setAutoSegment(!!c)}
 								/>
-								{t("lrclib.autoSegment", "自动分词")}
+								{t("lrclib.autoSegment", "自動分割")}
 							</Flex>
 						</Text>
 
 						<Dialog.Close>
 							<Button variant="soft" color="gray">
-								{t("common.cancel", "取消")}
+								{t("common.cancel", "キャンセル")}
 							</Button>
 						</Dialog.Close>
 						<Button
 							onClick={() => previewTrack && onTriggerImport(previewTrack)}
 						>
-							{t("lrclib.import", "导入歌词")}
+							{t("lrclib.import", "歌詞をインポート")}
 						</Button>
 					</Flex>
 				</Dialog.Content>

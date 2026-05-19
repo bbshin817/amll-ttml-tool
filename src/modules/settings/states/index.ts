@@ -41,10 +41,6 @@ export const showLineRomanizationAtom = atomWithStorage(
 	true,
 );
 
-export const hideSubmitAMLLDBWarningAtom = atomWithStorage(
-	"hideSubmitAMLLDBWarning",
-	false,
-);
 export const generateNameFromMetadataAtom = atomWithStorage(
 	"generateNameFromMetadata",
 	true,

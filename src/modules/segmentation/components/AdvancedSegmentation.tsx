@@ -166,10 +166,10 @@ export const AdvancedSegmentationDialog = memo(() => {
 							{w.word.trim() === "" ? (
 								<Text color="gray" as="span">
 									{w.word.length > 0
-										? t("splitWordDialog.spaceCount", "空格x{count}", {
+										? t("splitWordDialog.spaceCount", "スペース x{count}", {
 												count: w.word.length,
 											})
-										: t("splitWordDialog.empty", "空白")}
+										: t("splitWordDialog.empty", "空")}
 								</Text>
 							) : (
 								w.word
@@ -179,10 +179,10 @@ export const AdvancedSegmentationDialog = memo(() => {
 				</Flex>
 			);
 		} catch (error) {
-			console.error("分词预览出错:", error);
+			console.error("分割プレビューでエラーが発生しました:", error);
 			return (
 				<Text color="gray">
-					{t("advancedSegmentDialog.test.outputError", "分词预览出错")}
+					{t("advancedSegmentDialog.test.outputError", "分割プレビューでエラーが発生しました")}
 				</Text>
 			);
 		}
@@ -228,12 +228,12 @@ export const AdvancedSegmentationDialog = memo(() => {
 		<Dialog.Root open={open} onOpenChange={setOpen}>
 			<Dialog.Content maxWidth="800px">
 				<Dialog.Title>
-					{t("advancedSegmentDialog.title", "高级分词")}
+					{t("advancedSegmentDialog.title", "詳細分割")}
 				</Dialog.Title>
 
 				<Flex direction="column" gap="4">
 					<Flex direction="column" gap="2">
-						<Text>{t("advancedSegmentDialog.scope.title", "应用范围")}</Text>
+						<Text>{t("advancedSegmentDialog.scope.title", "適用範囲")}</Text>
 						<Text as="label" size="2">
 							<RadioGroup.Root
 								value={scope}
@@ -245,7 +245,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 									<Flex gap="2" align="center">
 										<RadioGroup.Item value="all" />
 										<Text>
-											{t("advancedSegmentDialog.scope.all", "所有歌词行")}
+											{t("advancedSegmentDialog.scope.all", "すべての歌詞行")}
 										</Text>
 									</Flex>
 								</Text>
@@ -253,7 +253,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 									<Flex gap="2" align="center" mt="2">
 										<RadioGroup.Item value="range" />
 										<Text>
-											{t("advancedSegmentDialog.scope.range.from", "从第")}
+											{t("advancedSegmentDialog.scope.range.from", "開始行")}
 										</Text>
 										<TextField.Root
 											type="number"
@@ -263,7 +263,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 											style={{ maxWidth: 80 }}
 										/>
 										<Text>
-											{t("advancedSegmentDialog.scope.range.to", "行到第")}
+											{t("advancedSegmentDialog.scope.range.to", "終了行")}
 										</Text>
 										<TextField.Root
 											type="number"
@@ -282,7 +282,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 					</Flex>
 					<Flex direction="column" gap="2">
 						<Text>
-							{t("advancedSegmentDialog.rules.title", "自动分词规则")}
+							{t("advancedSegmentDialog.rules.title", "自動分割ルール")}
 						</Text>
 						<Text as="label" size="2">
 							<Flex gap="2" align="center">
@@ -290,7 +290,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 									checked={splitCJK}
 									onCheckedChange={(c) => setSplitCJK(c as boolean)}
 								/>
-								{t("advancedSegmentDialog.rules.cjk", "CJK 按字符分词")}
+								{t("advancedSegmentDialog.rules.cjk", "CJK 文字を分割")}
 							</Flex>
 						</Text>
 
@@ -301,20 +301,14 @@ export const AdvancedSegmentationDialog = memo(() => {
 										checked={splitEnglish}
 										onCheckedChange={(c) => setSplitEnglish(c as boolean)}
 									/>
-									{t(
-										"advancedSegmentDialog.rules.syllable",
-										"西文单词按音节分词",
-									)}
+									{t("advancedSegmentDialog.rules.syllable", "欧米言語の単語を音節で分割")}
 								</Flex>
 							</Text>
 
 							{splitEnglish && (
 								<Flex direction="column" gap="1" ml="5">
 									<Text size="2" color="gray">
-										{t(
-											"advancedSegmentDialog.language.select",
-											"选择一个分词语言模型：",
-										)}
+										{t("advancedSegmentDialog.language.select", "ハイフネーション用の言語モデルを選択:")}
 									</Text>
 									<Select.Root
 										value={lang}
@@ -339,25 +333,19 @@ export const AdvancedSegmentationDialog = memo(() => {
 								<Info16Regular />
 							</Callout.Icon>
 							<Callout.Text>
-								{t(
-									"advancedSegmentDialog.tip",
-									"分词后，原音节的时长会按照字符数和权重重新分配给新的音节",
-								)}
+								{t("advancedSegmentDialog.tip", "分割後、元の単語の合計時間は、文字数と重みに基づいて再分配されます。")}
 							</Callout.Text>
 						</Callout.Root>
 					</Flex>
 
 					<Flex direction="column" gap="3">
 						<Text>
-							{t("advancedSegmentDialog.postProcess.title", "后处理")}
+							{t("advancedSegmentDialog.postProcess.title", "後処理")}
 						</Text>
 						<Text as="label" size="2">
 							<Flex direction="column" gap="2">
 								<Text>
-									{t(
-										"advancedSegmentDialog.postProcess.punct.caption",
-										"标点符号处理:",
-									)}
+									{t("advancedSegmentDialog.postProcess.punct.caption", "句読点の扱い:")}
 								</Text>
 								<RadioGroup.Root
 									value={punctuationMode}
@@ -369,10 +357,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 										<Flex gap="2" align="center">
 											<RadioGroup.Item value="merge" />
 											<Text>
-												{t(
-													"advancedSegmentDialog.postProcess.punct.merge",
-													"合并到相邻音节",
-												)}
+												{t("advancedSegmentDialog.postProcess.punct.merge", "隣接する音節に結合")}
 											</Text>
 										</Flex>
 									</Text>
@@ -380,10 +365,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 										<Flex gap="2" align="center" mt="2">
 											<RadioGroup.Item value="standalone" />
 											<Text>
-												{t(
-													"advancedSegmentDialog.postProcess.punct.standalone",
-													"设为新音节",
-												)}
+												{t("advancedSegmentDialog.postProcess.punct.standalone", "独立したセグメントにする")}
 											</Text>
 										</Flex>
 									</Text>
@@ -394,10 +376,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 						<Text as="label" size="2">
 							<Flex direction="column" gap="2">
 								<Text>
-									{t(
-										"advancedSegmentDialog.postProcess.punct.weight",
-										"标点时长权重:",
-									)}
+									{t("advancedSegmentDialog.postProcess.punct.weight", "句読点の時間重み:")}
 								</Text>
 								<TextField.Root
 									type="number"
@@ -416,7 +395,7 @@ export const AdvancedSegmentationDialog = memo(() => {
 									onCheckedChange={(c) => setRemoveEmptySegments(c as boolean)}
 								/>
 								<Text>
-									{t("advancedSegmentDialog.postProcess.empty", "移除空白音节")}
+									{t("advancedSegmentDialog.postProcess.empty", "空のセグメントを削除")}
 								</Text>
 							</Flex>
 						</Text>
@@ -424,13 +403,10 @@ export const AdvancedSegmentationDialog = memo(() => {
 
 					<Flex direction="column" gap="2">
 						<Text>
-							{t("advancedSegmentDialog.custom.title", "自定义分词规则")}
+							{t("advancedSegmentDialog.custom.title", "カスタム分割ルール")}
 						</Text>
 						<TextField.Root
-							placeholder={t(
-								"advancedSegmentDialog.custom.input",
-								"输入单词进行手动分割...",
-							)}
+							placeholder={t("advancedSegmentDialog.custom.input", "手動で分割する単語を入力…")}
 							value={manualWordInput}
 							onChange={(e) => {
 								setManualWordInput(e.target.value);
@@ -443,12 +419,12 @@ export const AdvancedSegmentationDialog = memo(() => {
 							onSplitIndexToggle={toggleSplitPoint}
 						/>
 						<Button onClick={handleAddRule} disabled={!manualWordInput}>
-							{t("advancedSegmentDialog.custom.add", "添加到自定义规则")}
+							{t("advancedSegmentDialog.custom.add", "カスタムルールに追加")}
 						</Button>
 						{customRules.size > 0 && (
 							<Flex direction="column" gap="2">
 								<Text size="2">
-									{t("advancedSegmentDialog.custom.list", "自定义规则列表:")}
+									{t("advancedSegmentDialog.custom.list", "カスタムルール一覧:")}
 								</Text>
 								<Box className={styles.ruleList}>
 									{Array.from(customRules.entries()).map(([word, parts]) => (
@@ -481,12 +457,10 @@ export const AdvancedSegmentationDialog = memo(() => {
 																{part.length > 0
 																	? t(
 																			"splitWordDialog.spaceCount",
-																			"空格x{count}",
-																			{
-																				count: part.length,
-																			},
+																			"スペース x{count}",
+																			{ count: part.length },
 																		)
-																	: t("splitWordDialog.empty", "空白")}
+																	: t("splitWordDialog.empty", "空")}
 															</Text>
 														) : (
 															part
@@ -522,12 +496,9 @@ export const AdvancedSegmentationDialog = memo(() => {
 
 					<Text as="label" size="2">
 						<Flex direction="column" gap="2">
-							<Text>{t("advancedSegmentDialog.ignore.title", "忽略列表")}</Text>
+							<Text>{t("advancedSegmentDialog.ignore.title", "無視リスト")}</Text>
 							<TextArea
-								placeholder={t(
-									"advancedSegmentDialog.ignore.placeholder",
-									"每行一个单词，在此列表中的单词将不会被自动分词",
-								)}
+								placeholder={t("advancedSegmentDialog.ignore.placeholder", "1行に1単語ずつ入力してください。このリスト内の単語は自動分割されません")}
 								value={ignoreListText}
 								onChange={(e) => setIgnoreListText(e.target.value)}
 								style={{ minHeight: 100, resize: "vertical" }}
@@ -537,17 +508,14 @@ export const AdvancedSegmentationDialog = memo(() => {
 
 					<Text as="label" size="2">
 						<Flex direction="column" gap="2">
-							<Text>{t("advancedSegmentDialog.test.title", "分词测试")}</Text>
+							<Text>{t("advancedSegmentDialog.test.title", "分割テスト")}</Text>
 							<TextField.Root
-								placeholder={t(
-									"advancedSegmentDialog.test.input",
-									"输入一行歌词或单词进行测试...",
-								)}
+								placeholder={t("advancedSegmentDialog.test.input", "歌詞行または単語を入力してテスト…")}
 								value={testInput}
 								onChange={(e) => setTestInput(e.target.value)}
 							/>
 							<Text size="2">
-								{t("advancedSegmentDialog.test.output", "预览结果:")}
+								{t("advancedSegmentDialog.test.output", "プレビュー結果:")}
 							</Text>
 							<Box
 								style={{
@@ -566,10 +534,10 @@ export const AdvancedSegmentationDialog = memo(() => {
 				<Flex gap="3" mt="4" justify="end">
 					<Dialog.Close>
 						<Button variant="soft" color="gray">
-							{t("common.cancel", "取消")}
+							{t("common.cancel", "キャンセル")}
 						</Button>
 					</Dialog.Close>
-					<Button onClick={onApply}>{t("common.apply", "应用")}</Button>
+					<Button onClick={onApply}>{t("common.apply", "適用")}</Button>
 				</Flex>
 			</Dialog.Content>
 		</Dialog.Root>

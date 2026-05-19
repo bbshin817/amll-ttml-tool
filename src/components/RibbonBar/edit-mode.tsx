@@ -324,7 +324,7 @@ function EditField<
 			if (durationValue === MULTIPLE_VALUES) {
 				setFieldInput("");
 				setFieldPlaceholder(
-					t("ribbonBar.editMode.multipleValues", "多个值..."),
+					t("ribbonBar.editMode.multipleValues", "複数の値…"),
 				);
 				return;
 			}
@@ -339,7 +339,7 @@ function EditField<
 		}
 		if (currentValue === MULTIPLE_VALUES) {
 			setFieldInput("");
-			setFieldPlaceholder(t("ribbonBar.editMode.multipleValues", "多个值..."));
+			setFieldPlaceholder(t("ribbonBar.editMode.multipleValues", "複数の値…"));
 			return;
 		}
 		setFieldInput(currentValue);
@@ -355,7 +355,7 @@ function EditField<
 					onClick={() => setShowDurationInput((v) => !v)}
 				>
 					{showDurationInput
-						? t("ribbonBar.editMode.duration", "持续时间")
+						? t("ribbonBar.editMode.duration", "長さ")
 						: label}
 				</Button>
 			) : (
@@ -505,8 +505,8 @@ function CheckboxField<
 }
 
 function EditModeField({
-	simpleModeLabel = "简单模式",
-	advanceModeLabel = "高级模式",
+	simpleModeLabel = "シンプルモード",
+	advanceModeLabel = "詳細モード",
 }) {
 	const [layoutMode, setLayoutMode] = useAtom(layoutModeAtom);
 	return (
@@ -655,7 +655,7 @@ const AuxiliaryDisplayField: FC = () => {
 		<Grid columns="1fr auto" gapX="4" gapY="1" flexGrow="1" align="center">
 			<Text size="1" asChild>
 				<label htmlFor={idTranslation}>
-					{t("ribbonBar.editMode.showTranslation", "显示翻译行")}
+					{t("ribbonBar.editMode.showTranslation", "翻訳行を表示")}
 				</label>
 			</Text>
 			<Checkbox
@@ -665,7 +665,7 @@ const AuxiliaryDisplayField: FC = () => {
 			/>
 			<Text size="1" asChild>
 				<label htmlFor={idRomanization}>
-					{t("ribbonBar.editMode.showRomanization", "显示音译行")}
+					{t("ribbonBar.editMode.showRomanization", "ローマ字行を表示")}
 				</label>
 			</Text>
 			<Checkbox
@@ -675,7 +675,7 @@ const AuxiliaryDisplayField: FC = () => {
 			/>
 			<Text size="1" asChild>
 				<label htmlFor={idPerWord}>
-					{t("ribbonBar.editMode.showWordRomanizationInput", "显示逐字音译")}
+					{t("ribbonBar.editMode.showWordRomanizationInput", "単語ごとのローマ字入力を表示")}
 				</label>
 			</Text>
 			<Checkbox
@@ -694,7 +694,7 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 
 		return (
 			<RibbonFrame ref={ref}>
-				<RibbonSection label={t("ribbonBar.editMode.new", "新建")}>
+				<RibbonSection label={t("ribbonBar.editMode.new", "新規")}>
 					<Grid columns="1" gap="1" gapY="1" flexGrow="1" align="center">
 						<Button
 							size="1"
@@ -705,66 +705,66 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 								})
 							}
 						>
-							{t("ribbonBar.editMode.lyricLine", "歌词行")}
+							{t("ribbonBar.editMode.lyricLine", "歌詞行")}
 						</Button>
 					</Grid>
 				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.editMode.lineTiming", "行时间戳")}>
+				<RibbonSection label={t("ribbonBar.editMode.lineTiming", "行のタイミング")}>
 					<Grid columns="0fr 1fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<EditField
-							label={t("ribbonBar.editMode.startTime", "起始时间")}
+							label={t("ribbonBar.editMode.startTime", "開始時刻")}
 							fieldName="startTime"
 							parser={parseTimespan}
 							formatter={msToTimestamp}
 						/>
 						<EditField
-							label={t("ribbonBar.editMode.endTime", "结束时间")}
+							label={t("ribbonBar.editMode.endTime", "終了時刻")}
 							fieldName="endTime"
 							parser={parseTimespan}
 							formatter={msToTimestamp}
 						/>
 					</Grid>
 				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.editMode.lineProperties", "行属性")}>
+				<RibbonSection label={t("ribbonBar.editMode.lineProperties", "行のプロパティ")}>
 					<Grid columns="0fr 0fr" gap="4" gapY="1" flexGrow="1" align="center">
 						<CheckboxField
-							label={t("ribbonBar.editMode.bgLyric", "背景歌词")}
+							label={t("ribbonBar.editMode.bgLyric", "バックボーカル")}
 							defaultValue={false}
 							isWordField={false}
 							fieldName="isBG"
 						/>
 						<CheckboxField
-							label={t("ribbonBar.editMode.duetLyric", "对唱歌词")}
+							label={t("ribbonBar.editMode.duetLyric", "デュエットパート")}
 							isWordField={false}
 							fieldName="isDuet"
 							defaultValue={false}
 						/>
 						<CheckboxField
-							label={t("ribbonBar.editMode.ignoreSync", "忽略打轴")}
+							label={t("ribbonBar.editMode.ignoreSync", "同期対象外")}
 							isWordField={false}
 							fieldName="ignoreSync"
 							defaultValue={false}
 						/>
 					</Grid>
 				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.editMode.wordTiming", "词时间戳")}>
+				<RibbonSection label={t("ribbonBar.editMode.wordTiming", "単語のタイミング")}>
 					<Grid columns="0fr 1fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<EditField
-							label={t("ribbonBar.editMode.startTime", "起始时间")}
+							label={t("ribbonBar.editMode.startTime", "開始時刻")}
 							fieldName="startTime"
 							isWordField
 							parser={parseTimespan}
 							formatter={msToTimestamp}
 						/>
 						<EditField
-							label={t("ribbonBar.editMode.endTime", "结束时间")}
+							label={t("ribbonBar.editMode.endTime", "終了時刻")}
 							fieldName="endTime"
 							isWordField
 							parser={parseTimespan}
 							formatter={msToTimestamp}
 						/>
 						<EditField
-							label={t("ribbonBar.editMode.emptyBeatCount", "空拍数量")}
+							label={t("ribbonBar.editMode.emptyBeatCount", "空拍の数")}
 							fieldName="emptyBeat"
 							isWordField
 							parser={(v) => {
@@ -776,25 +776,25 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					</Grid>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.editMode.wordProperties", "单词属性")}
+					label={t("ribbonBar.editMode.wordProperties", "単語のプロパティ")}
 				>
 					<Grid columns="0fr 1fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<EditField
-							label={t("ribbonBar.editMode.wordContent", "单词内容")}
+							label={t("ribbonBar.editMode.wordContent", "単語の内容")}
 							fieldName="word"
 							isWordField
 							parser={(v) => v}
 							formatter={(v) => v}
 						/>
 						<EditField
-							label={t("ribbonBar.editMode.romanWord", "单词音译")}
+							label={t("ribbonBar.editMode.romanWord", "単語のローマ字")}
 							fieldName="romanWord"
 							isWordField
 							parser={(v) => v}
 							formatter={(v) => v || ""}
 						/>
 						<CheckboxField
-							label={t("ribbonBar.editMode.obscene", "不雅用语")}
+							label={t("ribbonBar.editMode.obscene", "不適切な表現")}
 							isWordField
 							fieldName="obscene"
 							defaultValue={false}
@@ -802,18 +802,18 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 					</Grid>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.editMode.secondaryContent", "次要内容")}
+					label={t("ribbonBar.editMode.secondaryContent", "補助テキスト")}
 				>
 					<Grid columns="0fr 1fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<EditField
-							label={t("ribbonBar.editMode.translatedLyric", "翻译歌词")}
+							label={t("ribbonBar.editMode.translatedLyric", "翻訳")}
 							fieldName="translatedLyric"
 							parser={(v) => v}
 							formatter={(v) => v}
 							textFieldStyle={{ width: "20em" }}
 						/>
 						<EditField
-							label={t("ribbonBar.editMode.romanLyric", "音译歌词")}
+							label={t("ribbonBar.editMode.romanLyric", "ローマ字")}
 							fieldName="romanLyric"
 							parser={(v) => v}
 							formatter={(v) => v}
@@ -821,20 +821,14 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 						/>
 					</Grid>
 				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.editMode.layoutMode", "布局模式")}>
+				<RibbonSection label={t("ribbonBar.editMode.layoutMode", "レイアウト")}>
 					<EditModeField
-						simpleModeLabel={t(
-							"settings.common.layoutModeOptions.simple",
-							"简单模式",
-						)}
-						advanceModeLabel={t(
-							"settings.common.layoutModeOptions.advance",
-							"高级模式",
-						)}
+						simpleModeLabel={t("settings.common.layoutModeOptions.simple", "シンプルモード")}
+						advanceModeLabel={t("settings.common.layoutModeOptions.advance", "高度モード")}
 					/>
 				</RibbonSection>
 				<RibbonSection
-					label={t("ribbonBar.editMode.auxiliaryLineDisplay", "辅助行显示")}
+					label={t("ribbonBar.editMode.auxiliaryLineDisplay", "補助行の表示")}
 				>
 					<AuxiliaryDisplayField />
 				</RibbonSection>

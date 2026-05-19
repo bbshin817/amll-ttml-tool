@@ -64,13 +64,13 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 	return (
 		<>
 			<ContextMenu.CheckboxItem checked={Bgchecked} onCheckedChange={bgOnCheck}>
-				{t("contextMenu.bgLyric", "背景歌词")}
+				{t("contextMenu.bgLyric", "バックボーカル行")}
 			</ContextMenu.CheckboxItem>
 			<ContextMenu.CheckboxItem
 				checked={DuetChecked}
 				onCheckedChange={duetOnCheck}
 			>
-				{t("contextMenu.duetLyric", "对唱歌词")}
+				{t("contextMenu.duetLyric", "デュエット行")}
 			</ContextMenu.CheckboxItem>
 			<ContextMenu.Separator />
 			<ContextMenu.Item
@@ -80,7 +80,7 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 					});
 				}}
 			>
-				{t("contextMenu.insertLineBefore", "在前插入空行")}
+				{t("contextMenu.insertLineBefore", "前に新しい行を挿入")}
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				onSelect={() => {
@@ -89,16 +89,16 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 					});
 				}}
 			>
-				{t("contextMenu.insertLineAfter", "在后插入空行")}
+				{t("contextMenu.insertLineAfter", "後ろに新しい行を挿入")}
 			</ContextMenu.Item>
 			<ContextMenu.Item onSelect={copyLines} disabled={selectedLinesSize === 0}>
 				{t("contextMenu.copyLine", {
 					count: selectedLinesSize,
-					defaultValue: "复制行",
+					defaultValue: "{{count}}行を複製",
 				})}
 			</ContextMenu.Item>
 			<ContextMenu.Item onSelect={combineLines} disabled={!combineEnabled}>
-				{t("contextMenu.combineLine", "合并行")}
+				{t("contextMenu.combineLine", "行を結合")}
 			</ContextMenu.Item>
 			<ContextMenu.Item
 				onSelect={() => {
@@ -115,7 +115,7 @@ export const LyricLineMenu = ({ lineIndex }: { lineIndex: number }) => {
 			>
 				{t("contextMenu.deleteLine", {
 					count: selectedLinesSize,
-					defaultValue: "删除行",
+					defaultValue: "{{count}}行を削除",
 				})}
 			</ContextMenu.Item>
 		</>

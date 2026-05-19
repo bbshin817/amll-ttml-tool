@@ -80,12 +80,12 @@ const AppErrorPage = ({
 	return (
 		<Flex direction="column" align="center" justify="center" height="100vh">
 			<Flex direction="column" align="start" justify="center" gap="2">
-				<Heading>{t("app.error.title", "诶呀，出错了！")}</Heading>
+				<Heading>{t("app.error.title", "エラーが発生しました")}</Heading>
 				<Text>
-					{t("app.error.description", "AMLL TTML Tools 在运行时出现了错误")}
+					{t("app.error.description", "AMLL TTML Tools の実行中にエラーが発生しました")}
 				</Text>
 				<Text>
-					{t("app.error.checkDevTools", "具体错误详情可以在开发者工具中查询")}
+					{t("app.error.checkDevTools", "詳しい情報は開発者ツールで確認できます")}
 				</Text>
 				<Flex gap="2">
 					<Button
@@ -99,7 +99,7 @@ const AppErrorPage = ({
 							}
 						}}
 					>
-						{t("app.error.saveLyrics", "尝试保存当前歌词")}
+						{t("app.error.saveLyrics", "現在の歌詞を保存してください")}
 					</Button>
 					<Button
 						onClick={() => {
@@ -107,10 +107,10 @@ const AppErrorPage = ({
 						}}
 						variant="soft"
 					>
-						{t("app.error.tryRestart", "尝试重新进入程序")}
+						{t("app.error.tryRestart", "アプリを再読み込みしてください")}
 					</Button>
 				</Flex>
-				<Text>{t("app.error.details", "大致错误信息：")}</Text>
+				<Text>{t("app.error.details", "エラー情報の概要：")}</Text>
 				<TextArea
 					readOnly
 					value={String(error)}
@@ -164,7 +164,7 @@ function App() {
 			toast.info(
 				<div>
 					<div style={{ fontWeight: "bold" }}>
-						{t("app.update.updateAvailable", "发现新版本: {version}", {
+						{t("app.update.updateAvailable", "アップデートがあります: {version}", {
 							version: update.version,
 						})}
 					</div>

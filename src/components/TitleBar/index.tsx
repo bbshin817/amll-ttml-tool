@@ -49,13 +49,13 @@ export const TitleBar: FC = () => {
 					// size="1"
 				>
 					<SegmentedControl.Item value={ToolMode.Edit}>
-						{t("topBar.modeBtns.edit", "编辑")}
+						{t("topBar.modeBtns.edit", "編集")}
 					</SegmentedControl.Item>
 					<SegmentedControl.Item value={ToolMode.Sync}>
-						{t("topBar.modeBtns.sync", "打轴")}
+						{t("topBar.modeBtns.sync", "タイミング")}
 					</SegmentedControl.Item>
 					<SegmentedControl.Item value={ToolMode.Preview}>
-						{t("topBar.modeBtns.preview", "预览")}
+						{t("topBar.modeBtns.preview", "プレビュー")}
 					</SegmentedControl.Item>
 				</SegmentedControl.Root>
 			}

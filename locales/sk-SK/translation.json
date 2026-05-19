@@ -166,7 +166,6 @@
 			"saveLyric": "Uložiť texty",
 			"restoreFromHistory": "Obnoviť z histórie…",
 			"saveLyricToClipboard": "Uložiť TTML do schránky",
-			"uploadToAMLLDB": "Nahrať do databázy (iba ČĽR)",
 			"edit": "Úpravy",
 			"undo": "Späť",
 			"redo": "Znovu",
@@ -484,38 +483,6 @@
 		"addPresets": "Pridať všetky preddefinované kľúče",
 		"clear": "Vymazať",
 		"info": "Viac informácií"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "V metadátach chýba názov skladby",
-			"missingArtists": "V metadátach chýbajú umelci skladby",
-			"missingAlbum": "V metadátach chýba názov albumu",
-			"missingMusicId": "V metadátach chýba ID skladby platformy"
-		},
-		"defaultReason": "Nové odoslanie textov",
-		"errors": {
-			"validation": "Overenie odoslania zlyhalo:\n{errors}",
-			"noLyrics": "Ešte nie je žiadny obsah textov?",
-			"uploadFailed": "Nepodarilo sa požiadať o nahranie súboru textov: {status} {statusText}",
-			"submitFailed": "Odoslanie zlyhalo, skontrolujte konzolu pre zistenie dôvodu!"
-		},
-		"labels": {
-			"submit": "Odoslať/Opraviť texty"
-		},
-		"issueTitle": "[Odoslanie/Oprava textov] {name}",
-		"unknownTitle": "Neznámy názov",
-		"unknownArtist": "Neznámy umelec",
-		"description": "Odoslať texty do databázy AMLL",
-		"title": "Odoslať texty do databázy AMLL (iba pre používateľov zjednodušenej čínštiny)",
-		"chineseOnlyWarning": "Táto funkcia je dostupná iba pre používateľov zjednodušenej čínštiny databázy AMLL. Ak upravujete texty pre použitie v inom softvéri, postupujte podľa spôsobu odosielania textov daného softvéru!",
-		"thankYou": "Predovšetkým ďakujeme za váš štedrý príspevok textov!",
-		"cc0Agreement": "Odoslaním súhlasíte s",
-		"cc0Rights": "použitím licencie CC0 a úplným vzdaním sa vlastníctva textov",
-		"andSubmit": "a odoslaním do databázy textov!",
-		"futureUse": "A texty budú v budúcnosti používané ako predvolený TTML zdroj systémami AMLL!",
-		"rightsWarning": "Ak si ceníte zachovanie vlastníctva, NEODOSIELAJTE!",
-		"submitInstructions": "Zadajte nasledujúce informácie a prejdite na stránku odoslania issue na GitHub!",
-		"closeWarning": "Zavrieť varovnú správu"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Medzera x{count}",

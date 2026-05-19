@@ -3,10 +3,10 @@
 		"error": {
 			"title": "エラーが発生しました",
 			"description": "AMLL TTML Tools の実行中にエラーが発生しました",
-			"checkDevTools": "詳細は開発者ツールで確認できます",
-			"saveLyrics": "現在の歌詞を保存してみる",
-			"tryRestart": "アプリを再読み込みする",
-			"details": "おおよそのエラー情報："
+			"checkDevTools": "詳しい情報は開発者ツールで確認できます",
+			"saveLyrics": "現在の歌詞を保存してください",
+			"tryRestart": "アプリを再読み込みしてください",
+			"details": "エラー情報の概要："
 		},
 		"update": {
 			"updateAvailable": "アップデートがあります: {version}",
@@ -14,31 +14,32 @@
 		},
 		"empty": {
 			"title": "歌詞行がありません",
-			"description": "上部パネルで新しい歌詞行を追加するか、メニューから既存の歌詞を開く／インポートしてください"
+			"description": "上部パネルで歌詞行を追加するか、メニューから既存の歌詞を開く／インポートしてください"
 		}
 	},
 	"confirmDialog": {
 		"cancel": "キャンセル",
 		"confirm": "確認",
+		"ok": "OK",
 		"newFile": {
-			"title": "新規ファイルの確認",
-			"description": "未保存の変更があります。続行すると変更は失われます。新規ファイルを作成しますか？"
+			"title": "新規ファイル作成の確認",
+			"description": "未保存の変更があります。続行すると変更内容は失われます。新しいファイルを作成しますか？"
 		},
 		"syncLineTimestamps": {
-			"title": "行タイムスタンプ同期の確認",
-			"description": "各行の単語のタイムスタンプに基づき、すべての行の開始・終了時刻を最初と最後の音節の時刻に自動同期します。続行しますか？"
+			"title": "行のタイムスタンプ同期の確認",
+			"description": "各行に含まれる単語のタイムスタンプをもとに、すべての行の開始時刻と終了時刻を、最初と最後の音節に合わせて自動で同期します。続行しますか？"
 		},
 		"openFile": {
-			"title": "ファイルを開く確認",
-			"description": "未保存の変更があります。続行すると変更は失われます。新しいファイルを開きますか？"
+			"title": "ファイルを開く前の確認",
+			"description": "未保存の変更があります。続行すると変更内容は失われます。新しいファイルを開きますか？"
 		},
 		"importFile": {
 			"title": "歌詞インポートの確認",
-			"description": "未保存の変更があります。続行すると変更は失われます。新しい歌詞をインポートしますか？"
+			"description": "未保存の変更があります。続行すると変更内容は失われます。新しい歌詞をインポートしますか？"
 		},
 		"useMetadataName": {
-			"title": "メタデータ名を使用しますか？",
-			"description": "「{name}」をファイル名として使用しますか？"
+			"title": "メタデータの名前を使用しますか？",
+			"description": "「{name}」をファイル名に使用しますか？"
 		}
 	},
 	"ribbonBar": {
@@ -46,23 +47,24 @@
 			"multipleValues": "複数の値…",
 			"showTranslation": "翻訳行を表示",
 			"showRomanization": "ローマ字行を表示",
-			"showWordRomanizationInput": "単語ごとのローマ字を表示",
+			"showWordRomanizationInput": "単語ごとのローマ字入力を表示",
 			"new": "新規",
 			"lyricLine": "歌詞行",
-			"lineTiming": "行タイミング",
+			"lineTiming": "行のタイミング",
 			"startTime": "開始時刻",
 			"endTime": "終了時刻",
+			"duration": "長さ",
 			"lineProperties": "行のプロパティ",
-			"bgLyric": "バックグラウンドボーカル",
-			"duetLyric": "デュエットボーカル",
-			"ignoreSync": "同期を無視",
-			"wordTiming": "単語タイミング",
-			"emptyBeatCount": "空拍数",
+			"bgLyric": "バックボーカル",
+			"duetLyric": "デュエットパート",
+			"ignoreSync": "同期対象外",
+			"wordTiming": "単語のタイミング",
+			"emptyBeatCount": "空拍の数",
 			"wordProperties": "単語のプロパティ",
 			"wordContent": "単語の内容",
 			"romanWord": "単語のローマ字",
 			"obscene": "不適切な表現",
-			"secondaryContent": "副次的内容",
+			"secondaryContent": "補助テキスト",
 			"translatedLyric": "翻訳",
 			"romanLyric": "ローマ字",
 			"layoutMode": "レイアウト",
@@ -72,27 +74,27 @@
 			"lyrics": "歌詞",
 			"showTranslation": "翻訳を表示",
 			"showRoman": "ローマ字を表示",
-			"maskObsceneWords": "不適切な表現をマスク",
+			"maskObsceneWords": "不適切な表現を隠す",
 			"word": "単語",
 			"fadeWidth": "フェード幅"
 		},
 		"syncMode": {
-			"currentEmptyBeat": "空拍",
-			"syncAdjustment": "タイミング調整",
+			"currentEmptyBeat": "現在の空拍",
+			"syncAdjustment": "タイミング補正",
 			"timeOffset": "時間オフセット",
 			"assistSettings": "アシスト設定",
-			"showTimestampUpdate": "タイムスタンプ更新を表示",
+			"showTimestampUpdate": "タイムスタンプの更新を表示",
 			"touchSyncPanel": "タッチ同期パネル",
-			"bgLyricIgnoreSync": "バックグラウンドボーカルを無視",
+			"bgLyricIgnoreSync": "バックボーカルを同期対象外にする",
 			"displayOptions": "表示オプション",
 			"showTimestamps": "タイムスタンプを表示",
 			"highlightActiveWord": "アクティブな単語をハイライト",
 			"highlightErrors": "エラーをハイライト",
 			"showPerWordRomanization": "単語ごとのローマ字を表示",
 			"keyBindingReference": "ショートカット一覧",
-			"startSync": "開始をマーク",
+			"startSync": "開始位置を記録",
 			"continuousSync": "確定",
-			"endSync": "終了をマーク"
+			"endSync": "終了位置を記録"
 		},
 		"loading": "パネルを読み込み中…"
 	},
@@ -100,10 +102,10 @@
 		"common": {
 			"layoutModeOptions": {
 				"simple": "シンプルモード",
-				"advance": "詳細モード"
+				"advance": "高度モード"
 			},
 			"customBackground": "カスタム背景",
-			"customBackgroundDesc": "背景に使用する画像を選択します。",
+			"customBackgroundDesc": "背景として使用する画像を選択します。",
 			"customBackgroundPick": "画像を選択",
 			"customBackgroundClear": "クリア",
 			"customBackgroundManage": "設定",
@@ -114,30 +116,30 @@
 			"customBackgroundBlur": "ぼかし半径",
 			"customBackgroundBrightness": "明るさ",
 			"language": "表示言語",
-			"languageDesc": "インターフェースの表示言語を選択",
-			"layoutMode": "エディターのレイアウトモード",
+			"languageDesc": "インターフェースに表示する言語を選択します",
+			"layoutMode": "エディターのレイアウト",
 			"layoutModeDesc": {
-				"line1": "シンプルレイアウトで基本的なニーズを満たせます",
-				"line2": "より効率的な同期が必要な場合は詳細モードに切り替えてください"
+				"line1": "シンプルレイアウトで基本的な操作を行えます",
+				"line2": "より効率よく同期したい場合は高度モードに切り替えてください"
 			},
-			"syncJudgeMode": "同期タイムスタンプ判定モード",
-			"syncJudgeModeDesc": "同期時のタイムスタンプ判定方法を設定します。デフォルトは「最初のキー押下」です。",
+			"syncJudgeMode": "同期タイムスタンプの判定方法",
+			"syncJudgeModeDesc": "同期時にタイムスタンプをどのタイミングで判定するかを設定します。デフォルトは「最初のキー押下時刻」です。",
 			"syncJudgeModeOptions": {
-				"firstKeyDown": "最初のキー押下時刻",
-				"lastKeyUp": "最後のキー解放時刻",
-				"middleKey": "キー押下と解放の中間",
-				"firstKeyDownLegacy": "最初のキー押下時刻（レガシー）"
+				"firstKeyDown": "最初にキーを押した時刻",
+				"lastKeyUp": "最後にキーを離した時刻",
+				"middleKey": "キーを押してから離すまでの中間",
+				"firstKeyDownLegacy": "最初にキーを押した時刻（旧方式）"
 			},
-			"keyBindingTrigger": "キーバインドのトリガー",
-			"keyBindingTriggerDesc": "ショートカットをキー押下時か解放時に発動するかを決定します。",
+			"keyBindingTrigger": "ショートカットの発動タイミング",
+			"keyBindingTriggerDesc": "ショートカットを、キーを押したときに発動するか、離したときに発動するかを設定します。",
 			"keyBindingTriggerOptions": {
 				"keyDown": "キー押下時に発動",
 				"keyUp": "キー解放時に発動"
 			},
-			"smartFirstWord": "スマート先頭単語",
-			"smartFirstWordDesc": "行の最初の単語を同期する際、最初のキー押下では開始時刻のみを設定し、すぐに終了時刻は設定しません。",
-			"smartLastWord": "スマート末尾単語",
-			"smartLastWordDesc": "行の最後の単語を同期する際、キー押下で終了時刻を設定し、次の行の最初の単語の開始時刻は自動設定しません。",
+			"smartFirstWord": "先頭単語のスマート同期",
+			"smartFirstWordDesc": "行の最初の単語を同期する際、最初のキー入力では開始時刻のみを設定し、終了時刻はすぐには設定しません。",
+			"smartLastWord": "末尾単語のスマート同期",
+			"smartLastWordDesc": "行の最後の単語を同期する際、キー入力で終了時刻を設定し、次の行の最初の単語の開始時刻は自動設定しません。",
 			"volume": "音楽の音量",
 			"playbackRate": "再生速度",
 			"autosave": {
@@ -163,7 +165,7 @@
 		"spectrogram": {
 			"palette": "カラーパレット",
 			"paletteCustom": "カスタム",
-			"gradientEditorDesc": "Pos 値 0.0 は最も静かな部分、1.0 は最も大きな音に対応します。Pos 値が大きいほど明るい色を使うことを推奨します。",
+			"gradientEditorDesc": "Pos 値 0.0 は最も静かな部分、1.0 は最も音量が大きい部分に対応します。Pos 値が大きいほど、明るい色を使用することをおすすめします。",
 			"addStop": "カラーストップを追加"
 		}
 	},
@@ -173,32 +175,32 @@
 			"sync": "タイミング",
 			"preview": "プレビュー"
 		},
-		"appName": "Apple Music-like Lyrics TTML Tool",
+		"appName": "Apple Music風歌詞 TTML ツール",
 		"menu": {
 			"file": "ファイル",
-			"newLyric": "新規歌詞",
+			"newLyric": "新しい歌詞",
 			"openLyric": "歌詞を開く",
 			"openFromClipboard": "クリップボードから TTML を開く",
-			"openFromAppleMusic": "Apple Music から参照",
+			"openFromAppleMusic": "Apple Music から取得",
 			"saveLyric": "歌詞を保存",
 			"restoreFromHistory": "履歴から復元…",
 			"saveLyricToClipboard": "TTML をクリップボードに保存",
-			"uploadToAMLLDB": "データベースにアップロード（中国のみ）",
+			"uploadToAMLLDB": "データベースにアップロード（中国向け）",
 			"edit": "編集",
 			"undo": "元に戻す",
 			"redo": "やり直し",
 			"selectAllLines": "すべての行を選択",
 			"unselectAllLines": "すべての行の選択を解除",
 			"invertSelectAllLines": "行の選択を反転",
-			"selectWordsOfMatchedSelection": "選択に一致する単語を選択",
-			"timeShift": "時間シフト…",
+			"selectWordsOfMatchedSelection": "選択内容と一致する単語を選択",
+			"timeShift": "時間をシフト…",
 			"editMetadata": "歌詞メタデータを編集…",
 			"tool": "ツール",
-			"segmentationTools": "セグメンテーションツール",
-			"autoSegment": "自動セグメント",
+			"segmentationTools": "分割ツール",
+			"autoSegment": "自動分割",
 			"rubySegment": "ルビ分割",
-			"advancedSegment": "詳細セグメント…",
-			"syncLineTimestamps": "行タイムスタンプを同期",
+			"advancedSegment": "詳細分割…",
+			"syncLineTimestamps": "行のタイムスタンプを同期",
 			"perWordRomanization": {
 				"index": "単語ごとのローマ字",
 				"check": "単語ごとのローマ字を確認",
@@ -211,20 +213,13 @@
 				"import": "歌詞をインポート",
 				"fromPlainText": "プレーンテキストからインポート…",
 				"fromLRCLIB": "LRCLIB からインポート…",
-				"fromLyRiC": "LyRiC ファイルからインポート…",
-				"fromESLyRiC": "ESLyRiC ファイルからインポート…",
-				"fromQRC": "QRC ファイルからインポート…",
-				"fromYRC": "YRC ファイルからインポート…",
-				"fromLrcfySylb": "Lyricify Syllable ファイルからインポート…"
+				"fromTTML": "TTML ファイルからインポート…",
+				"fromSpotifyJson": "Spotify JSON ファイルからインポート…"
 			},
 			"exportLyric": {
 				"export": "歌詞をエクスポート",
-				"toLyRiC": "LyRiC にエクスポート",
-				"toESLyRiC": "ESLyRiC にエクスポート",
-				"toQRC": "QRC にエクスポート",
-				"toYRC": "YRC にエクスポート",
-				"toLrcfySylb": "Lyricify Syllable にエクスポート",
-				"toASS": "ASS 字幕にエクスポート"
+				"toTTML": "TTML 形式",
+				"toSpotifyJson": "Spotify JSON 形式"
 			}
 		}
 	},
@@ -232,7 +227,7 @@
 		"status": {
 			"saving": "保存中…",
 			"pending": "保存中…",
-			"savedAt": "最終保存",
+			"savedAt": "最終保存時刻",
 			"saved": "保存済み",
 			"autoSavedAt": "{time} に自動保存"
 		},
@@ -243,23 +238,23 @@
 	},
 	"contextMenu": {
 		"deleteWords": "{count}個の単語を削除",
-		"bgLyric": "バックグラウンド行",
+		"bgLyric": "バックボーカル行",
 		"duetLyric": "デュエット行",
 		"insertLineBefore": "前に新しい行を挿入",
-		"insertLineAfter": "後に新しい行を挿入",
+		"insertLineAfter": "後ろに新しい行を挿入",
 		"copyLine": "{count}行を複製",
 		"combineLine": "行を結合",
 		"deleteLine": "{count}行を削除",
 		"splitWord": "単語を分割…",
 		"replaceWord": "単語を置換…",
 		"combineWords": "単語を結合",
-		"moveFollowingWordToNewLine": "以降を新しい行に移動",
+		"moveFollowingWordToNewLine": "以降の単語を新しい行に移動",
 		"moveWordToNewLine": "{count}個の単語を新しい行に移動"
 	},
 	"settingsDialog": {
 		"title": "環境設定",
 		"common": {
-			"latencyTest": "音声／入力レイテンシテスト"
+			"latencyTest": "音声／入力レイテンシのテスト"
 		},
 		"keybindings": {
 			"newFile": "新規ファイル",
@@ -269,22 +264,22 @@
 			"undo": "元に戻す",
 			"redo": "やり直し",
 			"selectAll": "すべて選択",
-			"unselectAll": "",
+			"unselectAll": "選択をすべて解除",
 			"selectInverted": "選択を反転",
 			"selectWordsOfMatchedSelection": "類似する単語を選択",
 			"deleteSelection": "選択を削除",
-			"switchEditMode": "モード切替 - 編集モード",
-			"switchSyncMode": "モード切替 - タイミングモード",
-			"switchPreviewMode": "モード切替 - プレビューモード",
-			"moveNextWord": "タイミング - 次の単語へ",
-			"movePrevWord": "タイミング - 前の単語へ",
-			"moveNextLine": "タイミング - 次の行の先頭へ",
-			"movePrevLine": "タイミング - 前の行の先頭へ",
+			"switchEditMode": "モード切替 - 編集モードへ",
+			"switchSyncMode": "モード切替 - タイミングモードへ",
+			"switchPreviewMode": "モード切替 - プレビューモードへ",
+			"moveNextWord": "タイミング - 次の単語へ移動",
+			"movePrevWord": "タイミング - 前の単語へ移動",
+			"moveNextLine": "タイミング - 次の行の先頭へ移動",
+			"movePrevLine": "タイミング - 前の行の先頭へ移動",
 			"movePrevWordAndPlay": "タイミング - 前の単語へ移動して再生",
 			"moveNextWordAndPlay": "タイミング - 次の単語へ移動して再生",
-			"syncStart": "タイミング - 開始をマーク",
+			"syncStart": "タイミング - 開始位置を記録",
 			"syncNext": "タイミング - 確定",
-			"syncEnd": "タイミング - 終了をマーク",
+			"syncEnd": "タイミング - 終了位置を記録",
 			"moveFirstWordAndPlay": "タイミング - 最初の単語へ移動して再生",
 			"moveLastWordAndPlay": "タイミング - 最後の単語へ移動して再生",
 			"playPause": "再生 - 再生／一時停止",
@@ -320,13 +315,13 @@
 	"audioPanel": {
 		"volume": "音量",
 		"playbackRate": "再生速度",
-		"clickToLoadMusic": "アイコンボタンをクリックして音楽を読み込む",
-		"playPause": "音楽を再生／一時停止",
-		"expandSpectrogram": "スペクトログラムを展開／折りたたむ"
+		"clickToLoadMusic": "アイコンボタンをクリックして音声を読み込む",
+		"playPause": "音声を再生／一時停止",
+		"expandSpectrogram": "スペクトログラムを展開／折りたたみ"
 	},
 	"audio": {
 		"status": {
-			"transcoding": "デコードに失敗しました。音声をトランスコードしています…",
+			"transcoding": "デコードに失敗しました。音声の変換を試行しています…",
 			"loading": "音声を読み込み中…",
 			"processing": "処理中…"
 		},
@@ -335,15 +330,15 @@
 		}
 	},
 	"latencyTestDialog": {
-		"title": "タイミングオフセット レイテンシテスト",
-		"description": "お好みの BPM を選択し、各ビート音で {key} キーを押して、音声と入力のレイテンシを測定してください。",
+		"title": "タイミング補正レイテンシテスト",
+		"description": "任意の BPM を選択し、ビート音に合わせて {key} キーを押して、音声と入力のレイテンシを測定してください。",
 		"latencyDisplay": {
 			"fastest": "最速",
 			"current": {
 				"none": "未測定",
-				"fast": "早い",
-				"slow": "遅い",
-				"perfect": "完璧"
+				"fast": "早め",
+				"slow": "遅め",
+				"perfect": "ぴったり"
 			},
 			"slowest": "最遅"
 		},
@@ -354,58 +349,59 @@
 		}
 	},
 	"appleMusicImport": {
-		"title": "Apple Music から参照",
+		"title": "Apple Music から取得",
 		"description": "Apple Music のトラック URL を貼り付けて、歌詞を読み込みます。",
 		"urlLabel": "トラック URL",
 		"placeholder": "https://music.apple.com/jp/song/...",
 		"import": "読み込む",
 		"errors": {
 			"invalidUrl": "有効な Apple Music のトラック URL を入力してください",
-			"fetchFailed": "歌詞の取得に失敗しました。URL またはネットワークを確認してください"
+			"fetchFailed": "歌詞の取得に失敗しました。URL またはネットワーク接続を確認してください",
+			"apiErrorTitle": "エラー"
 		}
 	},
 	"lrclib": {
-		"searchError": "検索に失敗しました。ネットワークを確認するか、後でもう一度お試しください",
+		"searchError": "検索に失敗しました。ネットワーク接続を確認するか、時間をおいて再度お試しください",
 		"importError": "歌詞のインポート中にエラーが発生しました",
 		"title": "LRCLIB から歌詞をインポート",
 		"placeholder": "曲名 アーティスト…",
 		"synced": "同期済み",
 		"unsynced": "未同期",
 		"notFound": "結果が見つかりませんでした。別のキーワードをお試しください",
-		"noResult": "キーワードを入力して検索を開始",
-		"noLyrics": "このトラックには歌詞コンテンツがありません",
-		"extractBg": "括弧内をバックグラウンドボーカルとして抽出",
-		"autoSegment": "自動セグメント",
+		"noResult": "キーワードを入力すると検索できます",
+		"noLyrics": "このトラックには歌詞がありません",
+		"extractBg": "括弧内をバックボーカルとして抽出",
+		"autoSegment": "自動分割",
 		"import": "歌詞をインポート"
 	},
 	"common": {
 		"search": "検索",
 		"close": "閉じる",
 		"cancel": "キャンセル",
-		"confirm": "確認",
+		"confirm": "確定",
 		"apply": "適用",
-		"applyScope": "範囲",
+		"applyScope": "適用範囲",
 		"scope": {
 			"all": "すべての歌詞行",
 			"selected": "選択した歌詞行",
 			"selectedFollowing": "選択行と以降",
 			"custom": "カスタム範囲"
 		},
-		"fromLine": "行",
-		"toLine": "から行",
+		"fromLine": "開始行",
+		"toLine": "終了行",
 		"line": "",
-		"success": "復元に成功しました",
-		"error": "データが破損または消失しています",
-		"deleteSuccess": "削除に成功しました",
+		"success": "復元しました",
+		"error": "データが破損しているか、失われています",
+		"deleteSuccess": "削除しました",
 		"time": "時刻",
 		"restore": "復元",
-		"about": "について",
+		"about": "このアプリについて",
 		"remove": "削除",
-		"clickToSet": "クリックして設定 "
+		"clickToSet": "クリックして設定"
 	},
 	"lyricLineView": {
-		"translatedLabel": "翻訳:",
-		"romanLabel": "ローマ字:",
+		"translatedLabel": "翻訳：",
+		"romanLabel": "ローマ字：",
 		"empty": "なし",
 		"insertLine": "ここに新しい行を挿入",
 		"insertWord": "ここに単語を挿入…"
@@ -420,40 +416,40 @@
 	},
 	"replaceWordDialog": {
 		"title": "単語を置換",
-		"description": "新しい単語:",
+		"description": "新しい単語：",
 		"placeholder": "新しい単語",
-		"applyToAll": "同じ単語すべてにこの置換を適用",
+		"applyToAll": "同じ単語すべてにこの置換を適用する",
 		"ignoreCase": "大文字小文字を無視"
 	},
 	"timeShiftDialog": {
 		"title": "時間シフト",
 		"amount": "オフセット（ms）",
-		"direction": "方向",
-		"advance": "前倒し（-）",
-		"delay": "遅延（+）",
-		"scopeLabel": "範囲",
+		"direction": "シフト方向",
+		"advance": "前にずらす（-）",
+		"delay": "後ろにずらす（+）",
+		"scopeLabel": "適用範囲",
 		"scope": {
 			"all": "すべての歌詞行",
 			"selected": "選択した歌詞行",
 			"selectedFollowing": "選択行と以降",
 			"custom": "カスタム範囲"
 		},
-		"fromLine": "行",
-		"toLine": "から行",
+		"fromLine": "開始行",
+		"toLine": "終了行",
 		"line": ""
 	},
 	"distributeRomanDialog": {
-		"title": "行のローマ字を単語に分配",
-		"warning": "この操作は行レベルの表記を読み取り、個々の単語に分配します。アルゴリズムは日本語のローマ字表記向けに最適化されており、他の言語では期待どおりに動作しない場合があります。"
+		"title": "行のローマ字を単語ごとに分配",
+		"warning": "この操作では、行単位のローマ字表記を読み取り、各単語に分配します。アルゴリズムは日本語のローマ字表記向けに最適化されているため、他の言語では期待どおりに動作しない場合があります。"
 	},
 	"globalDragOverlay": {
-		"title": "離して読み込む"
+		"title": "離すと読み込みます"
 	},
 	"historyRestoreDialog": {
-		"loadError": "履歴の読み込みに失敗しました",
+		"loadError": "履歴を読み込めませんでした",
 		"confirm": {
 			"title": "復元の確認",
-			"description": "現在のエディターのすべての内容が上書きされます。このスナップショットを復元しますか？"
+			"description": "現在のエディター内容がすべて上書きされます。このスナップショットを復元しますか？"
 		},
 		"deleteProject": {
 			"title": "プロジェクト履歴を削除",
@@ -461,20 +457,20 @@
 		},
 		"projects": "最近のプロジェクト",
 		"noProjects": "自動保存された記録はありません。",
-		"latestState": "最新バージョン",
+		"latestState": "最新の状態",
 		"restoreLatest": "このバージョンを復元",
 		"historyVersions": "その他のバージョン",
 		"noHistory": "履歴がありません",
-		"selectProject": "左パネルから項目を選択してください"
+		"selectProject": "左側のパネルから項目を選択してください"
 	},
 	"autosave": {
 		"legacyProjectName": "レガシースナップショット",
 		"untitledProjectName": "無題のプロジェクト"
 	},
 	"time": {
-		"daysAgo": "{count} 日前",
-		"hoursAgo": "{count} 時間前",
-		"minutesAgo": "{count} 分前",
+		"daysAgo": "{count}日前",
+		"hoursAgo": "{count}時間前",
+		"minutesAgo": "{count}分前",
 		"justNow": "たった今"
 	},
 	"metadata": {
@@ -492,17 +488,24 @@
 		},
 		"separationMode": {
 			"caption": "翻訳／ローマ字の形式",
-			"multipleLine": "複数行交互",
-			"sameLine": "同一行区切り"
+			"multipleLine": "複数行で交互に配置",
+			"sameLine": "同じ行内で区切る"
 		},
-		"separator": "行区切り",
-		"swapTransAndRoman": "翻訳行とローマ字行を入れ替え",
-		"wordSeparator": "単語区切り",
+		"separator": "行の区切り文字",
+		"swapTransAndRoman": "翻訳行とローマ字行を入れ替える",
+		"wordSeparator": "単語の区切り文字",
 		"enableSpecialPrefix": "特殊プレフィックスを有効にする",
-		"bgLyricPrefix": "バックグラウンド歌詞プレフィックス",
-		"duetLyricPrefix": "デュエット歌詞プレフィックス",
+		"bgLyricPrefix": "バックボーカル歌詞のプレフィックス",
+		"duetLyricPrefix": "デュエット歌詞のプレフィックス",
 		"enableEmptyBeat": "空拍を有効にする",
-		"emptyBeatSymbol": "空拍記号"
+		"emptyBeatSymbol": "空拍の記号",
+		"importFailed": "プレーンテキスト歌詞のインポートに失敗しました。入力内容またはインポート設定を確認してください"
+	},
+	"rubyEditor": {
+		"warningTitle": "テスト中のルビ機能を使用しています",
+		"warningBody1": "ルビを追加すると、対応していないパーサーではファイルを正しく読み込めない場合があります。",
+		"warningBody2": "非対応のパーサーで使用すると、文字が欠落するなどの問題が発生する可能性があります。",
+		"understood": "理解しました"
 	},
 	"metadataDialog": {
 		"openLink": "リンクを開く",
@@ -511,24 +514,24 @@
 		"builtinOptions": {
 			"musicName": "曲名",
 			"artists": "アーティスト",
-			"artistsInvalidMsg": "複数のアーティストがいる場合は、区切り文字を使わずにこのキーを複数回追加してください。アーティスト名に区切り文字が含まれる場合は、このメッセージを無視してください",
-			"songwriter": "作詞者",
-			"songwriterInvalidMsg": "複数の作詞者がいる場合は、区切り文字を使わずにこのキーを複数回追加してください",
+			"artistsInvalidMsg": "複数のアーティストがいる場合は、区切り文字を使わず、このキーを複数回追加してください。アーティスト名自体に区切り文字が含まれる場合は、このメッセージを無視してください",
+			"songwriter": "作詞・作曲者",
+			"songwriterInvalidMsg": "複数の作詞・作曲者がいる場合は、区切り文字を使わず、このキーを複数回追加してください",
 			"album": "アルバム名",
 			"ncmMusicId": "NetEase Music ID",
-			"ncmMusicIdInvalidMsg": "NetEase Music ID は数値である必要があります",
+			"ncmMusicIdInvalidMsg": "NetEase Music ID は数値で入力してください",
 			"qqMusicId": "QQ Music ID",
-			"qqMusicIdInvalidMsg": "QQ Music ID は英数字である必要があります",
+			"qqMusicIdInvalidMsg": "QQ Music ID は英数字で入力してください",
 			"spotifyId": "Spotify トラック ID",
-			"spotifyIdInvalidMsg": "Spotify トラック ID は英数字である必要があります",
+			"spotifyIdInvalidMsg": "Spotify トラック ID は英数字で入力してください",
 			"appleMusicId": "Apple Music トラック ID",
-			"appleMusicIdInvalidMsg": "Apple Music トラック ID は数値である必要があります",
+			"appleMusicIdInvalidMsg": "Apple Music トラック ID は数値で入力してください",
 			"isrc": "トラック ISRC コード",
 			"isrcInvalidMsg": "ISRC コードの形式は CC-XXX-YY-NNNNN です",
 			"ttmlAuthorGithub": "歌詞作者の GitHub ID",
-			"ttmlAuthorGithubInvalidMsg": "GitHub ID は数値である必要があります",
+			"ttmlAuthorGithubInvalidMsg": "GitHub ID は数値で入力してください",
 			"ttmlAuthorGithubLogin": "歌詞作者の GitHub ユーザー名",
-			"ttmlAuthorGithubLoginInvalidMsg": "GitHub ユーザー名は英数字またはハイフンで、最大39文字です"
+			"ttmlAuthorGithubLoginInvalidMsg": "GitHub ユーザー名は英数字またはハイフンを使用し、39文字以内で入力してください"
 		},
 		"title": "メタデータエディター",
 		"key": "キー",
@@ -543,16 +546,16 @@
 	"submitToAMLLDB": {
 		"validation": {
 			"missingMusicName": "メタデータに曲名がありません",
-			"missingArtists": "メタデータにアーティストがありません",
+			"missingArtists": "メタデータにアーティスト情報がありません",
 			"missingAlbum": "メタデータにアルバム名がありません",
 			"missingMusicId": "メタデータにプラットフォームのトラック ID がありません"
 		},
 		"defaultReason": "新規歌詞の投稿",
 		"errors": {
 			"validation": "投稿の検証に失敗しました:\n{errors}",
-			"noLyrics": "まだ歌詞コンテンツがありません",
-			"uploadFailed": "歌詞ファイルのアップロード要求に失敗しました: {status} {statusText}",
-			"submitFailed": "投稿に失敗しました。コンソールで理由を確認してください"
+			"noLyrics": "まだ歌詞が入力されていません",
+			"uploadFailed": "歌詞ファイルのアップロードリクエストに失敗しました: {status} {statusText}",
+			"submitFailed": "投稿に失敗しました。理由はコンソールで確認してください"
 		},
 		"labels": {
 			"submit": "歌詞の投稿／修正"
@@ -560,89 +563,89 @@
 		"issueTitle": "[歌詞投稿／修正] {name}",
 		"unknownTitle": "不明なタイトル",
 		"unknownArtist": "不明なアーティスト",
-		"description": "AMLL 歌詞データベースに歌詞を投稿",
+		"description": "AMLL 歌詞データベースに歌詞を投稿します",
 		"title": "AMLL 歌詞データベースに歌詞を投稿（簡体字中国語ユーザーのみ）",
-		"chineseOnlyWarning": "この機能は AMLL 歌詞データベースの簡体字中国語ユーザーのみ利用できます。他のソフトウェアで使用する歌詞を編集している場合は、そのソフトウェアの方法で歌詞を投稿してください。",
-		"thankYou": "まず、歌詞へのご協力に感謝いたします！",
-		"cc0Agreement": "投稿により",
-		"cc0Rights": "CC0 ライセンスの使用に同意し、歌詞の所有権を完全に放棄する",
-		"andSubmit": "ことに同意し、歌詞データベースに投稿します！",
-		"futureUse": "今後、AMLL システムではこの歌詞がデフォルトの TTML ソースとして使用されます！",
-		"rightsWarning": "所有権を保持したい場合は、投稿しないでください！",
-		"submitInstructions": "以下の情報を入力してから GitHub の issue 投稿ページに進んでください！",
+		"chineseOnlyWarning": "この機能は、AMLL 歌詞データベースを利用する簡体字中国語ユーザー向けです。他のソフトウェアで使う歌詞を編集している場合は、そのソフトウェアの手順に従って歌詞を投稿してください。",
+		"thankYou": "歌詞の投稿にご協力いただきありがとうございます。",
+		"cc0Agreement": "投稿すると、",
+		"cc0Rights": "CC0 ライセンスの適用と、歌詞に関する権利の完全放棄に同意したものとみなされます",
+		"andSubmit": "そのうえで、歌詞データベースに投稿します。",
+		"futureUse": "投稿された歌詞は、今後 AMLL システムのデフォルト TTML ソースとして使用されます。",
+		"rightsWarning": "権利を保持したい場合は投稿しないでください。",
+		"submitInstructions": "以下の情報を入力してから、GitHub の issue 投稿ページへ進んでください。",
 		"closeWarning": "警告メッセージを閉じる"
 	},
 	"splitWordDialog": {
 		"spaceCount": "スペース x{count}",
 		"empty": "空",
 		"title": "単語を分割",
-		"tip": "分割後、新しい単語は元の単語の開始・終了時刻を均等に分割します。空拍はクリアされます。",
-		"applyToAll": "同じ単語すべてにこの分割を適用",
+		"tip": "分割後、新しい単語には元の単語の開始時刻から終了時刻までの時間が均等に割り当てられます。空拍はクリアされます。",
+		"applyToAll": "同じ単語すべてにこの分割を適用する",
 		"ignoreCase": "大文字小文字を無視",
 		"actionButton": "確認"
 	},
 	"advancedSegmentDialog": {
 		"test": {
-			"outputError": "分割プレビューエラー",
+			"outputError": "分割プレビューでエラーが発生しました",
 			"title": "分割テスト",
 			"input": "歌詞行または単語を入力してテスト…",
 			"output": "プレビュー結果:"
 		},
-		"title": "詳細セグメンテーション",
+		"title": "詳細分割",
 		"scope": {
 			"title": "適用範囲",
 			"all": "すべての歌詞行",
 			"range": {
-				"from": "行",
-				"to": "から行",
+				"from": "開始行",
+				"to": "終了行",
 				"end": ""
 			}
 		},
 		"rules": {
-			"title": "自動セグメンテーションルール",
+			"title": "自動分割ルール",
 			"cjk": "CJK 文字を分割",
-			"syllable": "西洋語の単語を音節で分割"
+			"syllable": "欧米言語の単語を音節で分割"
 		},
 		"language": {
-			"select": "ハイフネーション言語モデルを選択:"
+			"select": "ハイフネーション用の言語モデルを選択:"
 		},
-		"tip": "分割後、元の単語の合計時間は文字数と重みに基づいて再分配されます。",
+		"tip": "分割後、元の単語の合計時間は、文字数と重みに基づいて再分配されます。",
 		"postProcess": {
 			"title": "後処理",
 			"punct": {
-				"caption": "句読点の処理:",
-				"merge": "隣接する音節にマージ",
-				"standalone": "独立セグメントとして設定",
+				"caption": "句読点の扱い:",
+				"merge": "隣接する音節に結合",
+				"standalone": "独立したセグメントにする",
 				"weight": "句読点の時間重み:"
 			},
 			"empty": "空のセグメントを削除"
 		},
 		"custom": {
-			"title": "カスタムセグメンテーションルール",
-			"input": "手動分割する単語を入力…",
+			"title": "カスタム分割ルール",
+			"input": "手動で分割する単語を入力…",
 			"add": "カスタムルールに追加",
 			"list": "カスタムルール一覧:"
 		},
 		"ignore": {
 			"title": "無視リスト",
-			"placeholder": "1行に1単語。このリストの単語は自動セグメントされません"
+			"placeholder": "1行に1単語ずつ入力してください。このリスト内の単語は自動分割されません"
 		}
 	},
 	"aboutModal": {
-		"appName": "Apple Music-like Lyrics TTML Tool",
-		"description": "Apple Music-like Lyrics 向けの単語単位 TTML 編集・タイムラインツール",
+		"appName": "Apple Music風歌詞 TTML ツール",
+		"description": "Apple Music風歌詞向けの、単語単位の TTML 編集・タイムライン調整ツール",
 		"buildDate": "ビルド日: {date}",
 		"gitCommit": "Git コミット: {commit}"
 	},
 	"spectrogram": {
 		"invalidEndTime": "この終了時刻は選択できません",
-		"noAudioLoaded": "スペクトログラムを表示するには音声ファイルを読み込んでください",
+		"noAudioLoaded": "スペクトログラムを表示するには、音声ファイルを読み込んでください",
 		"loadAudio": "音声ファイルを読み込む",
 		"showUnselectedLines": "未選択の行を表示"
 	},
 	"pwa": {
-		"offlineReady": "オフライン利用のためにサイトをキャッシュしました",
-		"updateRefresh": "サイトが更新されました。最新版を使用するには更新してください",
+		"offlineReady": "オフラインで利用できるようにサイトをキャッシュしました",
+		"updateRefresh": "サイトが更新されました。最新版を使用するには再読み込みしてください",
 		"refresh": "更新"
 	}
 }

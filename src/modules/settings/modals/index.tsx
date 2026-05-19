@@ -17,20 +17,20 @@ export const SettingsDialog = memo(() => {
 	return (
 		<Dialog.Root open={settingsDialogOpen} onOpenChange={setSettingsDialogOpen}>
 			<Dialog.Content maxWidth="600px">
-				<Dialog.Title>{t("settingsDialog.title", "首选项")}</Dialog.Title>
+				<Dialog.Title>{t("settingsDialog.title", "環境設定")}</Dialog.Title>
 				<Tabs.Root value={activeTab} onValueChange={setActiveTab}>
 					<Tabs.List>
 						<Tabs.Trigger value="common">
-							{t("settingsDialog.tab.common", "常规")}
+							{t("settingsDialog.tab.common", "一般")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="keybinding">
-							{t("settingsDialog.tab.keybindings", "按键绑定")}
+							{t("settingsDialog.tab.keybindings", "キーバインド")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="spectrogram">
-							{t("settingsDialog.tab.spectrogram", "频谱图")}
+							{t("settingsDialog.tab.spectrogram", "スペクトログラム")}
 						</Tabs.Trigger>
 						<Tabs.Trigger value="about">
-							{t("common.about", "关于")}
+							{t("common.about", "このアプリについて")}
 						</Tabs.Trigger>
 					</Tabs.List>
 					<Box

@@ -181,7 +181,6 @@
 			"saveLyric": "Simpan File TTML",
 			"restoreFromHistory": "Pulihkan dari Riwayat…",
 			"saveLyricToClipboard": "Simpan File TTML ke Clipboard",
-			"uploadToAMLLDB": "Unggah ke Database Lirik AMLL",
 			"edit": "Edit",
 			"undo": "Urungkan",
 			"redo": "Ulangi",
@@ -507,55 +506,6 @@
 		"addPresets": "Tambah Semua Kunci Standar",
 		"clear": "Kosongkan",
 		"info": "Pelajari Lebih Lanjut"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "Metadata kehilangan judul lagu",
-			"missingArtists": "Metadata kehilangan artis lagu",
-			"missingAlbum": "Metadata kehilangan nama album lagu",
-			"missingMusicId": "Metadata kehilangan ID lagu dari platform musik"
-		},
-		"defaultReason": "Pengiriman lirik baru",
-		"errors": {
-			"validation": "Validasi pengiriman gagal:\n{errors}",
-			"noLyrics": "Lirik masih kosong?",
-			"uploadFailed": "Gagal mengirim permintaan unggah berkas lirik: {status} {statusText}",
-			"submitFailed": "Terjadi kesalahan saat pengiriman, mohon periksa konsol untuk detailnya!"
-		},
-		"labels": {
-			"submit": "Pengiriman/Koreksi Lirik"
-		},
-		"issueTitle": "[Pengiriman/Koreksi Lirik] {name}",
-		"unknownTitle": "Judul Tidak Diketahui",
-		"unknownArtist": "Artis Tidak Diketahui",
-		"description": "Kirim lirik ke Database Lirik AMLL",
-		"title": "Kirim lirik ke Database Lirik AMLL (Khusus pengguna Mandarin)",
-		"chineseOnlyWarning": "Fitur ini hanya tersedia untuk pengguna AMLL Database Lirik versi Mandarin Sederhana. Jika Anda mengedit lirik untuk digunakan di aplikasi lain, harap ikuti cara pengiriman lirik di aplikasi tersebut ya!",
-		"thankYou": "Pertama-tama, terima kasih atas kontribusi lirik Anda!",
-		"cc0Agreement": "Dengan mengirimkan, Anda secara otomatis menyetujui",
-		"cc0Rights": "Melepas sepenuhnya hak kepemilikan lirik menggunakan lisensi CC0",
-		"andSubmit": "dan kirimkan ke database lirik!",
-		"futureUse": "Lirik ini nantinya akan digunakan sebagai sumber lirik TTML standar oleh aplikasi keluarga AMLL!",
-		"rightsWarning": "Jika Anda sangat memperhatikan hak kepemilikan lirik, mohon jangan kirimkan lirik ya!",
-		"submitInstructions": "Silakan masukkan informasi berikut dan lanjutkan ke halaman pengajuan Issue GitHub!",
-		"closeWarning": "Tutup peringatan di atas",
-		"dbType": "Tipe Database Lirik",
-		"officialDb": "Database Resmi",
-		"userDb": "Database Pengguna",
-		"allDb": "Semua Database",
-		"officialDbDesc": "Pengiriman ke database resmi memerlukan tinjauan manual untuk memastikan lirik memenuhi persyaratan dasar, penanda waktu, dan efek sebelum ditambahkan ke database.\nIni memastikan kualitas lirik Anda dan memungkinkan lirik ditampilkan dengan hasil yang baik. Direkomendasikan untuk mengirim ke sini.",
-		"userDbDesc": "Pengiriman ke database pengguna hanya memerlukan tinjauan bot tanpa masalah serius sebelum ditambahkan ke database, tidak perlu tinjauan manual.\nNamun, jika ada masalah dengan konten dan efek, itu hanya dapat diperbaiki dengan mengirim ulang, dan verifikasi manual tidak dapat dilakukan untuk memastikan kualitas.",
-		"bothDbDesc": "Keduanya juga tidak buruk, ketahui saja situasinya\nSetelah mengunggah, halaman pengiriman yang sesuai dengan setiap repositori akan dibuka masing-masing. Silakan tekan buat issue secara manual di masing-masing repositori untuk mengirim.",
-		"genFromMetadata": "Hasilkan dari metadata",
-		"musicName": "Nama Musik",
-		"musicNameHint": "Format yang disarankan: Artis - Judul Lagu, agar pengelola repositori dapat mengonfirmasi apakah lagu Anda tersedia",
-		"submitReason": "Alasan Pengiriman",
-		"newLyric": "Pengiriman Lirik Baru",
-		"fixLyric": "Koreksi Lirik yang Sudah Ada",
-		"comment": "Komentar",
-		"commentPlaceholder": "Ada hal lain yang perlu ditambahkan?",
-		"fixIssues": "Masalah berikut ditemukan, silakan perbaiki sebelum mengirim:",
-		"submitAction": "Unggah Lirik dan Buat Issue"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Spasi x{count}",

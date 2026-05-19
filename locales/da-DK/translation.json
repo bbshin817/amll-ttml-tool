@@ -166,7 +166,6 @@
 			"saveLyric": "Gem sangtekster",
 			"restoreFromHistory": "Gendan fra historik…",
 			"saveLyricToClipboard": "Gem TTML til udklipsholder",
-			"uploadToAMLLDB": "Upload til database (kun CN)",
 			"edit": "Rediger",
 			"undo": "Fortryd",
 			"redo": "Gentag",
@@ -484,38 +483,6 @@
 		"addPresets": "Tilføj alle forudindstillede nøgler",
 		"clear": "Ryd",
 		"info": "Lær mere"
-	},
-	"submitToAMLLDB": {
-		"validation": {
-			"missingMusicName": "Metadata mangler sangnavn",
-			"missingArtists": "Metadata mangler sangkunstnere",
-			"missingAlbum": "Metadata mangler albumnavn",
-			"missingMusicId": "Metadata mangler platform sang-ID"
-		},
-		"defaultReason": "Ny sangtekstindsendelse",
-		"errors": {
-			"validation": "Indsendelsesvalidering mislykkedes:\n{errors}",
-			"noLyrics": "Der er endnu intet sangtekstindhold?",
-			"uploadFailed": "Kunne ikke anmode om upload af sangtekstfil: {status} {statusText}",
-			"submitFailed": "Indsendelse mislykkedes, tjek konsollen for årsag!"
-		},
-		"labels": {
-			"submit": "Indsend/Ret sangtekster"
-		},
-		"issueTitle": "[Sangtekst Indsend/Ret] {name}",
-		"unknownTitle": "Ukendt titel",
-		"unknownArtist": "Ukendt kunstner",
-		"description": "Indsend sangtekster til AMLL-database",
-		"title": "Indsend sangtekster til AMLL-database (kun forenklet kinesiske brugere)",
-		"chineseOnlyWarning": "Denne funktion er kun tilgængelig for brugere af forenklet kinesisk i AMLL-databasen. Hvis du redigerer sangtekster til brug i anden software, følg venligst den softwares måde at indsende sangtekster!",
-		"thankYou": "Først og fremmest, tak for dit generøse sangtekstbidrag!",
-		"cc0Agreement": "Ved at indsende accepterer du at",
-		"cc0Rights": "bruge CC0-licensen og helt frasige ejerskab af sangteksterne",
-		"andSubmit": "og indsende til sangtekstdatabasen!",
-		"futureUse": "Og sangteksterne vil blive brugt som standard TTML-kilde af AMLL-systemer i fremtiden!",
-		"rightsWarning": "Hvis du værdsætter at bevare ejerskab, indsend venligst IKKE!",
-		"submitInstructions": "Indtast følgende info og hop derefter til GitHub issue-indsendelsessiden!",
-		"closeWarning": "Luk advarselsbesked"
 	},
 	"splitWordDialog": {
 		"spaceCount": "Mellemrum x{count}",

@@ -36,24 +36,24 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 
 		return (
 			<RibbonFrame ref={ref}>
-				<RibbonSection label={t("ribbonBar.previewMode.lyrics", "歌词")}>
+				<RibbonSection label={t("ribbonBar.previewMode.lyrics", "歌詞")}>
 					<Grid columns="0fr 0fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.previewMode.showTranslation", "显示翻译")}
+							{t("ribbonBar.previewMode.showTranslation", "翻訳を表示")}
 						</Text>
 						<Checkbox
 							checked={showTranslationLine}
 							onCheckedChange={(v) => setShowTranslationLine(!!v)}
 						/>
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.previewMode.showRoman", "显示音译")}
+							{t("ribbonBar.previewMode.showRoman", "ローマ字を表示")}
 						</Text>
 						<Checkbox
 							checked={showRomanLine}
 							onCheckedChange={(v) => setShowRomanLine(!!v)}
 						/>
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.previewMode.maskObsceneWords", "屏蔽不雅用语")}
+							{t("ribbonBar.previewMode.maskObsceneWords", "不適切な表現を隠す")}
 						</Text>
 						<Checkbox
 							checked={hideObsceneWords}
@@ -61,10 +61,10 @@ export const PreviewModeRibbonBar = forwardRef<HTMLDivElement>(
 						/>
 					</Grid>
 				</RibbonSection>
-				<RibbonSection label={t("ribbonBar.previewMode.word", "单词")}>
+				<RibbonSection label={t("ribbonBar.previewMode.word", "単語")}>
 					<Grid columns="0fr 0fr" gap="2" gapY="1" flexGrow="1" align="center">
 						<Text wrap="nowrap" size="1">
-							{t("ribbonBar.previewMode.fadeWidth", "过渡宽度")}
+							{t("ribbonBar.previewMode.fadeWidth", "フェード幅")}
 						</Text>
 						<TextField.Root
 							min={0}
