@@ -17,6 +17,10 @@ export const visualizeTimestampUpdateAtom = atomWithStorage(
 	false,
 );
 export const syncTimeOffsetAtom = atomWithStorage("syncTimeOffset", -200);
+export const autoScrollActiveLineAtom = atomWithStorage(
+	"autoScrollActiveLine",
+	false,
+);
 
 export const currentEmptyBeatAtom = atom(0);
 export const smartFirstWordActiveIdAtom = atom<string | null>(null);

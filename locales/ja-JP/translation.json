@@ -91,6 +91,8 @@
 			"highlightActiveWord": "アクティブな単語をハイライト",
 			"highlightErrors": "エラーをハイライト",
 			"showPerWordRomanization": "単語ごとのローマ字を表示",
+			"autoScroll": "自動スクロール",
+			"autoScrollActiveLine": "アクティブな行へ自動スクロール",
 			"keyBindingReference": "ショートカット一覧",
 			"startSync": "開始位置を記録",
 			"continuousSync": "確定",

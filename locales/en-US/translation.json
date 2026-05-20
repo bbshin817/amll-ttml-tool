@@ -91,6 +91,8 @@
 			"highlightActiveWord": "Highlight Active Word",
 			"highlightErrors": "Highlight Errors",
 			"showPerWordRomanization": "Show Per-Word Romanization",
+			"autoScroll": "Auto Scroll",
+			"autoScrollActiveLine": "Auto-scroll to active line",
 			"keyBindingReference": "Hotkey Cheatsheet",
 			"startSync": "Mark Begin",
 			"continuousSync": "Commit",
