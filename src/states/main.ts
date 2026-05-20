@@ -90,7 +90,18 @@ export const saveStatusAtom = atom<SaveStatus>(SaveStatus.Saved);
 export const lastSavedTimeAtom = atom<number | null>(null);
 
 export const undoableLyricLinesAtom = withHistory(lyricLinesAtom, 256);
-export const isDirtyAtom = atom((get) => get(undoableLyricLinesAtom).canUndo);
+const serializeLyric = (lyric: TTMLLyric): string => JSON.stringify(lyric);
+const initialLyric: TTMLLyric = {
+	lyricLines: [],
+	metadata: [],
+};
+export const savedLyricSnapshotAtom = atom(serializeLyric(initialLyric));
+export const isDirtyAtom = atom(
+	(get) => serializeLyric(get(lyricLinesAtom)) !== get(savedLyricSnapshotAtom),
+);
+export const markCurrentLyricsAsSavedAtom = atom(null, (get, set) => {
+	set(savedLyricSnapshotAtom, serializeLyric(get(lyricLinesAtom)));
+});
 export const undoLyricLinesAtom = atom(null, (_get, set) => {
 	set(undoableLyricLinesAtom, UNDO);
 });
@@ -113,6 +124,7 @@ export const newLyricLinesAtom = atom(
 		},
 	) => {
 		set(lyricLinesAtom, newState);
+		set(savedLyricSnapshotAtom, serializeLyric(newState));
 		set(selectedLinesAtom, new Set());
 		set(selectedWordsAtom, new Set());
 	},
@@ -121,6 +133,7 @@ export const selectedLinesAtom = atom(new Set<string>());
 export const selectedWordsAtom = atom(new Set<string>());
 
 export const saveFileNameAtom = atom("lyric.ttml");
+export const saveFileHandleAtom = atom<FileSystemFileHandle | null>(null);
 
 export const showUnselectedLinesAtom = atomWithStorage(
 	"showUnselectedLines",

@@ -25,6 +25,7 @@ import {
 	isDirtyAtom,
 	newLyricLinesAtom,
 	projectIdAtom,
+	saveFileHandleAtom,
 	saveFileNameAtom,
 } from "$/states/main.ts";
 import type { TTMLLyric } from "$/types/ttml";
@@ -60,6 +61,7 @@ const AUDIO_EXTENSIONS = new Set([
 export const useFileOpener = () => {
 	const setNewLyricLines = useSetAtom(newLyricLinesAtom);
 	const setProjectId = useSetAtom(projectIdAtom);
+	const setSaveFileHandle = useSetAtom(saveFileHandleAtom);
 	const setSaveFileName = useSetAtom(saveFileNameAtom);
 	const setConfirmDialog = useSetAtom(confirmDialogAtom);
 	const isDirty = useAtomValue(isDirtyAtom);
@@ -86,7 +88,11 @@ export const useFileOpener = () => {
 	);
 
 	const performOpenFile = useCallback(
-		async (file: File, forceExt?: string) => {
+		async (
+			file: File,
+			forceExt?: string,
+			fileHandle: FileSystemFileHandle | null = null,
+		) => {
 			const rawExt = file.name.split(".").pop()?.toLowerCase() || "";
 			const ext = forceExt ? forceExt.toLowerCase() : rawExt;
 
@@ -153,12 +159,20 @@ export const useFileOpener = () => {
 							: (suggestedFile?.fileName ?? file.name.replace(/\.json$/i, ".ttml"))
 						: (suggestedFile?.fileName ?? file.name);
 				setSaveFileName(nextFileName);
+				setSaveFileHandle(fileHandle);
 			} catch (e) {
 				logError(`Failed to open file: ${file.name}`, e);
 				toast.error(t("error.openFileFailed", "ファイルを開けませんでした"));
 			}
 		},
-		[setNewLyricLines, setProjectId, setSaveFileName, normalizeLyricLines, t],
+		[
+			setNewLyricLines,
+			setProjectId,
+			setSaveFileHandle,
+			setSaveFileName,
+			normalizeLyricLines,
+			t,
+		],
 	);
 
 	const openFile = useCallback(
@@ -167,8 +181,12 @@ export const useFileOpener = () => {
 		 * @param file
 		 * @param forceExt 可选参数，用于强制指定解析方式，不传入则从文件后缀名推断
 		 */
-		(file: File, forceExt?: string) => {
-			const run = () => performOpenFile(file, forceExt);
+		(
+			file: File,
+			forceExt?: string,
+			fileHandle: FileSystemFileHandle | null = null,
+		) => {
+			const run = () => performOpenFile(file, forceExt, fileHandle);
 
 			const rawExt = file.name.split(".").pop()?.toLowerCase() || "";
 			const finalExt = forceExt || rawExt;

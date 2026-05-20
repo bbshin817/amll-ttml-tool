@@ -3,7 +3,6 @@ import { useAtom, useAtomValue, useSetAtom, useStore } from "jotai";
 import { useSetImmerAtom, withImmer } from "jotai-immer";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import saveFile from "save-file";
 import { uid } from "uid";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
 import exportTTMLText from "$/modules/project/logic/ttml-writer";
@@ -40,9 +39,11 @@ import {
 import {
 	isDirtyAtom,
 	lyricLinesAtom,
+	markCurrentLyricsAsSavedAtom,
 	newLyricLinesAtom,
 	projectIdAtom,
 	redoLyricLinesAtom,
+	saveFileHandleAtom,
 	saveFileNameAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
@@ -50,17 +51,50 @@ import {
 	undoLyricLinesAtom,
 } from "$/states/main.ts";
 import {
+	assertFileSystemAccessSupported,
+	openSingleFileWithPicker,
+	pickSaveFileHandle,
+	writeTextToFileHandle,
+} from "$/utils/file-system-access";
+import {
 	type LyricWord,
 	type LyricWordBase,
 	newLyricWord,
 } from "$/types/ttml";
 import { error, log } from "$/utils/logging.ts";
 
+const OPEN_FILE_EXTENSIONS = [
+	"ttml",
+	"xml",
+	"json",
+	"srt",
+	"lrc",
+	"qrc",
+	"eslrc",
+	"lys",
+	"yrc",
+	"opus",
+	"flac",
+	"webm",
+	"weba",
+	"wav",
+	"ogg",
+	"m4a",
+	"oga",
+	"mid",
+	"mp3",
+	"aiff",
+	"wma",
+	"au",
+];
+
 export const useTopMenuActions = () => {
 	const { t } = useTranslation();
 	const [saveFileName, setSaveFileName] = useAtom(saveFileNameAtom);
+	const [saveFileHandle, setSaveFileHandle] = useAtom(saveFileHandleAtom);
 	const newLyricLine = useSetAtom(newLyricLinesAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
+	const markCurrentLyricsAsSaved = useSetAtom(markCurrentLyricsAsSavedAtom);
 	const setMetadataEditorOpened = useSetAtom(metadataEditorDialogAtom);
 	const setSettingsDialogOpened = useSetAtom(settingsDialogAtom);
 	const undoLyricLines = useAtomValue(undoableLyricLinesAtom);
@@ -122,6 +156,7 @@ export const useTopMenuActions = () => {
 		const action = () => {
 			newLyricLine();
 			setProjectId(uid());
+			setSaveFileHandle(null);
 			setSaveFileName("lyric.ttml");
 		};
 
@@ -144,25 +179,23 @@ export const useTopMenuActions = () => {
 		setConfirmDialog,
 		t,
 		setProjectId,
+		setSaveFileHandle,
 		setSaveFileName,
 	]);
 
-	const onOpenFile = useCallback(() => {
-		const inputEl = document.createElement("input");
-		inputEl.type = "file";
-		inputEl.accept = ".ttml,.xml,.srt,.lrc,.qrc,.eslrc,.lys,.yrc,*/*";
-		inputEl.addEventListener(
-			"change",
-			() => {
-				const file = inputEl.files?.[0];
-				if (!file) return;
-				openFile(file);
-			},
-			{
-				once: true,
-			},
-		);
-		inputEl.click();
+	const onOpenFile = useCallback(async () => {
+		try {
+			assertFileSystemAccessSupported();
+			const picked = await openSingleFileWithPicker({
+				description: "Lyrics or audio files",
+				mimeType: "text/plain",
+				extensions: OPEN_FILE_EXTENSIONS,
+			});
+			if (!picked) return;
+			openFile(picked.file, undefined, picked.handle);
+		} catch (e) {
+			error("Failed to open file from File System Access API", e);
+		}
 	}, [openFile]);
 
 	const onOpenFileFromClipboard = useCallback(async () => {
@@ -171,7 +204,7 @@ export const useTopMenuActions = () => {
 			const file = new File([ttmlText], "lyric.ttml", {
 				type: "application/xml",
 			});
-			openFile(file);
+			openFile(file, undefined, null);
 		} catch (e) {
 			error("Failed to parse TTML file from clipboard", e);
 		}
@@ -181,15 +214,63 @@ export const useTopMenuActions = () => {
 		setImportFromAppleMusicDialog(true);
 	}, [setImportFromAppleMusicDialog]);
 
-	const onSaveFile = useCallback(() => {
+	const onSaveFile = useCallback(async () => {
 		try {
+			assertFileSystemAccessSupported();
 			const ttmlText = exportTTMLText(store.get(lyricLinesAtom));
-			const b = new Blob([ttmlText], { type: "text/plain" });
-			saveFile(b, saveFileName).catch(error);
+			let handle = saveFileHandle;
+			if (!handle) {
+				handle = await pickSaveFileHandle({
+					suggestedName: saveFileName,
+					description: "TTML lyric",
+					mimeType: "application/xml",
+					extensions: ["ttml"],
+				});
+			}
+			if (!handle) return;
+			await writeTextToFileHandle(handle, ttmlText);
+			const file = await handle.getFile();
+			setSaveFileHandle(handle);
+			setSaveFileName(file.name);
+			markCurrentLyricsAsSaved();
 		} catch (e) {
 			error("Failed to save TTML file", e);
 		}
-	}, [saveFileName, store]);
+	}, [
+		saveFileHandle,
+		saveFileName,
+		markCurrentLyricsAsSaved,
+		setSaveFileHandle,
+		setSaveFileName,
+		store,
+	]);
+
+	const onSaveFileAs = useCallback(async () => {
+		try {
+			assertFileSystemAccessSupported();
+			const ttmlText = exportTTMLText(store.get(lyricLinesAtom));
+			const handle = await pickSaveFileHandle({
+				suggestedName: saveFileName,
+				description: "TTML lyric",
+				mimeType: "application/xml",
+				extensions: ["ttml"],
+			});
+			if (!handle) return;
+			await writeTextToFileHandle(handle, ttmlText);
+			const file = await handle.getFile();
+			setSaveFileHandle(handle);
+			setSaveFileName(file.name);
+			markCurrentLyricsAsSaved();
+		} catch (e) {
+			error("Failed to save TTML file as a new file", e);
+		}
+	}, [
+		saveFileName,
+		markCurrentLyricsAsSaved,
+		setSaveFileHandle,
+		setSaveFileName,
+		store,
+	]);
 
 	const onOpenHistoryRestore = useCallback(() => {
 		setHistoryRestoreDialog(true);
@@ -465,6 +546,7 @@ export const useTopMenuActions = () => {
 		onOpenFileFromClipboard,
 		onOpenFromAppleMusic,
 		onSaveFile,
+		onSaveFileAs,
 		onOpenHistoryRestore,
 		onSaveFileToClipboard,
 		onUndo,

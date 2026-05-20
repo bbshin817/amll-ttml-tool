@@ -31,7 +31,6 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
-import saveFile from "save-file";
 import semverGt from "semver/functions/gt";
 import styles from "./App.module.css";
 import DarkThemeDetector from "./components/DarkThemeDetector";
@@ -55,12 +54,21 @@ import {
 import { showTouchSyncPanelAtom } from "./modules/settings/states/sync.ts";
 import { settingsDialogAtom, settingsTabAtom } from "./states/dialogs.ts";
 import {
+	isDirtyAtom,
 	isDarkThemeAtom,
 	isGlobalFileDraggingAtom,
 	lyricLinesAtom,
+	markCurrentLyricsAsSavedAtom,
+	saveFileHandleAtom,
+	saveFileNameAtom,
 	ToolMode,
 	toolModeAtom,
 } from "./states/main.ts";
+import {
+	assertFileSystemAccessSupported,
+	pickSaveFileHandle,
+	writeTextToFileHandle,
+} from "./utils/file-system-access";
 import { useAppUpdate } from "./utils/useAppUpdate.ts";
 
 const LyricLinesView = lazy(() => import("./modules/lyric-editor/components"));
@@ -90,13 +98,29 @@ const AppErrorPage = ({
 				<Flex gap="2">
 					<Button
 						onClick={() => {
-							try {
-								const ttmlText = exportTTMLText(store.get(lyricLinesAtom));
-								const b = new Blob([ttmlText], { type: "text/plain" });
-								saveFile(b, "lyric.ttml").catch(logError);
-							} catch (e) {
-								logError("Failed to save TTML file", e);
-							}
+							(async () => {
+								try {
+									assertFileSystemAccessSupported();
+									const ttmlText = exportTTMLText(store.get(lyricLinesAtom));
+									let handle = store.get(saveFileHandleAtom);
+									if (!handle) {
+										handle = await pickSaveFileHandle({
+											suggestedName: store.get(saveFileNameAtom),
+											description: "TTML lyric",
+											mimeType: "application/xml",
+											extensions: ["ttml"],
+										});
+									}
+									if (!handle) return;
+									await writeTextToFileHandle(handle, ttmlText);
+									const file = await handle.getFile();
+									store.set(saveFileHandleAtom, handle);
+									store.set(saveFileNameAtom, file.name);
+									store.set(markCurrentLyricsAsSavedAtom);
+								} catch (e) {
+									logError("Failed to save TTML file", e);
+								}
+							})();
 						}}
 					>
 						{t("app.error.saveLyrics", "現在の歌詞を保存してください")}
@@ -140,6 +164,8 @@ function App() {
 			? "dark"
 			: "light";
 	const { checkUpdate, status, update } = useAppUpdate();
+	const isDirty = useAtomValue(isDirtyAtom);
+	const saveFileName = useAtomValue(saveFileNameAtom);
 	const hasNotifiedRef = useRef(false);
 	const setSettingsOpen = useSetAtom(settingsDialogAtom);
 	const setSettingsTab = useSetAtom(settingsTabAtom);
@@ -156,6 +182,11 @@ function App() {
 			checkUpdate(true);
 		}
 	}, [checkUpdate]);
+
+	useEffect(() => {
+		const appName = t("topBar.appName", "Apple Music-like Lyrics TTML Tool");
+		document.title = `${isDirty ? "*" : ""}${saveFileName} - ${appName}`;
+	}, [isDirty, saveFileName, t]);
 
 	useEffect(() => {
 		if (status === "available" && update && !hasNotifiedRef.current) {

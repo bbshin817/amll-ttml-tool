@@ -29,23 +29,27 @@ const FileMenuItems = () => {
 			>
 				<Trans i18nKey="topBar.menu.openLyric">歌詞を開く</Trans>
 			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenFileFromClipboard}>
-				<Trans i18nKey="topBar.menu.openFromClipboard">クリップボードから TTML を開く</Trans>
-			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenFromAppleMusic}>
-				<Trans i18nKey="topBar.menu.openFromAppleMusic">Apple Music から取得</Trans>
-			</DropdownMenu.Item>
 			<DropdownMenu.Item
 				onSelect={menu.onSaveFile}
 				shortcut={formatKeyBindings(menu.saveFileKey)}
 			>
-				<Trans i18nKey="topBar.menu.saveLyric">歌詞を保存</Trans>
+				<Trans i18nKey="topBar.menu.saveLyricOverwrite">歌詞を上書き保存</Trans>
+			</DropdownMenu.Item>
+			<DropdownMenu.Item onSelect={menu.onSaveFileAs}>
+				<Trans i18nKey="topBar.menu.saveLyricAs">名前をつけて歌詞を保存</Trans>
+			</DropdownMenu.Item>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Item onSelect={menu.onOpenFromAppleMusic}>
+				<Trans i18nKey="topBar.menu.openFromAppleMusic">Apple Music から取得</Trans>
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onSelect={menu.onOpenHistoryRestore}>
 				{t("topBar.menu.restoreFromHistory", "履歴から復元…")}
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
+			<DropdownMenu.Item onSelect={menu.onOpenFileFromClipboard}>
+				<Trans i18nKey="topBar.menu.openFromClipboard">クリップボードから TTML を開く</Trans>
+			</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onSaveFileToClipboard}>
 				<Trans i18nKey="topBar.menu.saveLyricToClipboard">TTML をクリップボードに保存</Trans>
 			</DropdownMenu.Item>
