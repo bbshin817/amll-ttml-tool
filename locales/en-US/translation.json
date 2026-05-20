@@ -211,9 +211,9 @@
 			"importLyric": {
 				"import": "Import lyrics",
 				"fromPlainText": "Import from plain text…",
-				"fromLRCLIB": "Import from LRCLIB...",
 				"fromTTML": "Import from TTML file…",
-				"fromSpotifyJson": "Import from Spotify JSON file…"
+				"fromSpotifyJson": "Import from Spotify JSON file…",
+				"fromLrc": "Import from LRC file…"
 			},
 			"exportLyric": {
 				"export": "Export lyrics",
