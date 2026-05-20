@@ -17,6 +17,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { playbackRateAtom, volumeAtom } from "$/modules/audio/states";
+import { seekStepSecondsAtom } from "$/modules/audio/states";
 import {
 	autosaveEnabledAtom,
 	autosaveIntervalAtom,
@@ -49,6 +50,7 @@ export const SettingsCommonTab = () => {
 	const [smartLastWord, setSmartLastWord] = useAtom(smartLastWordAtom);
 	const [volume, setVolume] = useAtom(volumeAtom);
 	const [playbackRate, setPlaybackRate] = useAtom(playbackRateAtom);
+	const [seekStepSeconds, setSeekStepSeconds] = useAtom(seekStepSecondsAtom);
 	const [autosaveEnabled, setAutosaveEnabled] = useAtom(autosaveEnabledAtom);
 	const [autosaveInterval, setAutosaveInterval] = useAtom(autosaveIntervalAtom);
 	const [autosaveLimit, setAutosaveLimit] = useAtom(autosaveLimitAtom);
@@ -349,6 +351,40 @@ export const SettingsCommonTab = () => {
 									step={0.05}
 									onValueChange={(v) => setPlaybackRate(v[0])}
 								/>
+							</Flex>
+						</Box>
+					</Flex>
+				</Card>
+
+				<Card>
+					<Flex gap="3" align="center">
+						<Timer24Regular />
+						<Box flexGrow="1">
+							<Flex align="center" justify="between" gap="4">
+								<Flex direction="column" gap="1">
+									<Text>{t("settings.common.seekStep", "矢印キーのシーク間隔")}</Text>
+									<Text size="1" color="gray">
+										{t(
+											"settings.common.seekStepDesc",
+											"左右矢印キーでシークする秒数を設定します。",
+										)}
+									</Text>
+								</Flex>
+								<TextField.Root
+									type="number"
+									min={0}
+									step={0.1}
+									value={seekStepSeconds}
+									onChange={(e) => {
+										const next = Number(e.target.value);
+										if (Number.isNaN(next)) return;
+										setSeekStepSeconds(Math.max(0, next));
+									}}
+									style={{ width: "8em" }}
+								>
+									<TextField.Slot />
+									<TextField.Slot>sec</TextField.Slot>
+								</TextField.Root>
 							</Flex>
 						</Box>
 					</Flex>
