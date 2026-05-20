@@ -132,7 +132,11 @@ const plugins: Plugin[] = [
 // https://vitejs.dev/config/
 export default defineConfig({
 	plugins,
-	base: process.env.TAURI_ENV_PLATFORM ? "/" : "./",
+	base: process.env.TAURI_ENV_PLATFORM
+		? "/"
+		: process.env.NODE_ENV === "production"
+			? "/amll-ttml-tool"
+			: "./",
 	clearScreen: false,
 	server: {
 		headers: {
