@@ -5,6 +5,7 @@ export const metadataEditorDialogAtom = atom(false);
 export const settingsDialogAtom = atom(false);
 export const settingsTabAtom = atom("common");
 export const latencyTestDialogAtom = atom(false);
+export const syncInputOffsetDialogAtom = atom(false);
 export const splitWordDialogAtom = atom(false);
 export const replaceWordDialogAtom = atom(false);
 export const advancedSegmentationDialogAtom = atom(false);

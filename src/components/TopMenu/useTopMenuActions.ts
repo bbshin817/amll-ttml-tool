@@ -21,6 +21,7 @@ import {
 	historyRestoreDialogAtom,
 	importFromAppleMusicDialogAtom,
 	latencyTestDialogAtom,
+	syncInputOffsetDialogAtom,
 	metadataEditorDialogAtom,
 	settingsDialogAtom,
 	timeShiftDialogAtom,
@@ -214,6 +215,10 @@ export const useTopMenuActions = () => {
 
 	const onOpenLatencyTest = useCallback(() => {
 		store.set(latencyTestDialogAtom, true);
+	}, [store]);
+
+	const onOpenSyncInputOffset = useCallback(() => {
+		store.set(syncInputOffsetDialogAtom, true);
 	}, [store]);
 
 	const onOpenGitHub = useCallback(async () => {
@@ -479,6 +484,7 @@ export const useTopMenuActions = () => {
 		onOpenDistributeRomanization,
 		onAutoRuby,
 		onCheckRomanizationWarnings,
+		onOpenSyncInputOffset,
 		onOpenLatencyTest,
 		onOpenGitHub,
 		onOpenWiki,
