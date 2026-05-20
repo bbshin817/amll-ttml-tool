@@ -212,9 +212,9 @@
 			"importLyric": {
 				"import": "歌詞をインポート",
 				"fromPlainText": "プレーンテキストからインポート…",
-				"fromLRCLIB": "LRCLIB からインポート…",
 				"fromTTML": "TTML ファイルからインポート…",
-				"fromSpotifyJson": "Spotify JSON ファイルからインポート…"
+				"fromSpotifyJson": "Spotify JSON ファイルからインポート…",
+				"fromLrc": "LRC ファイルからインポート…"
 			},
 			"exportLyric": {
 				"export": "歌詞をエクスポート",

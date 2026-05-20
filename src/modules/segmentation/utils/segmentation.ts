@@ -3,6 +3,7 @@
  */
 
 import { type LyricLine, type LyricWord, newLyricWord } from "$/types/ttml";
+import TinySegmenter from "tiny-segmenter";
 import { CharType, type SegmentationConfig } from "../types";
 import {
 	escapeRegExp,
@@ -11,6 +12,9 @@ import {
 	MergeDirection,
 	PUNCT_AMBIGUOUS_QUOTES,
 } from "./charUtils";
+
+const tinySegmenter = new TinySegmenter();
+const japaneseTokenizerHintRegexp = /[\u3040-\u30ff々〆ヵヶ、。]/u;
 
 export interface SegmentationContext {
 	/**
@@ -46,28 +50,54 @@ function isMergeablePair(
 /**
  * @description 自动将一个字符串拆分为 token
  */
+function splitLatinByHyphenation(
+	token: string,
+	config: SegmentationConfig,
+): string[] {
+	if (!token) return [];
+	const firstChar = token.length > 0 ? Array.from(token)[0] : " ";
+	const tokenType = getCharType(firstChar);
+	if (
+		tokenType === CharType.Latin &&
+		config.splitEnglish &&
+		token.length > 1 &&
+		config.hyphenator
+	) {
+		return config.hyphenator(token).split("\u00AD");
+	}
+	return [token];
+}
+
+function shouldUseTinySegmenterForJapanese(
+	text: string,
+	config: SegmentationConfig,
+): boolean {
+	return config.splitCJK && japaneseTokenizerHintRegexp.test(text);
+}
+
 function autoTokenize(text: string, config: SegmentationConfig): string[] {
 	if (!text) {
 		return [];
 	}
+
+	if (shouldUseTinySegmenterForJapanese(text, config)) {
+		try {
+			return tinySegmenter
+				.segment(text)
+				.flatMap((token) => splitLatinByHyphenation(token, config))
+				.filter((token) => token.length > 0);
+		} catch {
+			// Fallback to original tokenizer below.
+		}
+	}
+
 	const tokens: string[] = [];
 	let currentToken = "";
 	let lastCharType: CharType | null = null;
 
 	const pushCurrentToken = () => {
 		if (!currentToken) return;
-
-		if (
-			lastCharType === CharType.Latin &&
-			config.splitEnglish &&
-			currentToken.length > 1 &&
-			config.hyphenator
-		) {
-			const syllables = config.hyphenator(currentToken).split("\u00AD");
-			tokens.push(...syllables);
-		} else {
-			tokens.push(currentToken);
-		}
+		tokens.push(...splitLatinByHyphenation(currentToken, config));
 		currentToken = "";
 	};
 

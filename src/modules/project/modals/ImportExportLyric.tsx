@@ -5,17 +5,13 @@ import saveFile from "save-file";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
 import exportTTMLText from "$/modules/project/logic/ttml-writer";
 import { encodeSpotifyJson } from "$/modules/project/logic/spotify-json";
-import {
-	importFromLRCLIBDialogAtom,
-	importFromTextDialogAtom,
-} from "$/states/dialogs.ts";
+import { importFromTextDialogAtom } from "$/states/dialogs.ts";
 import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
 import { error } from "$/utils/logging.ts";
 
 export const ImportExportLyric = () => {
 	const store = useStore();
 	const setImportFromTextDialog = useSetAtom(importFromTextDialogAtom);
-	const setImportFromLRCLIBDialog = useSetAtom(importFromLRCLIBDialogAtom);
 	const { openFile } = useFileOpener();
 	const { t } = useTranslation();
 
@@ -77,8 +73,8 @@ export const ImportExportLyric = () => {
 					<DropdownMenu.Item onClick={() => setImportFromTextDialog(true)}>
 						{t("topBar.menu.importLyric.fromPlainText", "プレーンテキストからインポート…")}
 					</DropdownMenu.Item>
-					<DropdownMenu.Item onClick={() => setImportFromLRCLIBDialog(true)}>
-						{t("topBar.menu.importLyric.fromLRCLIB", "LRCLIB からインポート…")}
+					<DropdownMenu.Item onClick={() => onImportLyric("lrc")}>
+						{t("topBar.menu.importLyric.fromLrc", "LRC ファイルからインポート…")}
 					</DropdownMenu.Item>
 					<DropdownMenu.Item onClick={() => onImportLyric("ttml")}>
 						{t("topBar.menu.importLyric.fromTTML", "TTML ファイルからインポート…")}

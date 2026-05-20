@@ -47,6 +47,7 @@
 		"react-viewport-list": "^7.1.2",
 		"save-file": "^2.3.1",
 		"semver": "^7.7.3",
+		"tiny-segmenter": "^0.2.0",
 		"uid": "^2.0.2",
 		"wanakana": "^5.3.1",
 		"wavesurfer.js": "^7.12.1",
