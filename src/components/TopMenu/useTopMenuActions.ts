@@ -150,7 +150,7 @@ export const useTopMenuActions = () => {
 	const onOpenFile = useCallback(() => {
 		const inputEl = document.createElement("input");
 		inputEl.type = "file";
-		inputEl.accept = ".ttml,.lrc,.qrc,.eslrc,.lys,.yrc,*/*";
+		inputEl.accept = ".ttml,.xml,.srt,.lrc,.qrc,.eslrc,.lys,.yrc,*/*";
 		inputEl.addEventListener(
 			"change",
 			() => {

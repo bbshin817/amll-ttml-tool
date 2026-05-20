@@ -582,8 +582,19 @@ export function parseLyric(ttmlText: string): TTMLLyric {
 		}
 	}
 
-	for (const lineEl of ttmlDoc.querySelectorAll("body p[begin][end]")) {
-		parseLineElement(lineEl, false, false, null);
+	for (const lineEl of ttmlDoc.querySelectorAll("body p")) {
+		const hasBegin = lineEl.hasAttribute("begin");
+		const hasEnd = lineEl.hasAttribute("end");
+		if (hasBegin && hasEnd) {
+			parseLineElement(lineEl, false, false, null);
+			continue;
+		}
+
+		const hasText = (lineEl.textContent ?? "").trim().length > 0;
+		const hasSpan = lineEl.querySelector("span") !== null;
+		if (hasText || hasSpan) {
+			parseLineElement(lineEl, false, false, null);
+		}
 	}
 
 	log("finished ttml load", lyricLines, metadata);

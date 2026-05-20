@@ -30,9 +30,11 @@ import {
 import type { TTMLLyric } from "$/types/ttml";
 import { log, error as logError } from "$/utils/logging.ts";
 import { parseLrc } from "$/utils/parse-lrc";
+import { parseSrt } from "$/utils/parse-srt";
 
 const LYRIC_PARSERS: Record<string, (text: string) => LyricLine[]> = {
 	lrc: parseLrc,
+	srt: parseSrt,
 	eslrc: parseEslrc,
 	qrc: parseQrc,
 	yrc: parseYrc,
@@ -97,7 +99,7 @@ export const useFileOpener = () => {
 				let lyricData: TTMLLyric | null = null;
 				const text = await file.text();
 
-				if (ext === "ttml") {
+				if (ext === "ttml" || ext === "xml") {
 					lyricData = parseTTML(text);
 				} else if (ext === "json") {
 					const ttml = decodeSpotifyJsonToTtml(text);
@@ -145,8 +147,8 @@ export const useFileOpener = () => {
 				setNewLyricLines(lyricData);
 				const suggestedFile = getSuggestedTtmlFileName(lyricData.metadata);
 				const nextFileName =
-					ext === "ttml" || ext === "json"
-						? ext === "ttml"
+					ext === "ttml" || ext === "xml" || ext === "json"
+						? ext === "ttml" || ext === "xml"
 							? file.name
 							: (suggestedFile?.fileName ?? file.name.replace(/\.json$/i, ".ttml"))
 						: (suggestedFile?.fileName ?? file.name);

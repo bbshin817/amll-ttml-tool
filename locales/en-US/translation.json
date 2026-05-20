@@ -213,7 +213,8 @@
 				"fromPlainText": "Import from plain text…",
 				"fromTTML": "Import from TTML file…",
 				"fromSpotifyJson": "Import from Spotify JSON file…",
-				"fromLrc": "Import from LRC file…"
+				"fromLrc": "Import from LRC file…",
+				"fromSrt": "Import from SRT file…"
 			},
 			"exportLyric": {
 				"export": "Export lyrics",

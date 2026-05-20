@@ -76,6 +76,9 @@ export const ImportExportLyric = () => {
 					<DropdownMenu.Item onClick={() => onImportLyric("lrc")}>
 						{t("topBar.menu.importLyric.fromLrc", "LRC ファイルからインポート…")}
 					</DropdownMenu.Item>
+					<DropdownMenu.Item onClick={() => onImportLyric("srt")}>
+						{t("topBar.menu.importLyric.fromSrt", "SRT ファイルからインポート…")}
+					</DropdownMenu.Item>
 					<DropdownMenu.Item onClick={() => onImportLyric("ttml")}>
 						{t("topBar.menu.importLyric.fromTTML", "TTML ファイルからインポート…")}
 					</DropdownMenu.Item>

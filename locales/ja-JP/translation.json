@@ -214,7 +214,8 @@
 				"fromPlainText": "プレーンテキストからインポート…",
 				"fromTTML": "TTML ファイルからインポート…",
 				"fromSpotifyJson": "Spotify JSON ファイルからインポート…",
-				"fromLrc": "LRC ファイルからインポート…"
+				"fromLrc": "LRC ファイルからインポート…",
+				"fromSrt": "SRT ファイルからインポート…"
 			},
 			"exportLyric": {
 				"export": "歌詞をエクスポート",
