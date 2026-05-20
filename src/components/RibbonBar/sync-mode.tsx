@@ -18,6 +18,7 @@ import {
 	showWordRomanizationInputAtom,
 } from "$/modules/settings/states/index.ts";
 import {
+	autoScrollActiveLineAtom,
 	currentEmptyBeatAtom,
 	showTouchSyncPanelAtom,
 	syncTimeOffsetAtom,
@@ -94,6 +95,9 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 			showWordRomanizationInputAtom,
 		);
 		const [syncTimeOffset, setSyncTimeOffset] = useAtom(syncTimeOffsetAtom);
+		const [autoScrollActiveLine, setAutoScrollActiveLine] = useAtom(
+			autoScrollActiveLineAtom,
+		);
 		const { t } = useTranslation();
 
 		return (
@@ -230,6 +234,22 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							<KeyBinding kbdAtom={keySyncEndAtom} />
 						</Grid>
 					</Flex>
+				</RibbonSection>
+				<RibbonSection
+					label={t("ribbonBar.syncMode.autoScroll", "自動スクロール")}
+				>
+					<Grid columns="0fr 0fr" gap="2" gapY="1" flexGrow="1" align="center">
+						<Text wrap="nowrap" size="1">
+							{t(
+								"ribbonBar.syncMode.autoScrollActiveLine",
+								"アクティブな行へ自動スクロール",
+							)}
+						</Text>
+						<Checkbox
+							checked={autoScrollActiveLine}
+							onCheckedChange={(v) => setAutoScrollActiveLine(!!v)}
+						/>
+					</Grid>
 				</RibbonSection>
 			</RibbonFrame>
 		);

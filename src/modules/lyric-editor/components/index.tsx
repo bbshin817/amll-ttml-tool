@@ -26,6 +26,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { ViewportList, type ViewportListRef } from "react-viewport-list";
 import { currentTimeAtom } from "$/modules/audio/states";
+import { autoScrollActiveLineAtom } from "$/modules/settings/states/sync.ts";
 import {
 	lyricLinesAtom,
 	selectedLinesAtom,
@@ -70,7 +71,9 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 	const viewRef = useRef<ViewportListRef>(null);
 	const viewElRef = useRef<HTMLDivElement>(null);
 	const toolMode = useAtomValue(toolModeAtom);
+	const autoScrollActiveLine = useAtomValue(autoScrollActiveLineAtom);
 	const { t } = useTranslation();
+	const lastAutoScrolledLineRef = useRef<number>(-1);
 
 	const scrollToIndexAtom = useMemo(
 		() =>
@@ -116,6 +119,22 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 		if (index === -1) return;
 		scrollToLineIndex(index);
 	}, [currentTime, lyricLines, scrollToLineIndex]);
+
+	const currentLineIndex = useMemo(
+		() => findCurrentLineIndex(lyricLines, currentTime),
+		[lyricLines, currentTime],
+	);
+
+	useEffect(() => {
+		if (toolMode !== ToolMode.Sync || !autoScrollActiveLine) {
+			lastAutoScrolledLineRef.current = -1;
+			return;
+		}
+		if (currentLineIndex < 0) return;
+		if (lastAutoScrolledLineRef.current === currentLineIndex) return;
+		lastAutoScrolledLineRef.current = currentLineIndex;
+		scrollToLineIndex(currentLineIndex);
+	}, [autoScrollActiveLine, currentLineIndex, scrollToLineIndex, toolMode]);
 
 	useImperativeHandle(ref, () => viewElRef.current as HTMLDivElement, []);
 

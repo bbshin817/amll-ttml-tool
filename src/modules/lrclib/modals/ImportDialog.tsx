@@ -128,7 +128,7 @@ export const ImportFromLRCLIB = () => {
 
 				setLyricLines(ttmlData);
 				setProjectId(uid());
-				const safeFilename = `${track.artistName} - ${track.name}.ttml`.replace(
+				const safeFilename = `${track.artistName} - ${track.name}`.replace(
 					/[\\/:*?"<>|]/g,
 					"_",
 				);

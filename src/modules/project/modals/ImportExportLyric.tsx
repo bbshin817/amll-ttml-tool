@@ -1,12 +1,17 @@
 import { DropdownMenu } from "@radix-ui/themes";
 import { useSetAtom, useStore } from "jotai";
 import { useTranslation } from "react-i18next";
-import saveFile from "save-file";
 import { useFileOpener } from "$/hooks/useFileOpener.ts";
 import exportTTMLText from "$/modules/project/logic/ttml-writer";
 import { encodeSpotifyJson } from "$/modules/project/logic/spotify-json";
 import { importFromTextDialogAtom } from "$/states/dialogs.ts";
 import { lyricLinesAtom, saveFileNameAtom } from "$/states/main.ts";
+import {
+	assertFileSystemAccessSupported,
+	openSingleFileWithPicker,
+	pickSaveFileHandle,
+	writeTextToFileHandle,
+} from "$/utils/file-system-access";
 import { error } from "$/utils/logging.ts";
 
 export const ImportExportLyric = () => {
@@ -15,31 +20,33 @@ export const ImportExportLyric = () => {
 	const { openFile } = useFileOpener();
 	const { t } = useTranslation();
 
-	const onImportLyric = (extension: string) => {
-		const inputEl = document.createElement("input");
-		inputEl.type = "file";
-		inputEl.accept = `.${extension},*/*`;
-		inputEl.addEventListener(
-			"change",
-			() => {
-				const file = inputEl.files?.[0];
-				if (!file) return;
-
-				openFile(file, extension);
-			},
-			{
-				once: true,
-			},
-		);
-		inputEl.click();
+	const onImportLyric = async (extension: string) => {
+		try {
+			assertFileSystemAccessSupported();
+			const picked = await openSingleFileWithPicker({
+				description: `${extension.toUpperCase()} lyric`,
+				mimeType: "text/plain",
+				extensions: [extension],
+			});
+			if (!picked) return;
+			openFile(picked.file, extension, picked.handle);
+		} catch (e) {
+			error(`Failed to import lyric from ${extension}`, e);
+		}
 	};
 
 	const saveExport = async (data: string, extension: string, mimeType: string) => {
+		assertFileSystemAccessSupported();
 		const saveFileName = store.get(saveFileNameAtom);
 		const baseName = saveFileName.replace(/\.[^.]*$/, "");
-		const fileName = `${baseName}.${extension}`;
-		const blob = new Blob([data], { type: mimeType });
-		await saveFile(blob, fileName);
+		const handle = await pickSaveFileHandle({
+			suggestedName: `${baseName}.${extension}`,
+			description: `${extension.toUpperCase()} lyric export`,
+			mimeType,
+			extensions: [extension],
+		});
+		if (!handle) return;
+		await writeTextToFileHandle(handle, data);
 	};
 
 	const onExportTtml = async () => {

@@ -20,14 +20,10 @@ export const HeaderFileInfo = () => {
 	const [autoSaveTimeLabel, setAutoSaveTimeLabel] = useState("");
 	const inputRef = useRef<HTMLInputElement>(null);
 	const lastSavedTimeRef = useRef<number | null>(null);
-	const suffix = ".ttml";
 	const suggestedFile = getSuggestedTtmlFileName(metadata);
 
 	const getBaseName = useCallback(
-		(value: string) =>
-			value.toLowerCase().endsWith(suffix)
-				? value.slice(0, -suffix.length)
-				: value,
+		(value: string) => value.replace(/\.[^.]+$/, ""),
 		[],
 	);
 
@@ -36,7 +32,7 @@ export const HeaderFileInfo = () => {
 			if (commit) {
 				const trimmed = draftName.trim();
 				if (trimmed.length > 0) {
-					setFilename(`${trimmed}${suffix}`);
+					setFilename(trimmed);
 				} else {
 					setDraftName(getBaseName(filename));
 				}
@@ -132,7 +128,6 @@ export const HeaderFileInfo = () => {
 								}
 							}}
 						/>
-						<Text size="2">{suffix}</Text>
 					</Flex>
 				) : (
 					<Button
@@ -166,7 +161,6 @@ export const HeaderFileInfo = () => {
 								>
 									{getBaseName(filename)}
 								</Text>
-								<Text size="2">{suffix}</Text>
 							</Flex>
 						</Flex>
 					</Button>
