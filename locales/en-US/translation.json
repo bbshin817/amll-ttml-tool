@@ -219,7 +219,8 @@
 				"export": "Export lyrics",
 				"toTTML": "TTML",
 				"toSpotifyJson": "JSON (Spotify)"
-			}
+			},
+			"syncInputOffset": "Audio Delay (Input Timing Offset)…"
 		}
 	},
 	"header": {
@@ -614,5 +615,12 @@
 		"offlineReady": "Site successfully cached for offline use",
 		"updateRefresh": "Site updated, refresh to use the latest version!",
 		"refresh": "Refresh"
+	},
+	"syncInputOffsetDialog": {
+		"title": "Audio Delay (Input Timing Offset)",
+		"description": "Adjust key-input timing compensation in milliseconds. -200ms is a good default for Bluetooth audio.",
+		"offsetLabel": "Input Timing Offset (ms)",
+		"hint": "Positive values judge later (better for Bluetooth), negative values judge earlier.",
+		"resetDefault": "Reset to default (-200ms)"
 	}
 }

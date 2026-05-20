@@ -1,5 +1,6 @@
 import { ImportFromAppleMusic } from "$/modules/apple-music/modals/ImportDialog.tsx";
 import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
+import { SyncInputOffsetDialog } from "$/modules/audio/modals/SyncInputOffsetDialog.tsx";
 import { ImportFromLRCLIB } from "$/modules/lrclib/modals/ImportDialog.tsx";
 import { ReplaceWordDialog } from "$/modules/lyric-editor/tools/ReplaceWordDialog.tsx";
 import { TimeShiftDialog } from "$/modules/lyric-editor/tools/TimeShift.tsx";
@@ -23,6 +24,7 @@ export const Dialogs = () => {
 			<SplitWordDialog />
 			<ReplaceWordDialog />
 			<LatencyTestDialog />
+			<SyncInputOffsetDialog />
 			<ConfirmationDialog />
 			<HistoryRestoreDialog />
 			<AdvancedSegmentationDialog />

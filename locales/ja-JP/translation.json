@@ -220,7 +220,8 @@
 				"export": "歌詞をエクスポート",
 				"toTTML": "TTML 形式",
 				"toSpotifyJson": "Spotify JSON 形式"
-			}
+			},
+			"syncInputOffset": "音声遅延（キー入力補正）…"
 		}
 	},
 	"header": {
@@ -647,5 +648,12 @@
 		"offlineReady": "オフラインで利用できるようにサイトをキャッシュしました",
 		"updateRefresh": "サイトが更新されました。最新版を使用するには再読み込みしてください",
 		"refresh": "更新"
+	},
+	"syncInputOffsetDialog": {
+		"title": "音声遅延（キー入力補正）",
+		"description": "打鍵タイミング判定の補正値を ms 単位で調整します。Bluetooth 利用時は -200ms が目安です。",
+		"offsetLabel": "入力タイミング補正（ms）",
+		"hint": "正の値で遅めに判定（Bluetooth 向け）、負の値で早めに判定します。",
+		"resetDefault": "既定値（-200ms）に戻す"
 	}
 }

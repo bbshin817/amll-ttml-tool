@@ -133,6 +133,14 @@ function removeSideOfKeyCode(code: string) {
 const pressingKeys = new Set<string>();
 const registeredKeyBindings = new Map<string, Set<KeyBindingCallback>>();
 let downTime = 0;
+const modifierKeys = ["Control", "Meta", "Shift", "Alt"] as const;
+
+function syncModifierKeys(evt: KeyboardEvent) {
+	if (!evt.ctrlKey) pressingKeys.delete("Control");
+	if (!evt.metaKey) pressingKeys.delete("Meta");
+	if (!evt.shiftKey) pressingKeys.delete("Shift");
+	if (!evt.altKey) pressingKeys.delete("Alt");
+}
 
 function triggerCallbacks(
 	joinedKey: string,
@@ -161,6 +169,7 @@ function triggerCallbacks(
 
 window.addEventListener("keydown", (evt) => {
 	if (evt.repeat) return;
+	syncModifierKeys(evt);
 	if (isEditing(evt)) {
 		pressingKeys.clear();
 		return;
@@ -186,6 +195,7 @@ window.addEventListener("keydown", (evt) => {
 });
 
 window.addEventListener("keyup", (evt) => {
+	syncModifierKeys(evt);
 	if (isEditing(evt)) {
 		pressingKeys.clear();
 		return;
@@ -199,6 +209,10 @@ window.addEventListener("keyup", (evt) => {
 	}
 
 	pressingKeys.delete(code);
+	if (code === "Meta" || code === "Control") {
+		// Cmd/Ctrl の keyup 取りこぼしでスタックしないように安全側でリセット
+		pressingKeys.clear();
+	}
 });
 window.addEventListener("blur", () => {
 	pressingKeys.clear();
