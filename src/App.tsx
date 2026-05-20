@@ -184,7 +184,7 @@ function App() {
 	}, [checkUpdate]);
 
 	useEffect(() => {
-		const appName = t("topBar.appName", "Apple Music-like Lyrics TTML Tool");
+		const appName = t("topBar.appName", "TTML Editor");
 		document.title = `${isDirty ? "*" : ""}${saveFileName} - ${appName}`;
 	}, [isDirty, saveFileName, t]);
 

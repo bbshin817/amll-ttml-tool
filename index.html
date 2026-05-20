@@ -7,7 +7,7 @@
     <meta
         content="width=device-width, height=device-height, interactive-widget=resizes-content, initial-scale=1.0, minimum-scale = 1, maximum-scale = 1, user-scalable = no, minimal-ui"
         name="viewport" />
-    <meta content="AMLL TTML Tool" name="apple-mobile-web-app-title" />
+    <meta content="TTML Editor" name="apple-mobile-web-app-title" />
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="#FFFFFF" media="(prefers-color-scheme: light)" name="apple-mobile-web-app-status-bar-style" />
     <meta content="#101211" media="(prefers-color-scheme: dark)" name="apple-mobile-web-app-status-bar-style" />
@@ -23,7 +23,7 @@
     <link href="./site.webmanifest" rel="manifest">
     <meta content="#FFFFFF" media="(prefers-color-scheme: light)" name="theme-color">
     <meta content="#101211" media="(prefers-color-scheme: dark)" name="theme-color">
-    <title>AMLL TTML Tool</title>
+    <title>TTML Editor</title>
     <meta name="darkreader-lock">
     <style>
         * {
@@ -39,20 +39,46 @@
             overflow: hidden;
         }
 
-        @media (prefers-color-scheme: dark) {
-            #loading-holder {
-                background-color: #101211;
-                color: #fff;
-            }
+        #loading-holder {
+            background-color: #fff;
+            color: #101211;
+        }
+
+        html[data-theme="dark"] #loading-holder,
+        body[data-theme="dark"] #loading-holder {
+            background-color: #101211;
+            color: #fff;
+        }
+
+        html[data-theme="light"] #loading-holder,
+        body[data-theme="light"] #loading-holder {
+            background-color: #fff;
+            color: #101211;
         }
     </style>
+    <script>
+        (() => {
+            const savedTheme = localStorage.getItem("darkMode");
+            const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const resolvedTheme =
+                savedTheme === "dark"
+                    ? "dark"
+                    : savedTheme === "light"
+                        ? "light"
+                        : prefersDark
+                            ? "dark"
+                            : "light";
+            document.body?.setAttribute("data-theme", resolvedTheme);
+            document.documentElement.setAttribute("data-theme", resolvedTheme);
+        })();
+    </script>
 </head>
 
 <body>
     <div id="root">
         <div id="loading-holder"
             style="display: flex; flex-direction: column; height: 100vh; text-align: center; align-items: center;justify-content: center;">
-            <div>AMLL TTML Tool を読み込み中…</div>
+            <div>TTML Editor を読み込み中…</div>
             <div>リソースのサイズが大きいため、しばらくお待ちください…</div>
         </div>
     </div>

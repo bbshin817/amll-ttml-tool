@@ -3,7 +3,7 @@ import { useAtomValue } from "jotai";
 import type { CSSProperties } from "react";
 import { Toolbar } from "radix-ui";
 import { Trans, useTranslation } from "react-i18next";
-import { selectedWordsAtom } from "$/states/main.ts";
+import { DarkMode, darkModeAtom, selectedWordsAtom } from "$/states/main.ts";
 import { formatKeyBindings } from "$/utils/keybindings";
 import { useTopMenuActions } from "../useTopMenuActions";
 
@@ -17,6 +17,7 @@ const EditMenuItems = () => {
 	const { t } = useTranslation();
 	const menu = useTopMenuActions();
 	const selectedWordsSize = useAtomValue(selectedWordsAtom).size;
+	const darkMode = useAtomValue(darkModeAtom);
 
 	return (
 		<>
@@ -77,6 +78,26 @@ const EditMenuItems = () => {
 			<DropdownMenu.Item onSelect={menu.onOpenMetadataEditor}>
 				<Trans i18nKey="topBar.menu.editMetadata">歌詞メタデータを編集…</Trans>
 			</DropdownMenu.Item>
+			<DropdownMenu.Separator />
+			<DropdownMenu.Sub>
+				<DropdownMenu.SubTrigger>
+					{t("topBar.menu.theme", "テーマ")}
+				</DropdownMenu.SubTrigger>
+				<DropdownMenu.SubContent>
+					<DropdownMenu.Item onSelect={menu.onSetThemeAuto}>
+						{darkMode === DarkMode.Auto ? "✓ " : ""}
+						{t("topBar.menu.themeAuto", "デバイスのデフォルト")}
+					</DropdownMenu.Item>
+					<DropdownMenu.Item onSelect={menu.onSetThemeLight}>
+						{darkMode === DarkMode.Light ? "✓ " : ""}
+						{t("topBar.menu.themeLight", "ライト")}
+					</DropdownMenu.Item>
+					<DropdownMenu.Item onSelect={menu.onSetThemeDark}>
+						{darkMode === DarkMode.Dark ? "✓ " : ""}
+						{t("topBar.menu.themeDark", "ダーク")}
+					</DropdownMenu.Item>
+				</DropdownMenu.SubContent>
+			</DropdownMenu.Sub>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onSelect={menu.onOpenSettings}>
 				<Trans i18nKey="settingsDialog.title">環境設定</Trans>

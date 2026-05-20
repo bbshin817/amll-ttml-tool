@@ -37,6 +37,7 @@ import {
 	keyUndoAtom,
 } from "$/states/keybindings.ts";
 import {
+	DarkMode,
 	isDirtyAtom,
 	lyricLinesAtom,
 	markCurrentLyricsAsSavedAtom,
@@ -47,6 +48,7 @@ import {
 	saveFileNameAtom,
 	selectedLinesAtom,
 	selectedWordsAtom,
+	darkModeAtom,
 	undoableLyricLinesAtom,
 	undoLyricLinesAtom,
 } from "$/states/main.ts";
@@ -93,6 +95,7 @@ export const useTopMenuActions = () => {
 	const [saveFileName, setSaveFileName] = useAtom(saveFileNameAtom);
 	const [saveFileHandle, setSaveFileHandle] = useAtom(saveFileHandleAtom);
 	const newLyricLine = useSetAtom(newLyricLinesAtom);
+	const setDarkMode = useSetAtom(darkModeAtom);
 	const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 	const markCurrentLyricsAsSaved = useSetAtom(markCurrentLyricsAsSavedAtom);
 	const setMetadataEditorOpened = useSetAtom(metadataEditorDialogAtom);
@@ -528,6 +531,18 @@ export const useTopMenuActions = () => {
 		setAdvancedSegmentationDialog(true);
 	}, [setAdvancedSegmentationDialog]);
 
+	const onSetThemeLight = useCallback(() => {
+		setDarkMode(DarkMode.Light);
+	}, [setDarkMode]);
+
+	const onSetThemeDark = useCallback(() => {
+		setDarkMode(DarkMode.Dark);
+	}, [setDarkMode]);
+
+	const onSetThemeAuto = useCallback(() => {
+		setDarkMode(DarkMode.Auto);
+	}, [setDarkMode]);
+
 	return {
 		newFileKey,
 		openFileKey,
@@ -559,6 +574,9 @@ export const useTopMenuActions = () => {
 		onOpenTimeShift,
 		onOpenMetadataEditor,
 		onOpenSettings,
+		onSetThemeAuto,
+		onSetThemeLight,
+		onSetThemeDark,
 		onAutoSegment,
 		onRubySegment,
 		onOpenAdvancedSegmentation,

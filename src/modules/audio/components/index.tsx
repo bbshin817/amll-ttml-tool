@@ -38,6 +38,7 @@ import {
 	currentDurationAtom,
 	currentTimeAtom,
 	playbackRateAtom,
+	seekStepSecondsAtom,
 	volumeAtom,
 } from "$/modules/audio/states";
 import { AuditionKeyBinding } from "$/modules/keyboard/components/AuditionKeyBinding";
@@ -57,6 +58,7 @@ import { msToTimestamp } from "$/utils/timestamp.ts";
 
 const AudioPlaybackKeyBinding = memo(() => {
 	const store = useStore();
+	const seekStepSeconds = useAtomValue(seekStepSecondsAtom);
 
 	useKeyBindingAtom(keyPlayPauseAtom, () => {
 		if (audioEngine.musicPlaying) audioEngine.pauseMusic();
@@ -65,13 +67,18 @@ const AudioPlaybackKeyBinding = memo(() => {
 
 	useKeyBindingAtom(keySeekForwardAtom, () => {
 		audioEngine.seekMusic(
-			Math.min(audioEngine.musicCurrentTime + 5, audioEngine.musicDuration),
+			Math.min(
+				audioEngine.musicCurrentTime + Math.max(seekStepSeconds, 0),
+				audioEngine.musicDuration,
+			),
 		);
-	}, []);
+	}, [seekStepSeconds]);
 
 	useKeyBindingAtom(keySeekBackwardAtom, () => {
-		audioEngine.seekMusic(Math.max(audioEngine.musicCurrentTime - 5, 0));
-	}, []);
+		audioEngine.seekMusic(
+			Math.max(audioEngine.musicCurrentTime - Math.max(seekStepSeconds, 0), 0),
+		);
+	}, [seekStepSeconds]);
 
 	useKeyBindingAtom(keyVolumeUpAtom, () => {
 		store.set(volumeAtom, (v) => Math.min(1, v + 0.1));

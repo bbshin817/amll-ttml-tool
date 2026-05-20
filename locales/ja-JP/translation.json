@@ -144,6 +144,8 @@
 			"smartLastWordDesc": "行の最後の単語を同期する際、キー入力で終了時刻を設定し、次の行の最初の単語の開始時刻は自動設定しません。",
 			"volume": "音楽の音量",
 			"playbackRate": "再生速度",
+			"seekStep": "矢印キーのシーク間隔",
+			"seekStepDesc": "左右矢印キーでシークする秒数を設定します。",
 			"autosave": {
 				"enable": "自動保存を有効にする",
 				"interval": "保存間隔（分）",
@@ -177,7 +179,7 @@
 			"sync": "タイミング",
 			"preview": "プレビュー"
 		},
-		"appName": "Apple Music風歌詞 TTML ツール",
+		"appName": "TTML Editor",
 		"menu": {
 			"file": "ファイル",
 			"newLyric": "新しい歌詞",
@@ -198,6 +200,10 @@
 			"selectWordsOfMatchedSelection": "選択内容と一致する単語を選択",
 			"timeShift": "時間をシフト…",
 			"editMetadata": "歌詞メタデータを編集…",
+			"theme": "テーマ",
+			"themeAuto": "デバイスのデフォルト",
+			"themeLight": "ライト",
+			"themeDark": "ダーク",
 			"tool": "ツール",
 			"segmentationTools": "分割ツール",
 			"autoSegment": "自動分割",
@@ -288,8 +294,8 @@
 			"moveFirstWordAndPlay": "タイミング - 最初の単語へ移動して再生",
 			"moveLastWordAndPlay": "タイミング - 最後の単語へ移動して再生",
 			"playPause": "再生 - 再生／一時停止",
-			"seekForward": "再生 - 5秒進む",
-			"seekBackward": "再生 - 5秒戻る",
+			"seekForward": "再生 - 指定秒数進む",
+			"seekBackward": "再生 - 指定秒数戻る",
 			"volumeUp": "再生 - 音量を上げる",
 			"volumeDown": "再生 - 音量を下げる",
 			"playbackRateUp": "再生 - 速度を上げる",
@@ -637,8 +643,8 @@
 		}
 	},
 	"aboutModal": {
-		"appName": "Apple Music風歌詞 TTML ツール",
-		"description": "Apple Music風歌詞向けの、単語単位の TTML 編集・タイムライン調整ツール",
+		"appName": "TTML Editor",
+		"description": "単語単位の TTML 編集・タイムライン調整ツール",
 		"buildDate": "ビルド日: {date}",
 		"gitCommit": "Git コミット: {commit}"
 	},

@@ -70,6 +70,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 	const currentTime = useAtomValue(currentTimeAtom);
 	const viewRef = useRef<ViewportListRef>(null);
 	const viewElRef = useRef<HTMLDivElement>(null);
+	const smoothResetTimerRef = useRef<number | null>(null);
 	const toolMode = useAtomValue(toolModeAtom);
 	const autoScrollActiveLine = useAtomValue(autoScrollActiveLineAtom);
 	const { t } = useTranslation();
@@ -98,16 +99,37 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 	);
 	const scrollToIndex = useAtomValue(scrollToIndexAtom);
 
-	const scrollToLineIndex = useCallback((index: number) => {
+	const scrollToLineIndex = useCallback((index: number, smooth = false) => {
 		const viewEl = viewElRef.current;
 		if (!viewEl) return;
 		const viewContainerEl = viewEl.parentElement;
 		if (!viewContainerEl) return;
+
+		if (smooth) {
+			viewEl.style.scrollBehavior = "smooth";
+			if (smoothResetTimerRef.current !== null) {
+				window.clearTimeout(smoothResetTimerRef.current);
+			}
+			smoothResetTimerRef.current = window.setTimeout(() => {
+				viewEl.style.scrollBehavior = "";
+				smoothResetTimerRef.current = null;
+			}, 500);
+		}
+
 		viewRef.current?.scrollToIndex({
 			index,
 			offset: viewContainerEl.clientHeight / -2 + 50,
 		});
 	}, []);
+
+	useEffect(
+		() => () => {
+			if (smoothResetTimerRef.current !== null) {
+				window.clearTimeout(smoothResetTimerRef.current);
+			}
+		},
+		[],
+	);
 
 	useEffect(() => {
 		if (scrollToIndex === undefined) return;
@@ -133,7 +155,7 @@ export const LyricLinesView: FC = forwardRef<HTMLDivElement>((_props, ref) => {
 		if (currentLineIndex < 0) return;
 		if (lastAutoScrolledLineRef.current === currentLineIndex) return;
 		lastAutoScrolledLineRef.current = currentLineIndex;
-		scrollToLineIndex(currentLineIndex);
+		scrollToLineIndex(currentLineIndex, true);
 	}, [autoScrollActiveLine, currentLineIndex, scrollToLineIndex, toolMode]);
 
 	useImperativeHandle(ref, () => viewElRef.current as HTMLDivElement, []);

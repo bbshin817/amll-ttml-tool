@@ -144,6 +144,8 @@
 			"smartLastWordDesc": "When syncing the last word of a line, the key press sets its end time without automatically setting the start time of the next line's first word.",
 			"volume": "Music Volume",
 			"playbackRate": "Playback Speed",
+			"seekStep": "Arrow key seek interval",
+			"seekStepDesc": "Set how many seconds Left/Right arrow seek.",
 			"autosave": {
 				"enable": "Enable Autosave",
 				"interval": "Save Interval (minutes)",
@@ -177,7 +179,7 @@
 			"sync": "Time",
 			"preview": "Preview"
 		},
-		"appName": "Apple Music-like Lyrics TTML Tool",
+		"appName": "TTML Editor",
 		"menu": {
 			"file": "File",
 			"newLyric": "New lyrics",
@@ -197,6 +199,10 @@
 			"selectWordsOfMatchedSelection": "Select words matching selection",
 			"timeShift": "Time Shift...",
 			"editMetadata": "Edit lyrics metadata…",
+			"theme": "Theme",
+			"themeAuto": "Device default",
+			"themeLight": "Light",
+			"themeDark": "Dark",
 			"tool": "Tools",
 			"segmentationTools": "Segmentation Tools",
 			"autoSegment": "Auto Segment",
@@ -287,8 +293,8 @@
 			"moveFirstWordAndPlay": "Timing - Move to first word and play",
 			"moveLastWordAndPlay": "Timing - Move to last word and play",
 			"playPause": "Playback - Play/Pause",
-			"seekForward": "Playback - Seek forward 5s",
-			"seekBackward": "Playback - Seek backward 5s",
+			"seekForward": "Playback - Seek forward by configured seconds",
+			"seekBackward": "Playback - Seek backward by configured seconds",
 			"volumeUp": "Playback - Volume up",
 			"volumeDown": "Playback - Volume down",
 			"playbackRateUp": "Playback - Increase speed",
@@ -604,8 +610,8 @@
 		}
 	},
 	"aboutModal": {
-		"appName": "Apple Music-like Lyrics TTML Tool",
-		"description": "A Word-by-Word TTML Editing and Timeline Tool for Apple Music-like Lyrics",
+		"appName": "TTML Editor",
+		"description": "A word-by-word TTML editing and timeline tool",
 		"buildDate": "Build Date: {date}",
 		"gitCommit": "Git Commit: {commit}"
 	},
