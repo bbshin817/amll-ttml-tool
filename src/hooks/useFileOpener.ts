@@ -58,6 +58,9 @@ const AUDIO_EXTENSIONS = new Set([
 	"au",
 ]);
 
+const stripFileExtension = (name: string): string =>
+	name.replace(/\.[^.]+$/, "");
+
 export const useFileOpener = () => {
 	const setNewLyricLines = useSetAtom(newLyricLinesAtom);
 	const setProjectId = useSetAtom(projectIdAtom);
@@ -155,10 +158,13 @@ export const useFileOpener = () => {
 				const nextFileName =
 					ext === "ttml" || ext === "xml" || ext === "json"
 						? ext === "ttml" || ext === "xml"
-							? file.name
-							: (suggestedFile?.fileName ?? file.name.replace(/\.json$/i, ".ttml"))
-						: (suggestedFile?.fileName ?? file.name);
-				setSaveFileName(nextFileName);
+							? stripFileExtension(file.name)
+							: stripFileExtension(
+									suggestedFile?.fileName ??
+										file.name.replace(/\.json$/i, ".ttml"),
+								)
+						: stripFileExtension(suggestedFile?.fileName ?? file.name);
+				setSaveFileName(nextFileName || "lyric");
 				setSaveFileHandle(fileHandle);
 			} catch (e) {
 				logError(`Failed to open file: ${file.name}`, e);
