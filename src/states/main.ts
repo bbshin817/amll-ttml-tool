@@ -14,6 +14,7 @@ import { atomWithStorage } from "jotai/utils";
 import { REDO, UNDO, withHistory } from "jotai-history";
 import { uid } from "uid";
 import { identifyProject } from "$/modules/project/logic/project-info";
+import type { SaveFileHandle } from "$/utils/file-system-access";
 import type { TTMLLyric } from "../types/ttml";
 
 export enum DarkMode {
@@ -133,7 +134,7 @@ export const selectedLinesAtom = atom(new Set<string>());
 export const selectedWordsAtom = atom(new Set<string>());
 
 export const saveFileNameAtom = atom("lyric.ttml");
-export const saveFileHandleAtom = atom<FileSystemFileHandle | null>(null);
+export const saveFileHandleAtom = atom<SaveFileHandle | null>(null);
 
 export const showUnselectedLinesAtom = atomWithStorage(
 	"showUnselectedLines",

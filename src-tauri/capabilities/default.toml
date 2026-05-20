@@ -33,6 +33,14 @@ identifier = "core:window:allow-set-effects"
 identifier = "decorum:allow-show-snap-overlay"
 [[permissions]]
 identifier = "shell:allow-open"
+[[permissions]]
+identifier = "dialog:allow-open"
+[[permissions]]
+identifier = "dialog:allow-save"
+[[permissions]]
+identifier = "fs:allow-read-file"
+[[permissions]]
+identifier = "fs:allow-write-text-file"
 
 [[permissions]]
 identifier = "updater:default"
