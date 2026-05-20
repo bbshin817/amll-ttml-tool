@@ -1,7 +1,9 @@
 import { Button, DropdownMenu } from "@radix-ui/themes";
+import { useAtomValue } from "jotai";
 import type { CSSProperties } from "react";
 import { Toolbar } from "radix-ui";
 import { Trans, useTranslation } from "react-i18next";
+import { selectedWordsAtom } from "$/states/main.ts";
 import { formatKeyBindings } from "$/utils/keybindings";
 import { useTopMenuActions } from "../useTopMenuActions";
 
@@ -14,6 +16,7 @@ type EditMenuProps = {
 const EditMenuItems = () => {
 	const { t } = useTranslation();
 	const menu = useTopMenuActions();
+	const selectedWordsSize = useAtomValue(selectedWordsAtom).size;
 
 	return (
 		<>
@@ -61,7 +64,10 @@ const EditMenuItems = () => {
 				onSelect={menu.onDeleteSelection}
 				shortcut={formatKeyBindings(menu.deleteSelectionKey)}
 			>
-				<Trans i18nKey="contextMenu.deleteWords">{count}個の単語を削除</Trans>
+				{t("contextMenu.deleteWords", {
+					count: selectedWordsSize,
+					defaultValue: "{{count}}個の単語を削除",
+				})}
 			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onSelect={menu.onOpenTimeShift}>
