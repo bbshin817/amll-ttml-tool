@@ -8,10 +8,6 @@
 			"tryRestart": "Intenta recargar la aplicación",
 			"details": "Información aproximada del error:"
 		},
-		"update": {
-			"updateAvailable": "Actualización disponible: {version}",
-			"installError": "Error al instalar la actualización"
-		},
 		"empty": {
 			"title": "No hay líneas de letras",
 			"description": "Añade nuevas líneas de letras en el panel superior o abre/importa letras existentes desde el menú"
@@ -130,14 +126,7 @@
 				"limit": "Instantáneas a conservar"
 			}
 		},
-		"about": {
-			"update": "Actualizar",
-			"newVersion": "Nueva versión",
-			"updateNow": "Actualizar ahora",
-			"downloading": "Descargando actualización...",
-			"ready": "La actualización está lista. Reinicia la aplicación para que surta efecto.",
-			"restart": "Reiniciar"
-		},
+		"about": {},
 		"group": {
 			"display": "Visualización",
 			"timing": "Temporización",

@@ -8,10 +8,6 @@
 			"tryRestart": "Essayez de recharger l'application",
 			"details": "Informations approximatives sur l'erreur :"
 		},
-		"update": {
-			"updateAvailable": "Mise à jour disponible : {version}",
-			"installError": "Erreur lors de l'installation de la mise à jour"
-		},
 		"empty": {
 			"title": "Aucune ligne de paroles",
 			"description": "Ajoutez de nouvelles lignes de paroles dans le panneau supérieur ou ouvrez/importez des paroles existantes depuis le menu"
@@ -130,14 +126,7 @@
 				"limit": "Instantanés à conserver"
 			}
 		},
-		"about": {
-			"update": "Mise à jour",
-			"newVersion": "Nouvelle version",
-			"updateNow": "Mettre à jour maintenant",
-			"downloading": "Téléchargement de la mise à jour...",
-			"ready": "La mise à jour est prête. Redémarrez l'application pour qu'elle prenne effet.",
-			"restart": "Redémarrer"
-		},
+		"about": {},
 		"group": {
 			"display": "Affichage",
 			"timing": "Timing",

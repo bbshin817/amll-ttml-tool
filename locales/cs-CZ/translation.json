@@ -8,10 +8,6 @@
 			"tryRestart": "Zkuste aplikaci znovu načíst",
 			"details": "Přibližné informace o chybě:"
 		},
-		"update": {
-			"updateAvailable": "Dostupná aktualizace: {version}",
-			"installError": "Chyba při instalaci aktualizace"
-		},
 		"empty": {
 			"title": "Žádné řádky titulek",
 			"description": "Přidejte nové řádky titulek v horním panelu nebo otevřete/importujte existující titulky z nabídky"
@@ -130,14 +126,7 @@
 				"limit": "Počet snímků k uchování"
 			}
 		},
-		"about": {
-			"update": "Aktualizace",
-			"newVersion": "Nová verze",
-			"updateNow": "Aktualizovat nyní",
-			"downloading": "Stahování aktualizace...",
-			"ready": "Aktualizace je připravena. Restartujte aplikaci, aby se projevila.",
-			"restart": "Restartovat"
-		},
+		"about": {},
 		"group": {
 			"display": "Zobrazení",
 			"timing": "Časování",

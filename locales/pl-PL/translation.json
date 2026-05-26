@@ -8,10 +8,6 @@
 			"tryRestart": "Spróbuj ponownie załadować aplikację",
 			"details": "Przybliżone informacje o błędzie:"
 		},
-		"update": {
-			"updateAvailable": "Dostępna aktualizacja: {version}",
-			"installError": "Błąd podczas instalacji aktualizacji"
-		},
 		"empty": {
 			"title": "Brak linii tekstu",
 			"description": "Dodaj nowe linie tekstu w górnym panelu lub otwórz/importuj istniejący tekst z menu"
@@ -130,14 +126,7 @@
 				"limit": "Liczba migawek do zachowania"
 			}
 		},
-		"about": {
-			"update": "Aktualizacja",
-			"newVersion": "Nowa wersja",
-			"updateNow": "Aktualizuj teraz",
-			"downloading": "Pobieranie aktualizacji...",
-			"ready": "Aktualizacja jest gotowa. Uruchom ponownie aplikację, aby zastosować.",
-			"restart": "Uruchom ponownie"
-		},
+		"about": {},
 		"group": {
 			"display": "Wyświetlanie",
 			"timing": "Synchronizacja",

@@ -8,10 +8,6 @@
 			"tryRestart": "Skúste aplikáciu znovu načítať",
 			"details": "Približné informácie o chybe:"
 		},
-		"update": {
-			"updateAvailable": "Dostupná aktualizácia: {version}",
-			"installError": "Chyba pri inštalácii aktualizácie"
-		},
 		"empty": {
 			"title": "Žiadne riadky textov",
 			"description": "Pridajte nové riadky textov v hornom paneli alebo otvorte/importujte existujúce texty z ponuky"
@@ -130,14 +126,7 @@
 				"limit": "Počet snímok na uchovanie"
 			}
 		},
-		"about": {
-			"update": "Aktualizácia",
-			"newVersion": "Nová verzia",
-			"updateNow": "Aktualizovať teraz",
-			"downloading": "Sťahovanie aktualizácie...",
-			"ready": "Aktualizácia je pripravená. Reštartujte aplikáciu, aby sa prejavila.",
-			"restart": "Reštartovať"
-		},
+		"about": {},
 		"group": {
 			"display": "Zobrazenie",
 			"timing": "Časovanie",

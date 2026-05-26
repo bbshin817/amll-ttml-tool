@@ -8,10 +8,6 @@
 			"tryRestart": "Prøv at genindlæse appen",
 			"details": "Omtrentlig fejlinformation:"
 		},
-		"update": {
-			"updateAvailable": "Opdatering tilgængelig: {version}",
-			"installError": "Fejl ved installation af opdatering"
-		},
 		"empty": {
 			"title": "Ingen sangtekstlinjer",
 			"description": "Tilføj nye sangtekstlinjer i toppanelet eller åbn/importér eksisterende sangtekster fra menuen"
@@ -130,14 +126,7 @@
 				"limit": "Antal snapshots at beholde"
 			}
 		},
-		"about": {
-			"update": "Opdatering",
-			"newVersion": "Ny version",
-			"updateNow": "Opdater nu",
-			"downloading": "Downloader opdatering...",
-			"ready": "Opdateringen er klar. Genstart applikationen for at den træder i kraft.",
-			"restart": "Genstart"
-		},
+		"about": {},
 		"group": {
 			"display": "Visning",
 			"timing": "Timing",

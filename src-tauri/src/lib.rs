@@ -193,7 +193,7 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
 pub fn run() {
     use tauri::{Emitter, Manager};
 
-    let mut builder = tauri::Builder::default()
+    let builder = tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
@@ -205,11 +205,6 @@ pub fn run() {
                 let _ = window.emit("native-menu-action", event.id().0.as_str());
             }
         });
-
-    #[cfg(any(target_os = "macos", windows, target_os = "linux"))]
-    {
-        builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
-    }
 
     builder
         .setup(|app| {

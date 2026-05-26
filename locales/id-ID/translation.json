@@ -8,10 +8,6 @@
 			"tryRestart": "Coba masuk kembali ke aplikasi",
 			"details": "Informasi kesalahan umum:"
 		},
-		"update": {
-			"updateAvailable": "Versi baru tersedia: {version}",
-			"installError": "Gagal menginstal pembaruan"
-		},
 		"empty": {
 			"title": "Tidak ada baris lirik",
 			"description": "Tambahkan baris lirik baru di panel atas atau buka / impor lirik yang sudah ada dari bilah menu"
@@ -145,14 +141,7 @@
 				"limit": "Jumlah Cadangan yang Disimpan"
 			}
 		},
-		"about": {
-			"update": "Pembaruan Perangkat Lunak",
-			"newVersion": "Versi Baru",
-			"updateNow": "Perbarui Sekarang",
-			"downloading": "Mengunduh pembaruan...",
-			"ready": "Pembaruan telah siap, mulai ulang aplikasi untuk menerapkan.",
-			"restart": "Mulai Ulang Aplikasi"
-		},
+		"about": {},
 		"group": {
 			"display": "Tampilan",
 			"timing": "Sinkronisasi",

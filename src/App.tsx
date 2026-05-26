@@ -27,10 +27,10 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { platform, version } from "@tauri-apps/plugin-os";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue, useSetAtom, useStore } from "jotai";
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import semverGt from "semver/functions/gt";
 import styles from "./App.module.css";
 import DarkThemeDetector from "./components/DarkThemeDetector";
@@ -52,7 +52,6 @@ import {
 	customBackgroundOpacityAtom,
 } from "./modules/settings/modals/customBackground";
 import { showTouchSyncPanelAtom } from "./modules/settings/states/sync.ts";
-import { settingsDialogAtom, settingsTabAtom } from "./states/dialogs.ts";
 import {
 	isDirtyAtom,
 	isDarkThemeAtom,
@@ -71,7 +70,6 @@ import {
 	readFileFromTauriPath,
 	writeTextToFileHandle,
 } from "./utils/file-system-access";
-import { useAppUpdate } from "./utils/useAppUpdate.ts";
 
 const LyricLinesView = lazy(() => import("./modules/lyric-editor/components"));
 const AMLLWrapper = lazy(() => import("./components/AMLLWrapper"));
@@ -169,12 +167,8 @@ function App() {
 		: isDarkTheme
 			? "dark"
 			: "light";
-	const { checkUpdate, status, update } = useAppUpdate();
 	const isDirty = useAtomValue(isDirtyAtom);
 	const saveFileName = useAtomValue(saveFileNameAtom);
-	const hasNotifiedRef = useRef(false);
-	const setSettingsOpen = useSetAtom(settingsDialogAtom);
-	const setSettingsTab = useSetAtom(settingsTabAtom);
 	const initCustomBackgroundImage = useSetAtom(customBackgroundImageInitAtom);
 	const { t } = useTranslation();
 	const store = useStore();
@@ -184,38 +178,9 @@ function App() {
 	}, [initCustomBackgroundImage]);
 
 	useEffect(() => {
-		if (import.meta.env.TAURI_ENV_PLATFORM) {
-			checkUpdate(true);
-		}
-	}, [checkUpdate]);
-
-	useEffect(() => {
 		const appName = t("topBar.appName", "TTML Editor");
 		document.title = `${isDirty ? "*" : ""}${saveFileName} - ${appName}`;
 	}, [isDirty, saveFileName, t]);
-
-	useEffect(() => {
-		if (status === "available" && update && !hasNotifiedRef.current) {
-			hasNotifiedRef.current = true;
-
-			toast.info(
-				<div>
-					<div style={{ fontWeight: "bold" }}>
-						{t("app.update.updateAvailable", "アップデートがあります: {version}", {
-							version: update.version,
-						})}
-					</div>
-				</div>,
-				{
-					autoClose: 5000,
-					onClick: () => {
-						setSettingsTab("about");
-						setSettingsOpen(true);
-					},
-				},
-			);
-		}
-	}, [status, update, t, setSettingsOpen, setSettingsTab]);
 
 	const setIsGlobalDragging = useSetAtom(isGlobalFileDraggingAtom);
 	const { openFile } = useFileOpener();
