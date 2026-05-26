@@ -54,6 +54,7 @@ import {
 } from "$/states/main.ts";
 import {
 	assertFileSystemAccessSupported,
+	isTauriFileHandle,
 	openSingleFileWithPicker,
 	pickSaveFileHandle,
 	writeTextToFileHandle,
@@ -232,9 +233,13 @@ export const useTopMenuActions = () => {
 			}
 			if (!handle) return;
 			await writeTextToFileHandle(handle, ttmlText);
-			const file = await handle.getFile();
 			setSaveFileHandle(handle);
-			setSaveFileName(file.name);
+			if (isTauriFileHandle(handle)) {
+				setSaveFileName(handle.name);
+			} else {
+				const file = await handle.getFile();
+				setSaveFileName(file.name);
+			}
 			markCurrentLyricsAsSaved();
 		} catch (e) {
 			error("Failed to save TTML file", e);
@@ -260,9 +265,13 @@ export const useTopMenuActions = () => {
 			});
 			if (!handle) return;
 			await writeTextToFileHandle(handle, ttmlText);
-			const file = await handle.getFile();
 			setSaveFileHandle(handle);
-			setSaveFileName(file.name);
+			if (isTauriFileHandle(handle)) {
+				setSaveFileName(handle.name);
+			} else {
+				const file = await handle.getFile();
+				setSaveFileName(file.name);
+			}
 			markCurrentLyricsAsSaved();
 		} catch (e) {
 			error("Failed to save TTML file as a new file", e);

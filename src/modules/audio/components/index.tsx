@@ -54,6 +54,8 @@ import {
 	keyVolumeUpAtom,
 } from "$/states/keybindings.ts";
 import { useKeyBindingAtom } from "$/utils/keybindings.ts";
+import { openSingleFileWithPicker } from "$/utils/file-system-access";
+import { error as logError } from "$/utils/logging.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
 
 const AudioPlaybackKeyBinding = memo(() => {
@@ -115,6 +117,37 @@ export const AudioControls: FC = memo(() => {
 	const { t } = useTranslation();
 
 	const onLoadMusic = useCallback(() => {
+		if (import.meta.env.TAURI_ENV_PLATFORM) {
+			(async () => {
+				try {
+					const picked = await openSingleFileWithPicker({
+						description: "Audio file",
+						mimeType: "audio/*",
+						extensions: [
+							"opus",
+							"flac",
+							"webm",
+							"weba",
+							"wav",
+							"ogg",
+							"m4a",
+							"oga",
+							"mid",
+							"mp3",
+							"aiff",
+							"wma",
+							"au",
+						],
+					});
+					if (!picked) return;
+					openFile(picked.file);
+				} catch (e) {
+					logError("Failed to load audio via Tauri picker", e);
+				}
+			})();
+			return;
+		}
+
 		const inputEl = document.createElement("input");
 		inputEl.type = "file";
 		inputEl.accept = "audio/*,*/*";

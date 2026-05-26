@@ -30,6 +30,7 @@ import {
 } from "$/states/main.ts";
 import type { TTMLLyric } from "$/types/ttml";
 import { log, error as logError } from "$/utils/logging.ts";
+import type { SaveFileHandle } from "$/utils/file-system-access";
 import { parseLrc } from "$/utils/parse-lrc";
 import { parseSrt } from "$/utils/parse-srt";
 
@@ -94,7 +95,7 @@ export const useFileOpener = () => {
 		async (
 			file: File,
 			forceExt?: string,
-			fileHandle: FileSystemFileHandle | null = null,
+			fileHandle: SaveFileHandle | null = null,
 		) => {
 			const rawExt = file.name.split(".").pop()?.toLowerCase() || "";
 			const ext = forceExt ? forceExt.toLowerCase() : rawExt;
@@ -190,7 +191,7 @@ export const useFileOpener = () => {
 		(
 			file: File,
 			forceExt?: string,
-			fileHandle: FileSystemFileHandle | null = null,
+			fileHandle: SaveFileHandle | null = null,
 		) => {
 			const run = () => performOpenFile(file, forceExt, fileHandle);
 

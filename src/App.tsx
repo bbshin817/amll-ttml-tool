@@ -66,7 +66,9 @@ import {
 } from "./states/main.ts";
 import {
 	assertFileSystemAccessSupported,
+	isTauriFileHandle,
 	pickSaveFileHandle,
+	readFileFromTauriPath,
 	writeTextToFileHandle,
 } from "./utils/file-system-access";
 import { useAppUpdate } from "./utils/useAppUpdate.ts";
@@ -113,9 +115,13 @@ const AppErrorPage = ({
 									}
 									if (!handle) return;
 									await writeTextToFileHandle(handle, ttmlText);
-									const file = await handle.getFile();
 									store.set(saveFileHandleAtom, handle);
-									store.set(saveFileNameAtom, file.name);
+									if (isTauriFileHandle(handle)) {
+										store.set(saveFileNameAtom, handle.name);
+									} else {
+										const file = await handle.getFile();
+										store.set(saveFileNameAtom, file.name);
+									}
 									store.set(markCurrentLyricsAsSavedAtom);
 								} catch (e) {
 									logError("Failed to save TTML file", e);
@@ -222,19 +228,14 @@ function App() {
 
 		(async () => {
 			const file: {
-				filename: string;
-				data: string;
+				path: string;
 				ext: string;
 			} | null = await invoke("get_open_file_data");
 
 			if (file) {
 				log("File data from tauri args", file);
-
-				const fileObj = new File([file.data], file.filename, {
-					type: "text/plain",
-				});
-
-				openFile(fileObj);
+				const picked = await readFileFromTauriPath(file.path);
+				openFile(picked.file, undefined, picked.handle);
 			}
 		})();
 	}, [openFile]);
