@@ -4,6 +4,7 @@ import {
 	audioErrorAtom,
 	audioTaskStateAtom,
 	auditionTimeAtom,
+	currentTimeAtom,
 } from "$/modules/audio/states/index.ts";
 import { AudioWorkerClient } from "$/modules/audio/workers/audio-worker-client";
 import { globalStore } from "$/states/store.ts";
@@ -171,6 +172,14 @@ class AudioEngine extends EventTarget {
 		if (this._audioEl) {
 			this._audioEl.currentTime = offset;
 			this.dispatchEvent(new Event("music-seeked"));
+			// HTMLMediaElement.currentTime はセットした直後に読み戻しても値が
+			// 確定しておらず、特に WebKit (Tauri の WKWebView) ではシーク完了まで
+			// 古い再生位置を返すことがある。上の "music-seeked" 経由でハイライト用
+			// クロック(currentTimeAtom)を読み戻すと、その古い値で歌詞ハイライトが
+			// ズレてしまう（矢印キーの連続シークで顕著）。
+			// スペクトログラムのスクラブ(useScrubbing)と同様にシーク先の時刻で
+			// 確定的に上書きし、ハイライトのズレを防ぐ。
+			globalStore.set(currentTimeAtom, Math.max(0, offset * 1000) | 0);
 		}
 	}
 
