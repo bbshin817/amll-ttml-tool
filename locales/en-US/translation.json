@@ -320,7 +320,7 @@
 	},
 	"audio": {
 		"status": {
-			"transcoding": "Decoding failed, attempting to transcode audio...",
+			"transcoding": "Converting audio to a playable format… (large files may take a while)",
 			"loading": "Loading audio...",
 			"processing": "Processing..."
 		},

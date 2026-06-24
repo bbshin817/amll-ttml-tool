@@ -17,7 +17,10 @@ export const useAudioFeedback = () => {
 		const getMessage = (type: string) => {
 			switch (type) {
 				case "TRANSCODING":
-					return t("audio.status.transcoding", "デコードに失敗しました。音声の変換を試行しています…");
+					return t(
+						"audio.status.transcoding",
+						"ブラウザが対応していない形式のため、音声を変換しています…（大きなファイルでは時間がかかることがあります）",
+					);
 				case "LOADING":
 					return t("audio.status.loading", "音声を読み込み中…");
 				default:

@@ -102,7 +102,11 @@ export const useFileOpener = () => {
 
 			try {
 				if (AUDIO_EXTENSIONS.has(ext)) {
-					audioEngine.loadMusic(file);
+					// 読み込み（必要なら WAV へのトランスコード）の完了を待ち、
+					// 失敗した場合はユーザーへ通知する。
+					// 以前は fire-and-forget だったため、トランスコード後の
+					// 再読み込みに失敗してもエラーが握りつぶされていた。
+					await audioEngine.loadMusic(file);
 					return;
 				}
 

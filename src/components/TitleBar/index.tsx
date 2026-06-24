@@ -1,8 +1,9 @@
-import { SegmentedControl, Text } from "@radix-ui/themes";
+import { Flex, SegmentedControl, Text } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
 import { type FC, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { BUILD_TIME } from "virtual:buildmeta";
 import WindowControls from "$/components/WindowControls";
 import {
 	keySwitchEditModeAtom,
@@ -18,6 +19,16 @@ import {
 import { useKeyBindingAtom } from "$/utils/keybindings.ts";
 import { TopMenu } from "../TopMenu/index.tsx";
 import styles from "./index.module.css";
+
+/** ビルド時刻 (virtual:buildmeta の ISO 文字列) を `YYYY-MM-DD HH:mm` 形式に整形 */
+const buildTimeLabel = (() => {
+	const date = new Date(BUILD_TIME);
+	if (Number.isNaN(date.getTime())) return BUILD_TIME;
+	const pad = (n: number) => String(n).padStart(2, "0");
+	return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
+		date.getDate(),
+	)} ${pad(date.getHours())}:${pad(date.getMinutes())}`;
+})();
 
 export const TitleBar: FC = () => {
 	const [toolMode, setToolMode] = useAtom(toolModeAtom);
@@ -61,9 +72,21 @@ export const TitleBar: FC = () => {
 			}
 			endChildren={
 				!import.meta.env.TAURI_ENV_PLATFORM && (
-					<Text color="gray" wrap="nowrap" size="2" mr="2">
-						<span className={styles.title}>{t("topBar.appName", "TTML Editor")}</span>
-					</Text>
+					<Flex
+						direction="column"
+						align="end"
+						mr="2"
+						style={{ lineHeight: 1.15 }}
+					>
+						<Text color="gray" wrap="nowrap" size="2">
+							<span className={styles.title}>
+								{t("topBar.appName", "TTML Editor")}
+							</span>
+						</Text>
+						<Text color="gray" wrap="nowrap" size="1" style={{ opacity: 0.7 }}>
+							{t("topBar.buildTime", "Build: {time}", { time: buildTimeLabel })}
+						</Text>
+					</Flex>
 				)
 			}
 			onSpacerClicked={() => {
