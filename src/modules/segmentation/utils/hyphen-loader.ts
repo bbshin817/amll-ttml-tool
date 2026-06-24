@@ -42,37 +42,44 @@ export async function loadHyphenator(
 	}
 
 	try {
-		let module: { hyphenateSync: HyphenatorFunc };
+		let imported: {
+			hyphenateSync?: HyphenatorFunc;
+			default?: { hyphenateSync?: HyphenatorFunc };
+		};
 		switch (lang) {
 			case "en-us":
-				module = await import("hyphen/en-us");
+				imported = await import("hyphen/en-us");
 				break;
 			case "de":
-				module = await import("hyphen/de");
+				imported = await import("hyphen/de");
 				break;
 			case "fr":
-				module = await import("hyphen/fr");
+				imported = await import("hyphen/fr");
 				break;
 			case "es":
-				module = await import("hyphen/es");
+				imported = await import("hyphen/es");
 				break;
 			case "id":
-				module = await import("hyphen/id");
+				imported = await import("hyphen/id");
 				break;
 			case "it":
-				module = await import("hyphen/it");
+				imported = await import("hyphen/it");
 				break;
 			case "pt":
-				module = await import("hyphen/pt");
+				imported = await import("hyphen/pt");
 				break;
 			case "ru":
-				module = await import("hyphen/ru");
+				imported = await import("hyphen/ru");
 				break;
 			default:
 				throw new Error(`不支持的语言: ${lang}`);
 		}
 
-		const func = module.hyphenateSync;
+		// hyphen は CommonJS (`module.exports = factory()`) のため、Vite/esbuild の
+		// CJS 相互運用では名前付きエクスポート(hyphenateSync)が名前空間の直下には現れず
+		// `default` の配下に入る。直下と default の両方を見て確実に取り出す。
+		// これを怠ると関数が undefined になり、英語の音節分割が無効化される。
+		const func = imported.hyphenateSync ?? imported.default?.hyphenateSync;
 		if (typeof func === "function") {
 			hyphenatorCache[lang] = func;
 			return func;
