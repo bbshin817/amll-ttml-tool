@@ -142,6 +142,9 @@
 			"playbackRate": "再生速度",
 			"seekStep": "矢印キーのシーク間隔",
 			"seekStepDesc": "左右矢印キーでシークする秒数を設定します。",
+			"syncTimeOffset": "時間オフセット（キー入力補正）",
+			"syncTimeOffsetDesc": "同期入力時に記録される時刻を補正します。負の値で早め、正の値で遅めに判定します。Bluetooth 利用時は -200ms が目安です。",
+			"syncTimeOffsetReset": "既定値",
 			"autosave": {
 				"enable": "自動保存を有効にする",
 				"interval": "保存間隔（分）",
@@ -175,6 +178,7 @@
 			"openLyric": "歌詞を開く",
 			"openFromClipboard": "クリップボードから TTML を開く",
 			"openFromAppleMusic": "Apple Music から取得",
+			"uploadToTtmlDb": "データベースにアップロード…",
 			"saveLyricOverwrite": "歌詞を上書き保存",
 			"saveLyricAs": "名前をつけて歌詞を保存",
 			"restoreFromHistory": "履歴から復元…",
@@ -219,8 +223,7 @@
 				"export": "歌詞をエクスポート",
 				"toTTML": "TTML 形式",
 				"toSpotifyJson": "Spotify JSON 形式"
-			},
-			"syncInputOffset": "音声遅延（キー入力補正）…"
+			}
 		}
 	},
 	"header": {
@@ -358,6 +361,49 @@
 			"invalidUrl": "有効な Apple Music のトラック URL を入力してください",
 			"fetchFailed": "歌詞の取得に失敗しました。URL またはネットワーク接続を確認してください",
 			"apiErrorTitle": "エラー"
+		}
+	},
+	"ttmlDbUpload": {
+		"title": "データベースにアップロード",
+		"description": "歌詞を外部データベース (ttml-api.bshin.dev) に登録します。アーティスト名と曲名は必須です。",
+		"fields": {
+			"artistName": "アーティスト名",
+			"trackName": "曲名",
+			"appleMusicTrackId": "Apple Music トラック ID",
+			"firstLine": "歌詞（先頭行）"
+		},
+		"emptyFirstLine": "（空の行）",
+		"placeholders": {
+			"artistName": "例: ヨルシカ",
+			"trackName": "例: 花に亡霊",
+			"appleMusicTrackId": "例: 1234567890 (任意)"
+		},
+		"missingHint": "不足している項目を入力してください",
+		"appleMusicTrackIdHint": "任意。指定すると Apple Music トラック ID を関連付けます",
+		"appleMusicTrackIdInvalid": "Apple Music トラック ID は数値で入力してください",
+		"proceed": "確認へ進む",
+		"confirmTitle": "アップロード内容の確認",
+		"confirmDescription": "以下の内容でデータベースに登録します。よろしいですか？",
+		"back": "戻る",
+		"confirmUpload": "登録する",
+		"notProvided": "（未設定）",
+		"confirmOverwrite": "上書き更新する",
+		"checkingExisting": "既存の歌詞を確認しています…",
+		"willOverwrite": "同名の歌詞が既に存在します。登録すると上書き更新されます。",
+		"willCreate": "新規の歌詞として登録されます。",
+		"checkFailed": "既存の歌詞を確認できませんでした。そのまま登録できます。",
+		"upload": "アップロード",
+		"uploading": "アップロード中…",
+		"success": "データベースに登録しました",
+		"overwriteSuccess": "歌詞を上書き更新しました",
+		"appleMusicLinked": "Apple Music トラック ID を関連付けました",
+		"appleMusicAlreadyLinked": "この Apple Music トラック ID は既に関連付け済みです",
+		"appleMusicLinkFailed": "登録は成功しましたが、Apple Music トラック ID の関連付けに失敗しました",
+		"errors": {
+			"noLyrics": "アップロードする歌詞がありません",
+			"conflict": "同じアーティスト名・曲名の歌詞が既に存在します",
+			"uploadFailed": "アップロードに失敗しました。ネットワーク接続を確認してください",
+			"apiErrorTitle": "アップロードエラー"
 		}
 	},
 	"lrclib": {
@@ -604,7 +650,9 @@
 		"rules": {
 			"title": "自動分割ルール",
 			"cjk": "CJK 文字を分割",
-			"syllable": "欧米言語の単語を音節で分割"
+			"syllable": "欧米言語の単語を音節で分割",
+			"japanesePerChar": "日本語をすべて1文字単位で分割（英語は音節で分割）",
+			"japanesePerCharDesc": "ひらがな・カタカナ・漢字を1文字ずつに分割し、英語は音節（ハイフネーション）で分割します。形態素解析は使用しません。"
 		},
 		"language": {
 			"select": "ハイフネーション用の言語モデルを選択:"
@@ -647,12 +695,5 @@
 		"offlineReady": "オフラインで利用できるようにサイトをキャッシュしました",
 		"updateRefresh": "サイトが更新されました。最新版を使用するには再読み込みしてください",
 		"refresh": "更新"
-	},
-	"syncInputOffsetDialog": {
-		"title": "音声遅延（キー入力補正）",
-		"description": "打鍵タイミング判定の補正値を ms 単位で調整します。Bluetooth 利用時は -200ms が目安です。",
-		"offsetLabel": "入力タイミング補正（ms）",
-		"hint": "正の値で遅めに判定（Bluetooth 向け）、負の値で早めに判定します。",
-		"resetDefault": "既定値（-200ms）に戻す"
 	}
 }

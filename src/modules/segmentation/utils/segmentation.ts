@@ -59,7 +59,7 @@ function splitLatinByHyphenation(
 	const tokenType = getCharType(firstChar);
 	if (
 		tokenType === CharType.Latin &&
-		config.splitEnglish &&
+		(config.splitEnglish || config.splitJapaneseByChar) &&
 		token.length > 1 &&
 		config.hyphenator
 	) {
@@ -72,6 +72,8 @@ function shouldUseTinySegmenterForJapanese(
 	text: string,
 	config: SegmentationConfig,
 ): boolean {
+	// 1文字単位モードでは形態素解析を使わず、常に1文字ずつ分割する。
+	if (config.splitJapaneseByChar) return false;
 	return config.splitCJK && japaneseTokenizerHintRegexp.test(text);
 }
 
@@ -95,6 +97,10 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 	let currentToken = "";
 	let lastCharType: CharType | null = null;
 
+	// CJK を1文字ずつ分割するかどうか。
+	// 通常の splitCJK に加え、日本語1文字単位モードでも有効にする。
+	const cjkSplit = config.splitCJK || config.splitJapaneseByChar;
+
 	const pushCurrentToken = () => {
 		if (!currentToken) return;
 		tokens.push(...splitLatinByHyphenation(currentToken, config));
@@ -110,9 +116,9 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 		if (lastCharType !== null) {
 			let shouldBreak = false;
 
-			if (currentCharType === CharType.Cjk && config.splitCJK) {
+			if (currentCharType === CharType.Cjk && cjkSplit) {
 				shouldBreak = true;
-			} else if (lastCharType === CharType.Cjk && config.splitCJK) {
+			} else if (lastCharType === CharType.Cjk && cjkSplit) {
 				shouldBreak = true;
 			} else if (currentCharType === CharType.Other) {
 				shouldBreak = true;
@@ -122,7 +128,7 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 
 			if (
 				!shouldBreak &&
-				!isMergeablePair(lastCharType, currentCharType, config.splitCJK)
+				!isMergeablePair(lastCharType, currentCharType, cjkSplit)
 			) {
 				shouldBreak = true;
 			}

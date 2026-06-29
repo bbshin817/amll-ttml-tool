@@ -7,9 +7,11 @@ import { useFileOpener } from "$/hooks/useFileOpener.ts";
 import {
 	AppleMusicApi,
 	AppleMusicApiError,
+	type AppleMusicSongInfo,
 	sanitizeTtmlFileName,
 } from "$/modules/apple-music/api/client";
 import { extractAppleMusicTrackId } from "$/modules/apple-music/utils/parse-track-id";
+import type { TTMLMetadata } from "$/types/ttml";
 import {
 	confirmDialogAtom,
 	importFromAppleMusicDialogAtom,
@@ -61,22 +63,41 @@ export const ImportFromAppleMusic = () => {
 			try {
 				const ttmlText = await AppleMusicApi.fetchSyllableLyrics(trackId);
 
-				let songName: string | null = null;
+				let songInfo: AppleMusicSongInfo = {};
 				try {
-					songName = await AppleMusicApi.fetchSongName(trackId);
+					songInfo = await AppleMusicApi.fetchSongInfo(trackId);
 				} catch (e) {
 					if (e instanceof AppleMusicApiError) {
 						showApiError(e.apiMessage);
 					}
 				}
 
-				const fileName = songName
-					? sanitizeTtmlFileName(songName)
-					: `apple-music-${trackId}.ttml`;
+				const fileName = songInfo.name
+					? sanitizeTtmlFileName(songInfo.name)
+					: `apple-music-${trackId}.xml`;
 				const file = new File([ttmlText], fileName, {
 					type: "application/xml",
 				});
-				openFile(file);
+
+				// Apple Music から取得した楽曲情報を、歌詞メタデータへ自動で関連付ける。
+				// 後でデータベースへアップロードする際の初期値として利用される。
+				const extraMetadata: TTMLMetadata[] = [
+					{ key: "appleMusicId", value: [trackId] },
+				];
+				if (songInfo.name) {
+					extraMetadata.push({ key: "musicName", value: [songInfo.name] });
+				}
+				if (songInfo.artistName) {
+					extraMetadata.push({ key: "artists", value: [songInfo.artistName] });
+				}
+				if (songInfo.albumName) {
+					extraMetadata.push({ key: "album", value: [songInfo.albumName] });
+				}
+				if (songInfo.isrc) {
+					extraMetadata.push({ key: "isrc", value: [songInfo.isrc] });
+				}
+
+				openFile(file, undefined, null, extraMetadata);
 				setIsOpen(false);
 				resetForm();
 			} catch (e) {

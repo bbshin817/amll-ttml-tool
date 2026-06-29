@@ -20,10 +20,10 @@ import {
 	historyRestoreDialogAtom,
 	importFromAppleMusicDialogAtom,
 	latencyTestDialogAtom,
-	syncInputOffsetDialogAtom,
 	metadataEditorDialogAtom,
 	settingsDialogAtom,
 	timeShiftDialogAtom,
+	uploadToTtmlDbDialogAtom,
 } from "$/states/dialogs.ts";
 import {
 	keyDeleteSelectionAtom,
@@ -113,6 +113,7 @@ export const useTopMenuActions = () => {
 	const setImportFromAppleMusicDialog = useSetAtom(
 		importFromAppleMusicDialogAtom,
 	);
+	const setUploadToTtmlDbDialog = useSetAtom(uploadToTtmlDbDialogAtom);
 	const { openFile } = useFileOpener();
 	const setProjectId = useSetAtom(projectIdAtom);
 	const { config: segmentationConfig } = useSegmentationConfig();
@@ -161,7 +162,7 @@ export const useTopMenuActions = () => {
 			newLyricLine();
 			setProjectId(uid());
 			setSaveFileHandle(null);
-			setSaveFileName("lyric.ttml");
+			setSaveFileName("lyric.xml");
 		};
 
 		if (isDirty) {
@@ -205,7 +206,7 @@ export const useTopMenuActions = () => {
 	const onOpenFileFromClipboard = useCallback(async () => {
 		try {
 			const ttmlText = await navigator.clipboard.readText();
-			const file = new File([ttmlText], "lyric.ttml", {
+			const file = new File([ttmlText], "lyric.xml", {
 				type: "application/xml",
 			});
 			openFile(file, undefined, null);
@@ -218,6 +219,10 @@ export const useTopMenuActions = () => {
 		setImportFromAppleMusicDialog(true);
 	}, [setImportFromAppleMusicDialog]);
 
+	const onUploadToTtmlDb = useCallback(() => {
+		setUploadToTtmlDbDialog(true);
+	}, [setUploadToTtmlDbDialog]);
+
 	const onSaveFile = useCallback(async () => {
 		try {
 			assertFileSystemAccessSupported();
@@ -228,7 +233,7 @@ export const useTopMenuActions = () => {
 					suggestedName: saveFileName,
 					description: "TTML lyric",
 					mimeType: "application/xml",
-					extensions: ["ttml"],
+					extensions: ["xml", "ttml"],
 				});
 			}
 			if (!handle) return;
@@ -261,7 +266,7 @@ export const useTopMenuActions = () => {
 				suggestedName: saveFileName,
 				description: "TTML lyric",
 				mimeType: "application/xml",
-				extensions: ["ttml"],
+				extensions: ["xml", "ttml"],
 			});
 			if (!handle) return;
 			await writeTextToFileHandle(handle, ttmlText);
@@ -308,10 +313,6 @@ export const useTopMenuActions = () => {
 
 	const onOpenLatencyTest = useCallback(() => {
 		store.set(latencyTestDialogAtom, true);
-	}, [store]);
-
-	const onOpenSyncInputOffset = useCallback(() => {
-		store.set(syncInputOffsetDialogAtom, true);
 	}, [store]);
 
 	const onOpenGitHub = useCallback(async () => {
@@ -569,6 +570,7 @@ export const useTopMenuActions = () => {
 		onOpenFile,
 		onOpenFileFromClipboard,
 		onOpenFromAppleMusic,
+		onUploadToTtmlDb,
 		onSaveFile,
 		onSaveFileAs,
 		onOpenHistoryRestore,
@@ -593,7 +595,6 @@ export const useTopMenuActions = () => {
 		onOpenDistributeRomanization,
 		onAutoRuby,
 		onCheckRomanizationWarnings,
-		onOpenSyncInputOffset,
 		onOpenLatencyTest,
 		onOpenGitHub,
 		onOpenWiki,

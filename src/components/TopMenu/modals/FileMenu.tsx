@@ -42,6 +42,9 @@ const FileMenuItems = () => {
 			<DropdownMenu.Item onSelect={menu.onOpenFromAppleMusic}>
 				<Trans i18nKey="topBar.menu.openFromAppleMusic">Apple Music から取得</Trans>
 			</DropdownMenu.Item>
+			<DropdownMenu.Item onSelect={menu.onUploadToTtmlDb}>
+				<Trans i18nKey="topBar.menu.uploadToTtmlDb">データベースにアップロード…</Trans>
+			</DropdownMenu.Item>
 			<DropdownMenu.Separator />
 			<DropdownMenu.Item onSelect={menu.onOpenHistoryRestore}>
 				{t("topBar.menu.restoreFromHistory", "履歴から復元…")}

@@ -108,7 +108,7 @@ const AppErrorPage = ({
 											suggestedName: store.get(saveFileNameAtom),
 											description: "TTML lyric",
 											mimeType: "application/xml",
-											extensions: ["ttml"],
+											extensions: ["xml", "ttml"],
 										});
 									}
 									if (!handle) return;

@@ -1,0 +1,18 @@
+---
+description: i18n / 翻訳ルール (en-US と ja-JP のみ管理)
+globs: locales/**,src/**/*.ts,src/**/*.tsx
+alwaysApply: true
+---
+
+# 多言語対応 (i18n) ルール
+
+- 翻訳データは **英語 (`en-US`) と日本語 (`ja-JP`) のみ** を管理する。
+  これ以外の言語ロケールは追加しない。`locales/` 配下は `en-US/` と `ja-JP/` の 2 つだけ。
+- 新しい翻訳キーは `locales/ja-JP/translation.json` と `locales/en-US/translation.json`
+  の **両方** に追加する。
+- コードでは `t("some.key", "日本語の既定文言")` /
+  `<Trans i18nKey="some.key">日本語の既定文言</Trans>` のようにインライン既定文言を付ける。
+- i18n の **型ソースは `ja-JP`**（`src/types/vite-env.d.ts`）。`ja-JP` にキーが無いと型エラーになる。
+- ロケール一覧は `locales/` を走査して動的決定（`vite.config.ts` の i18nextLoader、
+  `src/modules/settings/modals/common.tsx` の `Object.keys(resources)`）。ハードコード一覧は無い。
+- 既定言語・フォールバックは `ja-JP`（`src/i18n/index.ts`）。

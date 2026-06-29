@@ -99,8 +99,6 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
     let tool_check_roman =
         MenuItem::with_id(app, "tool.checkRomanizationWarnings", "単語ごとのローマ字を確認", true, None::<&str>)?;
     let tool_auto_ruby = MenuItem::with_id(app, "tool.autoRuby", "自動ルビ", true, None::<&str>)?;
-    let tool_sync_input =
-        MenuItem::with_id(app, "tool.syncInputOffset", "音声遅延（キー入力補正）…", true, None::<&str>)?;
     let tool_latency_test =
         MenuItem::with_id(app, "tool.latencyTest", "音声／入力レイテンシのテスト", true, None::<&str>)?;
     let tool_sep_1 = PredefinedMenuItem::separator(app)?;
@@ -179,7 +177,6 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
             &tool_romanization_menu,
             &tool_auto_ruby,
             &tool_sep_2,
-            &tool_sync_input,
             &tool_latency_test,
         ],
     )?;

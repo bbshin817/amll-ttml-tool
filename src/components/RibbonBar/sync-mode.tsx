@@ -40,7 +40,7 @@ import {
 } from "@radix-ui/themes";
 import { useAtom, useAtomValue } from "jotai";
 import { useSetImmerAtom } from "jotai-immer";
-import { type FC, forwardRef } from "react";
+import { type FC, forwardRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { KeyBinding } from "../KeyBinding/index.tsx";
 import { RibbonFrame, RibbonSection } from "./common";
@@ -95,6 +95,16 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 			showWordRomanizationInputAtom,
 		);
 		const [syncTimeOffset, setSyncTimeOffset] = useAtom(syncTimeOffsetAtom);
+		const [syncTimeOffsetInput, setSyncTimeOffsetInput] = useState(
+			String(syncTimeOffset),
+		);
+		useEffect(() => {
+			setSyncTimeOffsetInput((prev) =>
+				Number.parseInt(prev, 10) === syncTimeOffset
+					? prev
+					: String(syncTimeOffset),
+			);
+		}, [syncTimeOffset]);
 		const [autoScrollActiveLine, setAutoScrollActiveLine] = useAtom(
 			autoScrollActiveLineAtom,
 		);
@@ -117,14 +127,18 @@ export const SyncModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							{t("ribbonBar.syncMode.timeOffset", "時間オフセット")}
 						</Text>
 						<TextField.Root
-							type="number"
-							step={1}
+							type="text"
+							inputMode="numeric"
 							size="1"
 							style={{
 								width: "8em",
 							}}
-							value={syncTimeOffset}
-							onChange={(e) => setSyncTimeOffset(e.target.valueAsNumber)}
+							value={syncTimeOffsetInput}
+							onChange={(e) => {
+								setSyncTimeOffsetInput(e.target.value);
+								const parsed = Number.parseInt(e.target.value, 10);
+								if (!Number.isNaN(parsed)) setSyncTimeOffset(parsed);
+							}}
 						>
 							<TextField.Slot />
 							<TextField.Slot>ms</TextField.Slot>

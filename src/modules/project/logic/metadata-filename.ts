@@ -29,6 +29,6 @@ export const getSuggestedTtmlFileName = (
 	const baseName = `${artists} - ${musicName}`;
 	return {
 		baseName,
-		fileName: `${baseName}.ttml`,
+		fileName: `${baseName}.xml`,
 	};
 };

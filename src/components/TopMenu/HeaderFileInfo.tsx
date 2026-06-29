@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { confirmDialogAtom, historyRestoreDialogAtom } from "$/states/dialogs";
 import { lastSavedTimeAtom, lyricLinesAtom, saveFileNameAtom } from "$/states/main";
 import { getSuggestedTtmlFileName } from "$/modules/project/logic/metadata-filename";
+import { stripKnownFileExtension } from "$/utils/filename";
 
 export const HeaderFileInfo = () => {
 	const { t } = useTranslation();
@@ -23,7 +24,7 @@ export const HeaderFileInfo = () => {
 	const suggestedFile = getSuggestedTtmlFileName(metadata);
 
 	const getBaseName = useCallback(
-		(value: string) => value.replace(/\.[^.]+$/, ""),
+		(value: string) => stripKnownFileExtension(value),
 		[],
 	);
 
@@ -62,7 +63,7 @@ export const HeaderFileInfo = () => {
 	}, [lastSavedTime]);
 
 	const handleNameClick = useCallback(() => {
-		const isDefaultName = filename.toLowerCase() === "lyric.ttml";
+		const isDefaultName = filename.toLowerCase() === "lyric.xml";
 		if (isDefaultName && suggestedFile) {
 			setConfirmDialog({
 				open: true,

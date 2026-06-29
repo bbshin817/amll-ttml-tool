@@ -9,6 +9,7 @@ import {
 	segmentationRemoveEmptySegmentsAtom,
 	segmentationSplitCJKAtom,
 	segmentationSplitEnglishAtom,
+	segmentationSplitJapaneseByCharAtom,
 } from "../states";
 import type { HyphenatorFunc, SegmentationConfig } from "../types";
 import { loadHyphenator } from "../utils/hyphen-loader";
@@ -16,6 +17,7 @@ import { loadHyphenator } from "../utils/hyphen-loader";
 export const useSegmentationConfig = () => {
 	const splitCJK = useAtomValue(segmentationSplitCJKAtom);
 	const splitEnglish = useAtomValue(segmentationSplitEnglishAtom);
+	const splitJapaneseByChar = useAtomValue(segmentationSplitJapaneseByCharAtom);
 	const punctuationMode = useAtomValue(segmentationPunctuationModeAtom);
 	const punctuationWeightStr = useAtomValue(segmentationPunctuationWeightAtom);
 	const removeEmptySegments = useAtomValue(segmentationRemoveEmptySegmentsAtom);
@@ -29,7 +31,9 @@ export const useSegmentationConfig = () => {
 	useEffect(() => {
 		let isMounted = true;
 		const fetchHyphenator = async () => {
-			if (!splitEnglish) {
+			// 英語の音節分割は splitEnglish と splitJapaneseByChar の
+			// どちらのモードでも使用するため、いずれかが有効ならロードする。
+			if (!splitEnglish && !splitJapaneseByChar) {
 				setHyphenator(undefined);
 				return;
 			}
@@ -44,7 +48,7 @@ export const useSegmentationConfig = () => {
 		return () => {
 			isMounted = false;
 		};
-	}, [lang, splitEnglish]);
+	}, [lang, splitEnglish, splitJapaneseByChar]);
 
 	const config = useMemo((): SegmentationConfig => {
 		const weight = parseFloat(punctuationWeightStr);
@@ -57,6 +61,7 @@ export const useSegmentationConfig = () => {
 		return {
 			splitCJK,
 			splitEnglish,
+			splitJapaneseByChar,
 			punctuationMode,
 			punctuationWeight: finalPunctuationWeight,
 			removeEmptySegments,
@@ -67,6 +72,7 @@ export const useSegmentationConfig = () => {
 	}, [
 		splitCJK,
 		splitEnglish,
+		splitJapaneseByChar,
 		punctuationMode,
 		punctuationWeightStr,
 		removeEmptySegments,

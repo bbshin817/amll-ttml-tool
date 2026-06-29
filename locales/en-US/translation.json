@@ -142,6 +142,9 @@
 			"playbackRate": "Playback Speed",
 			"seekStep": "Arrow key seek interval",
 			"seekStepDesc": "Set how many seconds Left/Right arrow seek.",
+			"syncTimeOffset": "Time Offset (Key Input Compensation)",
+			"syncTimeOffsetDesc": "Compensates the timestamp recorded during sync input. Negative values judge earlier, positive values judge later. -200ms is a good default for Bluetooth audio.",
+			"syncTimeOffsetReset": "Default",
 			"autosave": {
 				"enable": "Enable Autosave",
 				"interval": "Save Interval (minutes)",
@@ -175,6 +178,7 @@
 			"openLyric": "Open lyrics",
 			"openFromClipboard": "Open TTML from clipboard",
 			"openFromAppleMusic": "Import from Apple Music",
+			"uploadToTtmlDb": "Upload to database…",
 			"saveLyricOverwrite": "Save lyrics (overwrite)",
 			"saveLyricAs": "Save lyrics as...",
 			"restoreFromHistory": "Restore from history…",
@@ -218,8 +222,7 @@
 				"export": "Export lyrics",
 				"toTTML": "TTML",
 				"toSpotifyJson": "JSON (Spotify)"
-			},
-			"syncInputOffset": "Audio Delay (Input Timing Offset)…"
+			}
 		}
 	},
 	"header": {
@@ -357,6 +360,49 @@
 			"invalidUrl": "Please enter a valid Apple Music track URL",
 			"fetchFailed": "Failed to fetch lyrics. Check the URL or your network connection",
 			"apiErrorTitle": "Error"
+		}
+	},
+	"ttmlDbUpload": {
+		"title": "Upload to Database",
+		"description": "Register these lyrics to the external database (ttml-api.bshin.dev). Artist and track name are required.",
+		"fields": {
+			"artistName": "Artist name",
+			"trackName": "Track name",
+			"appleMusicTrackId": "Apple Music track ID",
+			"firstLine": "Lyrics (first line)"
+		},
+		"emptyFirstLine": "(empty line)",
+		"placeholders": {
+			"artistName": "e.g. The Beatles",
+			"trackName": "e.g. Hey Jude",
+			"appleMusicTrackId": "e.g. 1234567890 (optional)"
+		},
+		"missingHint": "Please fill in the missing fields",
+		"appleMusicTrackIdHint": "Optional. If provided, the Apple Music track ID will be linked.",
+		"appleMusicTrackIdInvalid": "Apple Music track ID must be numeric",
+		"proceed": "Continue",
+		"confirmTitle": "Confirm upload",
+		"confirmDescription": "These lyrics will be registered to the database with the following details. Proceed?",
+		"back": "Back",
+		"confirmUpload": "Upload",
+		"notProvided": "(not set)",
+		"confirmOverwrite": "Overwrite (update)",
+		"checkingExisting": "Checking for existing lyrics…",
+		"willOverwrite": "Lyrics with the same artist and track already exist. Uploading will overwrite them.",
+		"willCreate": "These will be registered as new lyrics.",
+		"checkFailed": "Could not check for existing lyrics. You can still upload.",
+		"upload": "Upload",
+		"uploading": "Uploading…",
+		"success": "Registered to the database",
+		"overwriteSuccess": "Lyrics were overwritten (updated)",
+		"appleMusicLinked": "Linked the Apple Music track ID",
+		"appleMusicAlreadyLinked": "This Apple Music track ID is already linked",
+		"appleMusicLinkFailed": "Registered successfully, but failed to link the Apple Music track ID",
+		"errors": {
+			"noLyrics": "There are no lyrics to upload",
+			"conflict": "Lyrics with the same artist and track name already exist",
+			"uploadFailed": "Upload failed. Please check your network connection.",
+			"apiErrorTitle": "Upload error"
 		}
 	},
 	"lrclib": {
@@ -571,7 +617,9 @@
 		"rules": {
 			"title": "Auto Segmentation Rules",
 			"cjk": "Split CJK characters",
-			"syllable": "Split Western words by syllables"
+			"syllable": "Split Western words by syllables",
+			"japanesePerChar": "Split all Japanese into single characters (English by syllable)",
+			"japanesePerCharDesc": "Splits hiragana, katakana, and kanji character by character, and splits English by syllable (hyphenation). Morphological analysis is not used."
 		},
 		"language": {
 			"select": "Select a hyphenation language model:"
@@ -614,12 +662,5 @@
 		"offlineReady": "Site successfully cached for offline use",
 		"updateRefresh": "Site updated, refresh to use the latest version!",
 		"refresh": "Refresh"
-	},
-	"syncInputOffsetDialog": {
-		"title": "Audio Delay (Input Timing Offset)",
-		"description": "Adjust key-input timing compensation in milliseconds. -200ms is a good default for Bluetooth audio.",
-		"offsetLabel": "Input Timing Offset (ms)",
-		"hint": "Positive values judge later (better for Bluetooth), negative values judge earlier.",
-		"resetDefault": "Reset to default (-200ms)"
 	}
 }

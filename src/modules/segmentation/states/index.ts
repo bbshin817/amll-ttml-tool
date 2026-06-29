@@ -30,6 +30,10 @@ export const segmentationSplitEnglishAtom = atomWithStorage(
 	"segmentation.splitEnglish",
 	false,
 );
+export const segmentationSplitJapaneseByCharAtom = atomWithStorage(
+	"segmentation.splitJapaneseByChar",
+	false,
+);
 export const segmentationPunctuationModeAtom = atomWithStorage<PunctuationMode>(
 	"segmentation.punctuationMode",
 	"merge",

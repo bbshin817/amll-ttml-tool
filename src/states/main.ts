@@ -133,7 +133,7 @@ export const newLyricLinesAtom = atom(
 export const selectedLinesAtom = atom(new Set<string>());
 export const selectedWordsAtom = atom(new Set<string>());
 
-export const saveFileNameAtom = atom("lyric.ttml");
+export const saveFileNameAtom = atom("lyric.xml");
 export const saveFileHandleAtom = atom<SaveFileHandle | null>(null);
 
 export const showUnselectedLinesAtom = atomWithStorage(

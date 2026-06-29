@@ -174,9 +174,6 @@ export const TopMenu: FC = () => {
 					case "tool.autoRuby":
 						menu.onAutoRuby();
 						break;
-					case "tool.syncInputOffset":
-						menu.onOpenSyncInputOffset();
-						break;
 					case "tool.latencyTest":
 						menu.onOpenLatencyTest();
 						break;
@@ -223,7 +220,6 @@ export const TopMenu: FC = () => {
 		menu.onOpenDistributeRomanization,
 		menu.onCheckRomanizationWarnings,
 		menu.onAutoRuby,
-		menu.onOpenSyncInputOffset,
 		menu.onOpenLatencyTest,
 		menu.onOpenTimeShift,
 		menu.onOpenGitHub,

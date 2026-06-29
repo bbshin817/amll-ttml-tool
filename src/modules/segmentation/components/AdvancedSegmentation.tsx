@@ -37,6 +37,7 @@ import {
 	segmentationScopeAtom,
 	segmentationSplitCJKAtom,
 	segmentationSplitEnglishAtom,
+	segmentationSplitJapaneseByCharAtom,
 } from "$/modules/segmentation/states";
 import { SUPPORTED_LANGUAGES } from "$/modules/segmentation/utils/hyphen-loader";
 import { segmentLyricLines } from "$/modules/segmentation/utils/segmentation.ts";
@@ -56,6 +57,9 @@ export const AdvancedSegmentationDialog = memo(() => {
 	const [rangeEnd, setRangeEnd] = useAtom(segmentationRangeEndAtom);
 	const [splitCJK, setSplitCJK] = useAtom(segmentationSplitCJKAtom);
 	const [splitEnglish, setSplitEnglish] = useAtom(segmentationSplitEnglishAtom);
+	const [splitJapaneseByChar, setSplitJapaneseByChar] = useAtom(
+		segmentationSplitJapaneseByCharAtom,
+	);
 	const [punctuationMode, setPunctuationMode] = useAtom(
 		segmentationPunctuationModeAtom,
 	);
@@ -305,7 +309,30 @@ export const AdvancedSegmentationDialog = memo(() => {
 								</Flex>
 							</Text>
 
-							{splitEnglish && (
+							<Flex direction="column" gap="1">
+								<Text as="label" size="2">
+									<Flex gap="2" align="center">
+										<Checkbox
+											checked={splitJapaneseByChar}
+											onCheckedChange={(c) =>
+												setSplitJapaneseByChar(c as boolean)
+											}
+										/>
+										{t(
+											"advancedSegmentDialog.rules.japanesePerChar",
+											"日本語をすべて1文字単位で分割（英語は音節で分割）",
+										)}
+									</Flex>
+								</Text>
+								<Text size="1" color="gray" ml="5">
+									{t(
+										"advancedSegmentDialog.rules.japanesePerCharDesc",
+										"ひらがな・カタカナ・漢字を1文字ずつに分割し、英語は音節（ハイフネーション）で分割します。形態素解析は使用しません。",
+									)}
+								</Text>
+							</Flex>
+
+							{(splitEnglish || splitJapaneseByChar) && (
 								<Flex direction="column" gap="1" ml="5">
 									<Text size="2" color="gray">
 										{t("advancedSegmentDialog.language.select", "ハイフネーション用の言語モデルを選択:")}

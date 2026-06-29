@@ -1,6 +1,5 @@
 import { ImportFromAppleMusic } from "$/modules/apple-music/modals/ImportDialog.tsx";
 import { LatencyTestDialog } from "$/modules/audio/modals/LatencyTest.tsx";
-import { SyncInputOffsetDialog } from "$/modules/audio/modals/SyncInputOffsetDialog.tsx";
 import { ImportFromLRCLIB } from "$/modules/lrclib/modals/ImportDialog.tsx";
 import { ReplaceWordDialog } from "$/modules/lyric-editor/tools/ReplaceWordDialog.tsx";
 import { TimeShiftDialog } from "$/modules/lyric-editor/tools/TimeShift.tsx";
@@ -11,6 +10,7 @@ import { MetadataEditor } from "$/modules/project/modals/MetadataEditor.tsx";
 import { AdvancedSegmentationDialog } from "$/modules/segmentation/components/AdvancedSegmentation.tsx";
 import { SplitWordDialog } from "$/modules/segmentation/components/split-word.tsx";
 import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
+import { UploadToTtmlDb } from "$/modules/ttml-db/modals/UploadDialog.tsx";
 import { ConfirmationDialog } from "./confirmation.tsx";
 
 export const Dialogs = () => {
@@ -19,12 +19,12 @@ export const Dialogs = () => {
 			<ImportFromText />
 			<ImportFromLRCLIB />
 			<ImportFromAppleMusic />
+			<UploadToTtmlDb />
 			<MetadataEditor />
 			<SettingsDialog />
 			<SplitWordDialog />
 			<ReplaceWordDialog />
 			<LatencyTestDialog />
-			<SyncInputOffsetDialog />
 			<ConfirmationDialog />
 			<HistoryRestoreDialog />
 			<AdvancedSegmentationDialog />

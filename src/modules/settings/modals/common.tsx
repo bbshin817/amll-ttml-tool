@@ -12,7 +12,7 @@ import {
 	Timer24Regular,
 	TopSpeed24Regular,
 } from "@fluentui/react-icons";
-import { Box, Card, Flex, Heading, Select, Slider, Switch, Text, TextField } from "@radix-ui/themes";
+import { Box, Button, Card, Flex, Heading, Select, Slider, Switch, Text, TextField } from "@radix-ui/themes";
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -29,6 +29,7 @@ import {
 	smartLastWordAtom,
 	syncJudgeModeAtom,
 } from "$/modules/settings/states";
+import { syncTimeOffsetAtom } from "$/modules/settings/states/sync.ts";
 import {
 	KeyBindingTriggerMode,
 	keyBindingTriggerModeAtom,
@@ -48,6 +49,10 @@ export const SettingsCommonTab = () => {
 	);
 	const [smartFirstWord, setSmartFirstWord] = useAtom(smartFirstWordAtom);
 	const [smartLastWord, setSmartLastWord] = useAtom(smartLastWordAtom);
+	const [syncTimeOffset, setSyncTimeOffset] = useAtom(syncTimeOffsetAtom);
+	const [syncTimeOffsetInput, setSyncTimeOffsetInput] = useState(() =>
+		String(syncTimeOffset),
+	);
 	const [volume, setVolume] = useAtom(volumeAtom);
 	const [playbackRate, setPlaybackRate] = useAtom(playbackRateAtom);
 	const [seekStepSeconds, setSeekStepSeconds] = useAtom(seekStepSecondsAtom);
@@ -296,6 +301,56 @@ export const SettingsCommonTab = () => {
 							</Box>
 						</Flex>
 					</Text>
+				</Card>
+
+				<Card>
+					<Flex gap="3" align="center">
+						<Timer24Regular />
+						<Box flexGrow="1">
+							<Flex align="center" justify="between" gap="4">
+								<Flex direction="column" gap="1">
+									<Text>
+										{t(
+											"settings.common.syncTimeOffset",
+											"時間オフセット（キー入力補正）",
+										)}
+									</Text>
+									<Text size="1" color="gray">
+										{t(
+											"settings.common.syncTimeOffsetDesc",
+											"同期入力時に記録される時刻を補正します。負の値で早め、正の値で遅めに判定します。Bluetooth 利用時は -200ms が目安です。",
+										)}
+									</Text>
+								</Flex>
+								<Flex align="center" gap="2">
+									<TextField.Root
+										type="text"
+										inputMode="numeric"
+										value={syncTimeOffsetInput}
+										onChange={(e) => {
+											setSyncTimeOffsetInput(e.target.value);
+											const parsed = Number.parseInt(e.target.value, 10);
+											if (!Number.isNaN(parsed)) setSyncTimeOffset(parsed);
+										}}
+										style={{ width: "7em" }}
+									>
+										<TextField.Slot />
+										<TextField.Slot>ms</TextField.Slot>
+									</TextField.Root>
+									<Button
+										variant="soft"
+										color="gray"
+										onClick={() => {
+											setSyncTimeOffset(-200);
+											setSyncTimeOffsetInput("-200");
+										}}
+									>
+										{t("settings.common.syncTimeOffsetReset", "既定値")}
+									</Button>
+								</Flex>
+							</Flex>
+						</Box>
+					</Flex>
 				</Card>
 			</Flex>
 

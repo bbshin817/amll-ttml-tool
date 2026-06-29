@@ -31,6 +31,9 @@ async function throwApiError(response: Response): Promise<never> {
 
 interface CatalogSongAttributes {
 	name?: string;
+	artistName?: string;
+	albumName?: string;
+	isrc?: string;
 }
 
 interface CatalogSongResource {
@@ -39,6 +42,16 @@ interface CatalogSongResource {
 
 interface CatalogSongResponse {
 	data?: CatalogSongResource[];
+}
+
+/**
+ * @description カタログから取得した楽曲情報。メタデータの自動補完に使う。
+ */
+export interface AppleMusicSongInfo {
+	name?: string;
+	artistName?: string;
+	albumName?: string;
+	isrc?: string;
 }
 
 export const AppleMusicApi = {
@@ -59,19 +72,34 @@ export const AppleMusicApi = {
 	 * Fetch track title from the catalog API (`data[0].attributes.name`).
 	 */
 	async fetchSongName(trackId: string): Promise<string> {
-		const response = await fetch(`${BASE_URL}/catalog/songs/${trackId}`);
-		if (!response.ok) {
-			await throwApiError(response);
-		}
-		const json = (await response.json()) as CatalogSongResponse;
-		const name = json.data?.[0]?.attributes?.name?.trim();
+		const name = (await AppleMusicApi.fetchSongInfo(trackId)).name?.trim();
 		if (!name) {
 			throw new Error("Song name was not found in catalog response.");
 		}
 		return name;
 	},
+
+	/**
+	 * Fetch song metadata (title / artist / album / ISRC) from the catalog API.
+	 * トラック ID から曲名・アーティスト名などを取得し、メタデータの
+	 * 自動リレーションに利用する。
+	 */
+	async fetchSongInfo(trackId: string): Promise<AppleMusicSongInfo> {
+		const response = await fetch(`${BASE_URL}/catalog/songs/${trackId}`);
+		if (!response.ok) {
+			await throwApiError(response);
+		}
+		const json = (await response.json()) as CatalogSongResponse;
+		const attributes = json.data?.[0]?.attributes ?? {};
+		return {
+			name: attributes.name?.trim() || undefined,
+			artistName: attributes.artistName?.trim() || undefined,
+			albumName: attributes.albumName?.trim() || undefined,
+			isrc: attributes.isrc?.trim() || undefined,
+		};
+	},
 };
 
 export function sanitizeTtmlFileName(name: string): string {
-	return `${name.trim()}.ttml`.replace(/[\\/:*?"<>|]/g, "_");
+	return `${name.trim()}.xml`.replace(/[\\/:*?"<>|]/g, "_");
 }

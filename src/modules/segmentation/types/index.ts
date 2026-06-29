@@ -32,6 +32,17 @@ export interface SegmentationConfig {
 	 */
 	splitEnglish: boolean;
 	/**
+	 * 日本語（ひらがな・カタカナ・漢字）をすべて1文字単位で分割し、
+	 * 英語は音節（ハイフネーション）で分割するモード。
+	 *
+	 * 有効時:
+	 * - 日本語は形態素解析（tinySegmenter）を使わず、必ず1文字ずつ分割する
+	 * - 英語は音節単位で分割する（splitEnglish と同様のハイフネーション）
+	 *
+	 * @default false
+	 */
+	splitJapaneseByChar: boolean;
+	/**
 	 * 标点符号在分配时长时占的权重（相对于一个字符）
 	 *
 	 * @default 0.2

@@ -28,9 +28,10 @@ import {
 	saveFileHandleAtom,
 	saveFileNameAtom,
 } from "$/states/main.ts";
-import type { TTMLLyric } from "$/types/ttml";
+import type { TTMLLyric, TTMLMetadata } from "$/types/ttml";
 import { log, error as logError } from "$/utils/logging.ts";
 import type { SaveFileHandle } from "$/utils/file-system-access";
+import { stripKnownFileExtension } from "$/utils/filename";
 import { parseLrc } from "$/utils/parse-lrc";
 import { parseSrt } from "$/utils/parse-srt";
 
@@ -60,7 +61,36 @@ const AUDIO_EXTENSIONS = new Set([
 ]);
 
 const stripFileExtension = (name: string): string =>
-	name.replace(/\.[^.]+$/, "");
+	stripKnownFileExtension(name);
+
+/**
+ * @description パース済みメタデータへ補完用メタデータをマージする。
+ * 既存のキーがあり、かつ空でない値を持つ場合はそのまま尊重し、
+ * 欠落または空のキーのみ補完値で埋める。
+ * 主に Apple Music インポート時の自動リレーション (曲名・アーティスト名・
+ * Apple Music トラック ID) に使う。
+ */
+const mergeExtraMetadata = (
+	base: TTMLMetadata[],
+	extra: TTMLMetadata[],
+): TTMLMetadata[] => {
+	const result = base.map((m) => ({ ...m, value: [...m.value] }));
+	for (const entry of extra) {
+		const values = entry.value
+			.map((v) => v.trim())
+			.filter((v) => v.length > 0);
+		if (values.length === 0) continue;
+		const existing = result.find(
+			(m) => m.key.toLowerCase() === entry.key.toLowerCase(),
+		);
+		if (!existing) {
+			result.push({ key: entry.key, value: values });
+		} else if (existing.value.every((v) => v.trim().length === 0)) {
+			existing.value = values;
+		}
+	}
+	return result;
+};
 
 export const useFileOpener = () => {
 	const setNewLyricLines = useSetAtom(newLyricLinesAtom);
@@ -96,6 +126,7 @@ export const useFileOpener = () => {
 			file: File,
 			forceExt?: string,
 			fileHandle: SaveFileHandle | null = null,
+			extraMetadata?: TTMLMetadata[],
 		) => {
 			const rawExt = file.name.split(".").pop()?.toLowerCase() || "";
 			const ext = forceExt ? forceExt.toLowerCase() : rawExt;
@@ -135,6 +166,13 @@ export const useFileOpener = () => {
 
 				if (!lyricData) return;
 
+				if (extraMetadata && extraMetadata.length > 0) {
+					lyricData.metadata = mergeExtraMetadata(
+						lyricData.metadata,
+						extraMetadata,
+					);
+				}
+
 				let resolvedProjectId = uid();
 
 				try {
@@ -166,7 +204,7 @@ export const useFileOpener = () => {
 							? stripFileExtension(file.name)
 							: stripFileExtension(
 									suggestedFile?.fileName ??
-										file.name.replace(/\.json$/i, ".ttml"),
+										file.name.replace(/\.json$/i, ".xml"),
 								)
 						: stripFileExtension(suggestedFile?.fileName ?? file.name);
 				setSaveFileName(nextFileName || "lyric");
@@ -196,8 +234,10 @@ export const useFileOpener = () => {
 			file: File,
 			forceExt?: string,
 			fileHandle: SaveFileHandle | null = null,
+			extraMetadata?: TTMLMetadata[],
 		) => {
-			const run = () => performOpenFile(file, forceExt, fileHandle);
+			const run = () =>
+				performOpenFile(file, forceExt, fileHandle, extraMetadata);
 
 			const rawExt = file.name.split(".").pop()?.toLowerCase() || "";
 			const finalExt = forceExt || rawExt;

@@ -51,9 +51,6 @@ const ToolMenuItems = () => {
 			<DropdownMenu.Item onSelect={menu.onAutoRuby}>
 				{t("topBar.menu.perWordRomanization.autoRuby", "自動ルビ")}
 			</DropdownMenu.Item>
-			<DropdownMenu.Item onSelect={menu.onOpenSyncInputOffset}>
-				{t("topBar.menu.syncInputOffset", "音声遅延（キー入力補正）…")}
-			</DropdownMenu.Item>
 			<DropdownMenu.Item onSelect={menu.onOpenLatencyTest}>
 				{t("settingsDialog.common.latencyTest", "音声／入力レイテンシのテスト")}
 			</DropdownMenu.Item>
