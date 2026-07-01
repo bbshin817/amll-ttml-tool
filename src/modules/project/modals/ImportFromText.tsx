@@ -267,8 +267,13 @@ export const ImportFromText = () => {
 				}
 			}
 
+			// 空行（歌詞本文が空の行）は自動的に無視する。
+			const nonEmptyResult = result.filter((line) =>
+				line.words.some((word) => word.word.trim().length > 0),
+			);
+
 			store.set(lyricLinesAtom, {
-				lyricLines: result,
+				lyricLines: nonEmptyResult,
 				metadata: [],
 			});
 		},

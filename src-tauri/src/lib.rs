@@ -84,16 +84,24 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
     let edit_sep_3 = PredefinedMenuItem::separator(app)?;
     let edit_sep_4 = PredefinedMenuItem::separator(app)?;
     let edit_sep_5 = PredefinedMenuItem::separator(app)?;
+    let edit_sep_6 = PredefinedMenuItem::separator(app)?;
     let edit_settings = MenuItem::with_id(app, "edit.settings", "設定…", true, None::<&str>)?;
 
     let tool_auto_segment =
         MenuItem::with_id(app, "tool.autoSegment", "自動分割", true, None::<&str>)?;
-    let tool_ruby_segment =
-        MenuItem::with_id(app, "tool.rubySegment", "ルビ分割", true, None::<&str>)?;
-    let tool_advanced_segment =
-        MenuItem::with_id(app, "tool.advancedSegment", "詳細分割…", true, None::<&str>)?;
-    let tool_sync_line = 
+    let tool_mora_segment =
+        MenuItem::with_id(app, "tool.moraSegment", "モーラ分割", true, None::<&str>)?;
+    let tool_sync_line =
         MenuItem::with_id(app, "tool.syncLineTimestamps", "行のタイムスタンプを同期", true, None::<&str>)?;
+    let tool_reset_word_timings = MenuItem::with_id(
+        app,
+        "tool.resetWordTimings",
+        "すべての音節（行タイミングは保持）",
+        true,
+        None::<&str>,
+    )?;
+    let tool_reset_all_timings =
+        MenuItem::with_id(app, "tool.resetAllTimings", "すべての行", true, None::<&str>)?;
     let tool_distribute_roman =
         MenuItem::with_id(app, "tool.distributeRomanization", "ローマ字を分配…", true, None::<&str>)?;
     let tool_check_roman =
@@ -113,11 +121,11 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
         true,
         &[&edit_theme_auto, &edit_theme_light, &edit_theme_dark],
     )?;
-    let tool_segmentation_menu = Submenu::with_items(
+    let tool_reset_timing_menu = Submenu::with_items(
         app,
-        "分割ツール",
+        "タイミングをリセット",
         true,
-        &[&tool_auto_segment, &tool_ruby_segment, &tool_advanced_segment],
+        &[&tool_reset_word_timings, &tool_reset_all_timings],
     )?;
     let tool_romanization_menu = Submenu::with_items(
         app,
@@ -158,6 +166,9 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
             &edit_sep_2,
             &edit_delete_selection,
             &edit_sep_3,
+            &tool_auto_segment,
+            &tool_mora_segment,
+            &edit_sep_6,
             &edit_time_shift,
             &edit_sep_4,
             &edit_metadata,
@@ -171,8 +182,8 @@ fn build_native_menu(app: &tauri::App) -> tauri::Result<tauri::menu::Menu<tauri:
         "ツール",
         true,
         &[
-            &tool_segmentation_menu,
             &tool_sync_line,
+            &tool_reset_timing_menu,
             &tool_sep_1,
             &tool_romanization_menu,
             &tool_auto_ruby,

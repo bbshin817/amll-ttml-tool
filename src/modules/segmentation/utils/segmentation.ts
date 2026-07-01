@@ -14,6 +14,14 @@ import {
 } from "./charUtils";
 
 const tinySegmenter = new TinySegmenter();
+
+/**
+ * 拗音・促音（小書き仮名）および長音符（音引き）。
+ * CJK を1文字ずつ分割するときも、これらは直前の仮名と結合させて
+ * 1つのトークンにする（例:「シャ」を「シ」「ャ」に分けない）。
+ */
+const kanaCombiningMarkRegexp =
+	/[ぁぃぅぇぉっゃゅょゎゕゖァィゥェォッャュョヮヵヶーｧｨｩｪｫｬｭｮｯｰ]/u;
 const japaneseTokenizerHintRegexp = /[\u3040-\u30ff々〆ヵヶ、。]/u;
 
 export interface SegmentationContext {
@@ -113,10 +121,19 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 		const firstChar = grapheme.length > 0 ? Array.from(grapheme)[0] : " ";
 		const currentCharType = getCharType(firstChar);
 
+		// 拗音・促音・長音符は直前の仮名（CJK）と結合させ、1文字分割の対象外にする。
+		const isCombiningWithPrevKana =
+			cjkSplit &&
+			currentToken !== "" &&
+			lastCharType === CharType.Cjk &&
+			kanaCombiningMarkRegexp.test(grapheme);
+
 		if (lastCharType !== null) {
 			let shouldBreak = false;
 
-			if (currentCharType === CharType.Cjk && cjkSplit) {
+			if (isCombiningWithPrevKana) {
+				shouldBreak = false;
+			} else if (currentCharType === CharType.Cjk && cjkSplit) {
 				shouldBreak = true;
 			} else if (lastCharType === CharType.Cjk && cjkSplit) {
 				shouldBreak = true;
@@ -124,12 +141,7 @@ function autoTokenize(text: string, config: SegmentationConfig): string[] {
 				shouldBreak = true;
 			} else if (lastCharType === CharType.Other) {
 				shouldBreak = true;
-			}
-
-			if (
-				!shouldBreak &&
-				!isMergeablePair(lastCharType, currentCharType, cjkSplit)
-			) {
+			} else if (!isMergeablePair(lastCharType, currentCharType, cjkSplit)) {
 				shouldBreak = true;
 			}
 

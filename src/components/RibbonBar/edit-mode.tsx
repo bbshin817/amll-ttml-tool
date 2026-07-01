@@ -49,6 +49,7 @@ import {
 } from "$/states/main.ts";
 import { type LyricLine, type LyricWord, newLyricLine } from "$/types/ttml";
 import { msToTimestamp, parseTimespan } from "$/utils/timestamp.ts";
+import { useTopMenuActions } from "$/components/TopMenu/useTopMenuActions";
 import { RibbonFrame, RibbonSection } from "./common";
 
 const MULTIPLE_VALUES = Symbol("multiple-values");
@@ -691,6 +692,7 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 	(_props, ref) => {
 		const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 		const { t } = useTranslation();
+		const { onAutoSegment, onMoraSegment } = useTopMenuActions();
 
 		return (
 			<RibbonFrame ref={ref}>
@@ -706,6 +708,24 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 							}
 						>
 							{t("ribbonBar.editMode.lyricLine", "歌詞行")}
+						</Button>
+					</Grid>
+				</RibbonSection>
+				<RibbonSection label={t("ribbonBar.editMode.segment", "分割")}>
+					<Grid columns="1" gap="1" gapY="1" flexGrow="1" align="center">
+						<Button
+							size="1"
+							variant="soft"
+							onClick={() => onAutoSegment()}
+						>
+							{t("ribbonBar.editMode.autoSegment", "自動分割")}
+						</Button>
+						<Button
+							size="1"
+							variant="soft"
+							onClick={() => void onMoraSegment()}
+						>
+							{t("ribbonBar.editMode.moraSegment", "モーラ分割")}
 						</Button>
 					</Grid>
 				</RibbonSection>

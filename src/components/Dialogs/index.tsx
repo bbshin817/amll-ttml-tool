@@ -7,7 +7,6 @@ import { DistributeRomanizationDialog } from "$/modules/project/modals/Distribut
 import { HistoryRestoreDialog } from "$/modules/project/modals/HistoryRestore.tsx";
 import { ImportFromText } from "$/modules/project/modals/ImportFromText.tsx";
 import { MetadataEditor } from "$/modules/project/modals/MetadataEditor.tsx";
-import { AdvancedSegmentationDialog } from "$/modules/segmentation/components/AdvancedSegmentation.tsx";
 import { SplitWordDialog } from "$/modules/segmentation/components/split-word.tsx";
 import { SettingsDialog } from "$/modules/settings/modals/index.tsx";
 import { UploadToTtmlDb } from "$/modules/ttml-db/modals/UploadDialog.tsx";
@@ -27,7 +26,6 @@ export const Dialogs = () => {
 			<LatencyTestDialog />
 			<ConfirmationDialog />
 			<HistoryRestoreDialog />
-			<AdvancedSegmentationDialog />
 			<TimeShiftDialog />
 			<DistributeRomanizationDialog />
 		</>

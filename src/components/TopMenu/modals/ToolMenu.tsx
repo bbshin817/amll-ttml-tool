@@ -16,25 +16,22 @@ const ToolMenuItems = () => {
 
 	return (
 		<>
-			<DropdownMenu.Sub>
-				<DropdownMenu.SubTrigger>
-					{t("topBar.menu.segmentationTools", "分割ツール")}
-				</DropdownMenu.SubTrigger>
-				<DropdownMenu.SubContent>
-					<DropdownMenu.Item onSelect={menu.onAutoSegment}>
-						{t("topBar.menu.autoSegment", "自動分割")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onSelect={menu.onRubySegment}>
-						{t("topBar.menu.rubySegment", "ルビ分割")}
-					</DropdownMenu.Item>
-					<DropdownMenu.Item onSelect={menu.onOpenAdvancedSegmentation}>
-						{t("topBar.menu.advancedSegment", "詳細分割…")}
-					</DropdownMenu.Item>
-				</DropdownMenu.SubContent>
-			</DropdownMenu.Sub>
 			<DropdownMenu.Item onSelect={menu.onSyncLineTimestamps}>
 				{t("topBar.menu.syncLineTimestamps", "行のタイムスタンプを同期")}
 			</DropdownMenu.Item>
+			<DropdownMenu.Sub>
+				<DropdownMenu.SubTrigger>
+					{t("topBar.menu.resetTiming.index", "タイミングをリセット")}
+				</DropdownMenu.SubTrigger>
+				<DropdownMenu.SubContent>
+					<DropdownMenu.Item onSelect={menu.onResetAllWordTimings}>
+						{t("topBar.menu.resetTiming.words", "すべての音節（行タイミングは保持）")}
+					</DropdownMenu.Item>
+					<DropdownMenu.Item onSelect={menu.onResetAllTimings}>
+						{t("topBar.menu.resetTiming.all", "すべての行")}
+					</DropdownMenu.Item>
+				</DropdownMenu.SubContent>
+			</DropdownMenu.Sub>
 			<DropdownMenu.Sub>
 				<DropdownMenu.SubTrigger>
 					{t("topBar.menu.perWordRomanization.index", "単語ごとのローマ字")}

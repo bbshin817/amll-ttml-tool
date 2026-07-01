@@ -25,6 +25,14 @@
 			"title": "Confirm Sync Line Timestamps",
 			"description": "This action will automatically synchronize the start and end times of all lines based on the timestamps of each word in the line, matching the start and end times of the first and last syllables. Are you sure you want to proceed?"
 		},
+		"resetWordTimings": {
+			"title": "Confirm Reset Syllable Timings",
+			"description": "This will reset the timing of all syllables (words) to 0. Line timings will be preserved. Are you sure you want to proceed?"
+		},
+		"resetAllTimings": {
+			"title": "Confirm Reset All Timings",
+			"description": "This will reset the timing of all lines and syllables to 0. Are you sure you want to proceed?"
+		},
 		"openFile": {
 			"title": "Confirm Open File",
 			"description": "You have unsaved changes. If you proceed, these changes will be lost. Are you sure you want to open a new file?"
@@ -46,6 +54,9 @@
 			"showWordRomanizationInput": "Show Per-Word Romanization",
 			"new": "New",
 			"lyricLine": "Lyric Line",
+			"segment": "Segmentation",
+			"autoSegment": "Auto Segment",
+			"moraSegment": "Mora Segmentation",
 			"lineTiming": "Line Timing",
 			"startTime": "Start Time",
 			"endTime": "End Time",
@@ -197,11 +208,12 @@
 			"themeLight": "Light",
 			"themeDark": "Dark",
 			"tool": "Tools",
-			"segmentationTools": "Segmentation Tools",
-			"autoSegment": "Auto Segment",
-			"rubySegment": "Ruby Segmentation",
-			"advancedSegment": "Advanced Segment...",
 			"syncLineTimestamps": "Sync Line Timestamps",
+			"resetTiming": {
+				"index": "Reset Timing",
+				"words": "All syllables (keep line timing)",
+				"all": "All lines"
+			},
 			"perWordRomanization": {
 				"index": "Per-Word Romanization",
 				"check": "Check Per-Word Romanization",
@@ -596,55 +608,6 @@
 		"applyToAll": "Apply this splitting to all identical words",
 		"ignoreCase": "Ignore case",
 		"actionButton": "Confirm"
-	},
-	"advancedSegmentDialog": {
-		"test": {
-			"outputError": "Splitting preview error",
-			"title": "Splitting Test",
-			"input": "Enter a lyric line or word to test...",
-			"output": "Preview result:"
-		},
-		"title": "Advanced Segmentation",
-		"scope": {
-			"title": "Application Scope",
-			"all": "All lyric lines",
-			"range": {
-				"from": "From line",
-				"to": "to line",
-				"end": ""
-			}
-		},
-		"rules": {
-			"title": "Auto Segmentation Rules",
-			"cjk": "Split CJK characters",
-			"syllable": "Split Western words by syllables",
-			"japanesePerChar": "Split all Japanese into single characters (English by syllable)",
-			"japanesePerCharDesc": "Splits hiragana, katakana, and kanji character by character, and splits English by syllable (hyphenation). Morphological analysis is not used."
-		},
-		"language": {
-			"select": "Select a hyphenation language model:"
-		},
-		"tip": "After splitting, the original word's total duration will be redistributed based on the number of characters and their weights.",
-		"postProcess": {
-			"title": "Post-processing",
-			"punct": {
-				"caption": "Punctuation handling:",
-				"merge": "Merge to adjacent syllable",
-				"standalone": "Set as standalone segment",
-				"weight": "Punctuation time weight:"
-			},
-			"empty": "Remove empty segments"
-		},
-		"custom": {
-			"title": "Custom Segmentation Rules",
-			"input": "Enter word for manual splitting...",
-			"add": "Add to custom rules",
-			"list": "Custom rules list:"
-		},
-		"ignore": {
-			"title": "Ignore List",
-			"placeholder": "One word per line, words in this list will not be auto-segmented"
-		}
 	},
 	"aboutModal": {
 		"appName": "TTML Editor",

@@ -21,7 +21,6 @@ import {
 	segmentationRemoveEmptySegmentsAtom,
 	segmentationSplitCJKAtom,
 	segmentationSplitEnglishAtom,
-	segmentationSplitJapaneseByCharAtom,
 	splitWordApplyToAllAtom,
 	splitWordIgnoreCaseAtom,
 } from "$/modules/segmentation/states";
@@ -54,7 +53,6 @@ export const SplitWordDialog = memo(() => {
 
 	const splitCJK = useAtomValue(segmentationSplitCJKAtom);
 	const splitEnglish = useAtomValue(segmentationSplitEnglishAtom);
-	const splitJapaneseByChar = useAtomValue(segmentationSplitJapaneseByCharAtom);
 	const punctuationMode = useAtomValue(segmentationPunctuationModeAtom);
 	const punctuationWeight = useAtomValue(segmentationPunctuationWeightAtom);
 	const removeEmptySegments = useAtomValue(segmentationRemoveEmptySegmentsAtom);
@@ -95,7 +93,7 @@ export const SplitWordDialog = memo(() => {
 		return {
 			splitCJK,
 			splitEnglish,
-			splitJapaneseByChar,
+			splitJapaneseByChar: false,
 			punctuationMode,
 			punctuationWeight: finalPunctuationWeight,
 			removeEmptySegments,
@@ -106,7 +104,6 @@ export const SplitWordDialog = memo(() => {
 	}, [
 		splitCJK,
 		splitEnglish,
-		splitJapaneseByChar,
 		punctuationMode,
 		punctuationWeight,
 		removeEmptySegments,

@@ -25,6 +25,14 @@
 			"title": "行のタイムスタンプ同期の確認",
 			"description": "各行に含まれる単語のタイムスタンプをもとに、すべての行の開始時刻と終了時刻を、最初と最後の音節に合わせて自動で同期します。続行しますか？"
 		},
+		"resetWordTimings": {
+			"title": "音節タイミングのリセットの確認",
+			"description": "すべての音節（単語）のタイミングを 0 にリセットします。行のタイミングは保持されます。続行しますか？"
+		},
+		"resetAllTimings": {
+			"title": "すべてのタイミングのリセットの確認",
+			"description": "すべての行と音節のタイミングを 0 にリセットします。続行しますか？"
+		},
 		"openFile": {
 			"title": "ファイルを開く前の確認",
 			"description": "未保存の変更があります。続行すると変更内容は失われます。新しいファイルを開きますか？"
@@ -46,6 +54,9 @@
 			"showWordRomanizationInput": "単語ごとのローマ字入力を表示",
 			"new": "新規",
 			"lyricLine": "歌詞行",
+			"segment": "分割",
+			"autoSegment": "自動分割",
+			"moraSegment": "モーラ分割",
 			"lineTiming": "行のタイミング",
 			"startTime": "開始時刻",
 			"endTime": "終了時刻",
@@ -198,11 +209,12 @@
 			"themeLight": "ライト",
 			"themeDark": "ダーク",
 			"tool": "ツール",
-			"segmentationTools": "分割ツール",
-			"autoSegment": "自動分割",
-			"rubySegment": "ルビ分割",
-			"advancedSegment": "詳細分割…",
 			"syncLineTimestamps": "行のタイムスタンプを同期",
+			"resetTiming": {
+				"index": "タイミングをリセット",
+				"words": "すべての音節（行タイミングは保持）",
+				"all": "すべての行"
+			},
 			"perWordRomanization": {
 				"index": "単語ごとのローマ字",
 				"check": "単語ごとのローマ字を確認",
@@ -629,55 +641,6 @@
 		"applyToAll": "同じ単語すべてにこの分割を適用する",
 		"ignoreCase": "大文字小文字を無視",
 		"actionButton": "確認"
-	},
-	"advancedSegmentDialog": {
-		"test": {
-			"outputError": "分割プレビューでエラーが発生しました",
-			"title": "分割テスト",
-			"input": "歌詞行または単語を入力してテスト…",
-			"output": "プレビュー結果:"
-		},
-		"title": "詳細分割",
-		"scope": {
-			"title": "適用範囲",
-			"all": "すべての歌詞行",
-			"range": {
-				"from": "開始行",
-				"to": "終了行",
-				"end": ""
-			}
-		},
-		"rules": {
-			"title": "自動分割ルール",
-			"cjk": "CJK 文字を分割",
-			"syllable": "欧米言語の単語を音節で分割",
-			"japanesePerChar": "日本語をすべて1文字単位で分割（英語は音節で分割）",
-			"japanesePerCharDesc": "ひらがな・カタカナ・漢字を1文字ずつに分割し、英語は音節（ハイフネーション）で分割します。形態素解析は使用しません。"
-		},
-		"language": {
-			"select": "ハイフネーション用の言語モデルを選択:"
-		},
-		"tip": "分割後、元の単語の合計時間は、文字数と重みに基づいて再分配されます。",
-		"postProcess": {
-			"title": "後処理",
-			"punct": {
-				"caption": "句読点の扱い:",
-				"merge": "隣接する音節に結合",
-				"standalone": "独立したセグメントにする",
-				"weight": "句読点の時間重み:"
-			},
-			"empty": "空のセグメントを削除"
-		},
-		"custom": {
-			"title": "カスタム分割ルール",
-			"input": "手動で分割する単語を入力…",
-			"add": "カスタムルールに追加",
-			"list": "カスタムルール一覧:"
-		},
-		"ignore": {
-			"title": "無視リスト",
-			"placeholder": "1行に1単語ずつ入力してください。このリスト内の単語は自動分割されません"
-		}
 	},
 	"aboutModal": {
 		"appName": "TTML Editor",

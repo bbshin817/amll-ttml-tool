@@ -8,14 +8,12 @@ import { useFileOpener } from "$/hooks/useFileOpener.ts";
 import exportTTMLText from "$/modules/project/logic/ttml-writer";
 import { applyRomanizationWarnings } from "$/modules/segmentation/utils/Transliteration/roman-warning";
 import { predictLineRomanization } from "$/modules/segmentation/utils/Transliteration/distributor";
-import {
-	segmentLyricLines,
-	segmentWord,
-} from "$/modules/segmentation/utils/segmentation";
+import { segmentLyricLines } from "$/modules/segmentation/utils/segmentation";
+import { segmentationLangAtom } from "$/modules/segmentation/states";
+import { loadHyphenator } from "$/modules/segmentation/utils/hyphen-loader";
 import { useSegmentationConfig } from "$/modules/segmentation/utils/useSegmentationConfig";
 import { applyGeneratedRuby } from "$/modules/lyric-editor/utils/ruby-generator";
 import {
-	advancedSegmentationDialogAtom,
 	confirmDialogAtom,
 	historyRestoreDialogAtom,
 	importFromAppleMusicDialogAtom,
@@ -59,12 +57,24 @@ import {
 	pickSaveFileHandle,
 	writeTextToFileHandle,
 } from "$/utils/file-system-access";
-import {
-	type LyricWord,
-	type LyricWordBase,
-	newLyricWord,
-} from "$/types/ttml";
+import type { LyricWord } from "$/types/ttml";
 import { error, log } from "$/utils/logging.ts";
+
+/**
+ * 単語（音節）のタイミングをすべて 0 にリセットする。
+ * 空拍とルビのタイミングも合わせてクリアする。
+ */
+function resetWordTimings(word: LyricWord) {
+	word.startTime = 0;
+	word.endTime = 0;
+	word.emptyBeat = 0;
+	if (word.ruby) {
+		for (const rubyWord of word.ruby) {
+			rubyWord.startTime = 0;
+			rubyWord.endTime = 0;
+		}
+	}
+}
 
 const OPEN_FILE_EXTENSIONS = [
 	"ttml",
@@ -106,9 +116,6 @@ export const useTopMenuActions = () => {
 	const isDirty = useAtomValue(isDirtyAtom);
 	const setConfirmDialog = useSetAtom(confirmDialogAtom);
 	const setHistoryRestoreDialog = useSetAtom(historyRestoreDialogAtom);
-	const setAdvancedSegmentationDialog = useSetAtom(
-		advancedSegmentationDialogAtom,
-	);
 	const setTimeShiftDialog = useSetAtom(timeShiftDialogAtom);
 	const setImportFromAppleMusicDialog = useSetAtom(
 		importFromAppleMusicDialogAtom,
@@ -128,34 +135,6 @@ export const useTopMenuActions = () => {
 		keySelectWordsOfMatchedSelectionAtom,
 	);
 	const deleteSelectionKey = useAtomValue(keyDeleteSelectionAtom);
-
-	const buildRubySegments = useCallback(
-		(text: string, baseWord: LyricWordBase) => {
-			const sourceWord: LyricWord = {
-				...newLyricWord(),
-				word: text,
-				startTime: baseWord.startTime,
-				endTime: baseWord.endTime,
-				emptyBeat: 0,
-			};
-			const segments = segmentWord(sourceWord, segmentationConfig);
-			if (segments.length === 0) {
-				return [
-					{
-						word: text,
-						startTime: baseWord.startTime,
-						endTime: baseWord.endTime,
-					},
-				];
-			}
-			return segments.map((segment) => ({
-				word: segment.word,
-				startTime: segment.startTime,
-				endTime: segment.endTime,
-			}));
-		},
-		[segmentationConfig],
-	);
 
 	const onNewFile = useCallback(() => {
 		const action = () => {
@@ -422,33 +401,22 @@ export const useTopMenuActions = () => {
 		});
 	}, [editLyricLines, segmentationConfig]);
 
-	const onRubySegment = useCallback(() => {
-		const selectedWordIds = store.get(selectedWordsAtom);
-		const hasSelection = selectedWordIds.size > 0;
-		editLyricLines((state) => {
-			for (const line of state.lyricLines) {
-				for (const word of line.words) {
-					if (hasSelection && !selectedWordIds.has(word.id)) continue;
-					if (!word.ruby || word.ruby.length === 0) continue;
-					const nextRuby: LyricWordBase[] = [];
-					for (const rubyWord of word.ruby) {
-						const parts = rubyWord.word.split("|");
-						const nextSegments = buildRubySegments(parts[0] ?? "", rubyWord);
-						const fallbackBase = {
-							word: "",
-							startTime: word.startTime,
-							endTime: word.endTime,
-						};
-						const extraSegments = parts
-							.slice(1)
-							.flatMap((part) => buildRubySegments(part, fallbackBase));
-						nextRuby.push(...nextSegments, ...extraSegments);
-					}
-					word.ruby = nextRuby;
-				}
-			}
+	const onMoraSegment = useCallback(async () => {
+		// 日本語（ひらがな・カタカナ・漢字）をモーラ（拍）単位で分割する。
+		// 拗音・促音・長音符は直前の仮名と結合させる（分割エンジン側で処理）。
+		// 英語の音節分割用に、ハイフネーション辞書を必要に応じて読み込む。
+		const hyphenator =
+			segmentationConfig.hyphenator ??
+			(await loadHyphenator(store.get(segmentationLangAtom))) ??
+			undefined;
+		editLyricLines((draft) => {
+			draft.lyricLines = segmentLyricLines(draft.lyricLines, {
+				...segmentationConfig,
+				splitJapaneseByChar: true,
+				hyphenator,
+			});
 		});
-	}, [buildRubySegments, editLyricLines, store]);
+	}, [editLyricLines, segmentationConfig, store]);
 
 	const onOpenTimeShift = useCallback(() => {
 		setTimeShiftDialog(true);
@@ -487,6 +455,52 @@ export const useTopMenuActions = () => {
 			description: t(
 				"confirmDialog.syncLineTimestamps.description",
 				"各行に含まれる単語のタイムスタンプをもとに、すべての行の開始時刻と終了時刻を、最初と最後の音節に合わせて自動で同期します。続行しますか？",
+			),
+			onConfirm: action,
+		});
+	}, [editLyricLines, setConfirmDialog, t]);
+
+	const onResetAllWordTimings = useCallback(() => {
+		const action = () => {
+			editLyricLines((draft) => {
+				for (const line of draft.lyricLines) {
+					for (const word of line.words) {
+						resetWordTimings(word);
+					}
+				}
+			});
+		};
+
+		setConfirmDialog({
+			open: true,
+			title: t("confirmDialog.resetWordTimings.title", "音節タイミングのリセットの確認"),
+			description: t(
+				"confirmDialog.resetWordTimings.description",
+				"すべての音節（単語）のタイミングを 0 にリセットします。行のタイミングは保持されます。続行しますか？",
+			),
+			onConfirm: action,
+		});
+	}, [editLyricLines, setConfirmDialog, t]);
+
+	const onResetAllTimings = useCallback(() => {
+		const action = () => {
+			editLyricLines((draft) => {
+				for (const line of draft.lyricLines) {
+					line.startTime = 0;
+					line.endTime = 0;
+					for (const word of line.words) {
+						resetWordTimings(word);
+					}
+				}
+			});
+		};
+
+		setConfirmDialog({
+			open: true,
+			title: t("confirmDialog.resetAllTimings.title", "すべてのタイミングのリセットの確認"),
+			description: t(
+				"confirmDialog.resetAllTimings.description",
+				"すべての行と音節のタイミングを 0 にリセットします。続行しますか？",
 			),
 			onConfirm: action,
 		});
@@ -537,10 +551,6 @@ export const useTopMenuActions = () => {
 		});
 	}, [editLyricLines]);
 
-	const onOpenAdvancedSegmentation = useCallback(() => {
-		setAdvancedSegmentationDialog(true);
-	}, [setAdvancedSegmentationDialog]);
-
 	const onSetThemeLight = useCallback(() => {
 		setDarkMode(DarkMode.Light);
 	}, [setDarkMode]);
@@ -589,9 +599,10 @@ export const useTopMenuActions = () => {
 		onSetThemeLight,
 		onSetThemeDark,
 		onAutoSegment,
-		onRubySegment,
-		onOpenAdvancedSegmentation,
+		onMoraSegment,
 		onSyncLineTimestamps,
+		onResetAllWordTimings,
+		onResetAllTimings,
 		onOpenDistributeRomanization,
 		onAutoRuby,
 		onCheckRomanizationWarnings,

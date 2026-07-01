@@ -156,14 +156,17 @@ export const TopMenu: FC = () => {
 					case "tool.autoSegment":
 						menu.onAutoSegment();
 						break;
-					case "tool.rubySegment":
-						menu.onRubySegment();
-						break;
-					case "tool.advancedSegment":
-						menu.onOpenAdvancedSegmentation();
+					case "tool.moraSegment":
+						void menu.onMoraSegment();
 						break;
 					case "tool.syncLineTimestamps":
 						menu.onSyncLineTimestamps();
+						break;
+					case "tool.resetWordTimings":
+						menu.onResetAllWordTimings();
+						break;
+					case "tool.resetAllTimings":
+						menu.onResetAllTimings();
 						break;
 					case "tool.distributeRomanization":
 						menu.onOpenDistributeRomanization();
@@ -214,9 +217,10 @@ export const TopMenu: FC = () => {
 		menu.onSetThemeDark,
 		menu.onOpenSettings,
 		menu.onAutoSegment,
-		menu.onRubySegment,
-		menu.onOpenAdvancedSegmentation,
+		menu.onMoraSegment,
 		menu.onSyncLineTimestamps,
+		menu.onResetAllWordTimings,
+		menu.onResetAllTimings,
 		menu.onOpenDistributeRomanization,
 		menu.onCheckRomanizationWarnings,
 		menu.onAutoRuby,

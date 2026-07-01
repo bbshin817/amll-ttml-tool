@@ -45,14 +45,11 @@ export const TimeShiftDialog = () => {
 
 	useEffect(() => {
 		if (open) {
-			if (hasSelection) {
-				setScope("selected");
-			} else {
-				setScope("all");
-			}
+			// 選択の有無にかかわらず、常に「すべての歌詞行」を既定とする。
+			setScope("all");
 			setCustomEnd(totalLines.toString());
 		}
-	}, [open, hasSelection, totalLines]);
+	}, [open, totalLines]);
 
 	const handleConfirm = () => {
 		const amount = parseInt(offsetStr, 10);
