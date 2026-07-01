@@ -4,7 +4,7 @@ import { useSetImmerAtom, withImmer } from "jotai-immer";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { uid } from "uid";
-import { useFileOpener } from "$/hooks/useFileOpener.ts";
+import { AUDIO_EXTENSIONS, useFileOpener } from "$/hooks/useFileOpener.ts";
 import exportTTMLText from "$/modules/project/logic/ttml-writer";
 import { applyRomanizationWarnings } from "$/modules/segmentation/utils/Transliteration/roman-warning";
 import { predictLineRomanization } from "$/modules/segmentation/utils/Transliteration/distributor";
@@ -179,6 +179,21 @@ export const useTopMenuActions = () => {
 			openFile(picked.file, undefined, picked.handle);
 		} catch (e) {
 			error("Failed to open file from File System Access API", e);
+		}
+	}, [openFile]);
+
+	const onLoadAudio = useCallback(async () => {
+		try {
+			assertFileSystemAccessSupported();
+			const picked = await openSingleFileWithPicker({
+				description: "Audio file",
+				mimeType: "audio/*",
+				extensions: [...AUDIO_EXTENSIONS],
+			});
+			if (!picked) return;
+			openFile(picked.file, undefined, picked.handle);
+		} catch (e) {
+			error("Failed to open audio file", e);
 		}
 	}, [openFile]);
 
@@ -578,6 +593,7 @@ export const useTopMenuActions = () => {
 		redoDisabled: !undoLyricLines.canRedo,
 		onNewFile,
 		onOpenFile,
+		onLoadAudio,
 		onOpenFileFromClipboard,
 		onOpenFromAppleMusic,
 		onUploadToTtmlDb,

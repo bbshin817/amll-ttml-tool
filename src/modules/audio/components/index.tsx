@@ -12,14 +12,17 @@
 import {
 	ChevronDownFilled,
 	ChevronUpFilled,
-	MusicNote2Filled,
 	PauseFilled,
 	PlayFilled,
+	Speaker1Filled,
+	Speaker2Filled,
+	SpeakerMuteFilled,
+	TopSpeedFilled,
 } from "@fluentui/react-icons";
 import {
+	Button,
 	Card,
 	Flex,
-	Grid,
 	HoverCard,
 	IconButton,
 	Inset,
@@ -28,9 +31,8 @@ import {
 	Tooltip,
 } from "@radix-ui/themes";
 import { useAtom, useAtomValue, useStore } from "jotai";
-import { type FC, memo, useCallback, useEffect, useState } from "react";
+import { type FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useFileOpener } from "$/hooks/useFileOpener";
 import { audioEngine } from "$/modules/audio/audio-engine";
 import { AudioSlider } from "$/modules/audio/components/AudioSlider";
 import {
@@ -54,8 +56,6 @@ import {
 	keyVolumeUpAtom,
 } from "$/states/keybindings.ts";
 import { useKeyBindingAtom } from "$/utils/keybindings.ts";
-import { openSingleFileWithPicker } from "$/utils/file-system-access";
-import { error as logError } from "$/utils/logging.ts";
 import { msToTimestamp } from "$/utils/timestamp.ts";
 
 const AudioPlaybackKeyBinding = memo(() => {
@@ -113,57 +113,13 @@ export const AudioControls: FC = memo(() => {
 	const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
 	const [volume, setVolume] = useAtom(volumeAtom);
 	const [playbackRate, setPlaybackRate] = useAtom(playbackRateAtom);
-	const { openFile } = useFileOpener();
 	const { t } = useTranslation();
 
-	const onLoadMusic = useCallback(() => {
-		if (import.meta.env.TAURI_ENV_PLATFORM) {
-			(async () => {
-				try {
-					const picked = await openSingleFileWithPicker({
-						description: "Audio file",
-						mimeType: "audio/*",
-						extensions: [
-							"opus",
-							"flac",
-							"webm",
-							"weba",
-							"wav",
-							"ogg",
-							"m4a",
-							"oga",
-							"mid",
-							"mp3",
-							"aiff",
-							"wma",
-							"au",
-						],
-					});
-					if (!picked) return;
-					openFile(picked.file);
-				} catch (e) {
-					logError("Failed to load audio via Tauri picker", e);
-				}
-			})();
-			return;
-		}
-
-		const inputEl = document.createElement("input");
-		inputEl.type = "file";
-		inputEl.accept = "audio/*,*/*";
-		inputEl.addEventListener(
-			"change",
-			() => {
-				const file = inputEl.files?.[0];
-				if (!file) return;
-				openFile(file);
-			},
-			{
-				once: true,
-			},
-		);
-		inputEl.click();
-	}, [openFile]);
+	// ミュート解除時に元の音量へ戻すため、直前の非ゼロ音量を覚えておく。
+	const lastNonZeroVolumeRef = useRef(volume > 0 ? volume : 1);
+	// マウスホイールで調節するためのボタン参照（そのボタンにホバー中のみ動作する）。
+	const volumeButtonRef = useRef<HTMLButtonElement>(null);
+	const speedButtonRef = useRef<HTMLButtonElement>(null);
 
 	const onTogglePlay = useCallback(() => {
 		if (audioEngine.musicPlaying) {
@@ -172,6 +128,20 @@ export const AudioControls: FC = memo(() => {
 			audioEngine.resumeOrSeekMusic();
 		}
 	}, []);
+
+	const onToggleMute = useCallback(() => {
+		if (volume > 0) {
+			lastNonZeroVolumeRef.current = volume;
+			setVolume(0);
+		} else {
+			setVolume(lastNonZeroVolumeRef.current || 1);
+		}
+	}, [volume, setVolume]);
+
+	// 速度ボタンのダブルクリックで等速（1.00x）へ戻す。
+	const onResetPlaybackRate = useCallback(() => {
+		setPlaybackRate(1);
+	}, [setPlaybackRate]);
 
 	useEffect(() => {
 		const onMusicLoad = () => {
@@ -217,6 +187,51 @@ export const AudioControls: FC = memo(() => {
 		audioEngine.musicPlayBackRate = playbackRate;
 	}, [playbackRate]);
 
+	// 音量ボタンにホバー中、マウスホイールで音量を 5% ずつ調節する。
+	// ページのスクロールを防ぐため、非パッシブのネイティブリスナーで登録する。
+	useEffect(() => {
+		const el = volumeButtonRef.current;
+		if (!el) return;
+		const onWheel = (e: WheelEvent) => {
+			if (!audioLoaded) return;
+			e.preventDefault();
+			const step = e.deltaY < 0 ? 0.05 : -0.05;
+			setVolume((v) =>
+				Math.min(1, Math.max(0, Math.round((v + step) * 100) / 100)),
+			);
+		};
+		el.addEventListener("wheel", onWheel, { passive: false });
+		return () => el.removeEventListener("wheel", onWheel);
+	}, [setVolume, audioLoaded]);
+
+	// 再生速度ボタンにホバー中、マウスホイールで速度を 0.05x ずつ調節する。
+	useEffect(() => {
+		const el = speedButtonRef.current;
+		if (!el) return;
+		const onWheel = (e: WheelEvent) => {
+			if (!audioLoaded) return;
+			e.preventDefault();
+			const step = e.deltaY < 0 ? 0.05 : -0.05;
+			setPlaybackRate((r) =>
+				Math.min(2, Math.max(0.1, Math.round((r + step) * 100) / 100)),
+			);
+		};
+		el.addEventListener("wheel", onWheel, { passive: false });
+		return () => el.removeEventListener("wheel", onWheel);
+	}, [setPlaybackRate, audioLoaded]);
+
+	// 音量アイコンは現在の音量レベルに応じて切り替える（YouTube 風）。
+	const volumeIcon =
+		volume <= 0 ? (
+			<SpeakerMuteFilled />
+		) : volume < 0.5 ? (
+			<Speaker1Filled />
+		) : (
+			<Speaker2Filled />
+		);
+	// 再生速度ボタンのラベル。小数第二位まで表示する。例: 1.00x / 0.90x / 1.25x
+	const rateLabel = `${playbackRate.toFixed(2)}x`;
+
 	return (
 		<Card m="2" mt="0">
 			<Inset>
@@ -227,52 +242,6 @@ export const AudioControls: FC = memo(() => {
 						<AudioSpectrogram />
 					</div>
 					<Flex align="center" px="2" gapX="2">
-						<HoverCard.Root>
-							<HoverCard.Trigger>
-								<IconButton my="2" variant="soft" onClick={onLoadMusic}>
-									<MusicNote2Filled />
-								</IconButton>
-							</HoverCard.Trigger>
-							<HoverCard.Content>
-								<Flex direction="column" align="center">
-									<Grid columns="0fr 7em 2em" gap="2" align="baseline">
-										<Text wrap="nowrap">{t("audioPanel.volume", "音量")}</Text>
-										<Slider
-											min={0}
-											max={1}
-											defaultValue={[volume]}
-											step={0.01}
-											onValueChange={(v) => setVolume(v[0])}
-										/>
-										<Text wrap="nowrap" color="gray" size="1">
-											{(volume * 100).toFixed()}%
-										</Text>
-										<Text wrap="nowrap">
-											{t("audioPanel.playbackRate", "再生速度")}
-										</Text>
-										<Slider
-											min={0.1}
-											max={2}
-											defaultValue={[playbackRate]}
-											step={0.05}
-											onValueChange={(v) => setPlaybackRate(v[0])}
-										/>
-										<Text wrap="nowrap" color="gray" size="1">
-											{playbackRate.toFixed(2)}x
-										</Text>
-									</Grid>
-									<Text
-										wrap="nowrap"
-										align="center"
-										mt="2"
-										size="1"
-										color="gray"
-									>
-										{t("audioPanel.clickToLoadMusic", "アイコンボタンをクリックして音声を読み込む")}
-									</Text>
-								</Flex>
-							</HoverCard.Content>
-						</HoverCard.Root>
 						<Tooltip content={t("audioPanel.playPause", "音声を再生／一時停止")}>
 							<IconButton
 								my="2"
@@ -284,6 +253,83 @@ export const AudioControls: FC = memo(() => {
 								{audioPlaying ? <PauseFilled /> : <PlayFilled />}
 							</IconButton>
 						</Tooltip>
+						{/* 音量: 一時停止の右に配置。クリックでミュート、ホバーでスライダー表示（YouTube 風）。 */}
+						<HoverCard.Root>
+							<HoverCard.Trigger>
+								<IconButton
+									ref={volumeButtonRef}
+									my="2"
+									variant="soft"
+									disabled={!audioLoaded}
+									onClick={onToggleMute}
+									aria-label={t("audioPanel.volume", "音量")}
+								>
+									{volumeIcon}
+								</IconButton>
+							</HoverCard.Trigger>
+							<HoverCard.Content size="1">
+								<Flex align="center" gap="3">
+									<Text wrap="nowrap" size="1">
+										{t("audioPanel.volume", "音量")}
+									</Text>
+									<Slider
+										min={0}
+										max={1}
+										value={[volume]}
+										step={0.01}
+										onValueChange={(v) => setVolume(v[0])}
+										style={{ width: "8em" }}
+									/>
+									<Text
+										wrap="nowrap"
+										color="gray"
+										size="1"
+										style={{ minWidth: "2.8em", textAlign: "right" }}
+									>
+										{(volume * 100).toFixed()}%
+									</Text>
+								</Flex>
+							</HoverCard.Content>
+						</HoverCard.Root>
+						{/* 再生速度: 音量の右に配置。ボタンに現在の速度を表示し、ホバーでスライダー表示。 */}
+						<HoverCard.Root>
+							<HoverCard.Trigger>
+								<Button
+									ref={speedButtonRef}
+									my="2"
+									variant="soft"
+									disabled={!audioLoaded}
+									onDoubleClick={onResetPlaybackRate}
+									aria-label={t("audioPanel.playbackRate", "再生速度")}
+								>
+									<TopSpeedFilled />
+									{rateLabel}
+								</Button>
+							</HoverCard.Trigger>
+							<HoverCard.Content size="1">
+								<Flex align="center" gap="3">
+									<Text wrap="nowrap" size="1">
+										{t("audioPanel.playbackRate", "再生速度")}
+									</Text>
+									<Slider
+										min={0.1}
+										max={2}
+										value={[playbackRate]}
+										step={0.05}
+										onValueChange={(v) => setPlaybackRate(v[0])}
+										style={{ width: "8em" }}
+									/>
+									<Text
+										wrap="nowrap"
+										color="gray"
+										size="1"
+										style={{ minWidth: "2.8em", textAlign: "right" }}
+									>
+										{playbackRate.toFixed(2)}x
+									</Text>
+								</Flex>
+							</HoverCard.Content>
+						</HoverCard.Root>
 						<Text
 							size="2"
 							style={{

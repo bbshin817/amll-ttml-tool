@@ -187,6 +187,7 @@
 			"file": "File",
 			"newLyric": "New lyrics",
 			"openLyric": "Open lyrics",
+			"loadAudio": "Load audio",
 			"openFromClipboard": "Open TTML from clipboard",
 			"openFromAppleMusic": "Import from Apple Music",
 			"uploadToTtmlDb": "Upload to database…",
@@ -324,7 +325,8 @@
 	},
 	"error": {
 		"unsupportedFileFormat": "Unsupported file format: {ext}",
-		"openFileFailed": "Failed to open file"
+		"openFileFailed": "Failed to open file",
+		"audioDropDisabled": "Load audio files from the menu bar: File → Load audio"
 	},
 	"audioPanel": {
 		"volume": "Volume",
@@ -617,7 +619,7 @@
 	},
 	"spectrogram": {
 		"invalidEndTime": "Cannot select this end time",
-		"noAudioLoaded": "Please load an audio file to render the spectrogram",
+		"noAudioLoaded": "To view the spectrogram, load an audio file from the menu bar: File → Load audio",
 		"loadAudio": "Load an audio file",
 		"showUnselectedLines": "Show unselected lines"
 	}

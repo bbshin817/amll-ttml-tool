@@ -4,7 +4,6 @@ import {
 	MusicNote2Filled,
 } from "@fluentui/react-icons";
 import {
-	Button,
 	Flex,
 	IconButton,
 	Slider,
@@ -23,7 +22,6 @@ import {
 	useState,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { useFileOpener } from "$/hooks/useFileOpener.ts";
 import { audioEngine } from "$/modules/audio/audio-engine.ts";
 import {
 	audioBufferAtom,
@@ -100,23 +98,6 @@ export const AudioSpectrogram: FC = () => {
 	const isDragging = useAtomValue(isDraggingAtom);
 
 	const rulerRef = useRef<TimelineRulerHandle>(null);
-
-	const { openFile } = useFileOpener();
-	const handleLoadMusic = useCallback(() => {
-		const inputEl = document.createElement("input");
-		inputEl.type = "file";
-		inputEl.accept = "audio/*,*/*";
-		inputEl.addEventListener(
-			"change",
-			() => {
-				const file = inputEl.files?.[0];
-				if (!file) return;
-				openFile(file);
-			},
-			{ once: true },
-		);
-		inputEl.click();
-	}, [openFile]);
 
 	const { t } = useTranslation();
 
@@ -351,12 +332,9 @@ export const AudioSpectrogram: FC = () => {
 									color="var(--gray-8)"
 									style={{ opacity: 0.5 }}
 								/>
-								<Text color="gray" size="3">
-									{t("spectrogram.noAudioLoaded", "スペクトログラムを表示するには、音声ファイルを読み込んでください")}
+								<Text color="gray" size="3" align="center">
+									{t("spectrogram.noAudioLoaded", "スペクトログラムを表示するには、メニューバーの「ファイル」→「音声を読み込む」から音声ファイルを読み込んでください")}
 								</Text>
-								<Button variant="soft" onClick={handleLoadMusic}>
-									{t("spectrogram.loadAudio", "音声ファイルを読み込む")}
-								</Button>
 							</Flex>
 						</div>
 					) : (

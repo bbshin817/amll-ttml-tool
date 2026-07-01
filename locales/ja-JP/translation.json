@@ -187,6 +187,7 @@
 			"file": "ファイル",
 			"newLyric": "新しい歌詞",
 			"openLyric": "歌詞を開く",
+			"loadAudio": "音声を読み込む",
 			"openFromClipboard": "クリップボードから TTML を開く",
 			"openFromAppleMusic": "Apple Music から取得",
 			"uploadToTtmlDb": "データベースにアップロード…",
@@ -325,7 +326,8 @@
 	},
 	"error": {
 		"unsupportedFileFormat": "サポートされていないファイル形式: {ext}",
-		"openFileFailed": "ファイルを開けませんでした"
+		"openFileFailed": "ファイルを開けませんでした",
+		"audioDropDisabled": "音声ファイルはメニューバーの「ファイル」→「音声を読み込む」から読み込んでください"
 	},
 	"audioPanel": {
 		"volume": "音量",
@@ -650,7 +652,7 @@
 	},
 	"spectrogram": {
 		"invalidEndTime": "この終了時刻は選択できません",
-		"noAudioLoaded": "スペクトログラムを表示するには、音声ファイルを読み込んでください",
+		"noAudioLoaded": "スペクトログラムを表示するには、メニューバーの「ファイル」→「音声を読み込む」から音声ファイルを読み込んでください",
 		"loadAudio": "音声ファイルを読み込む",
 		"showUnselectedLines": "未選択の行を表示"
 	}

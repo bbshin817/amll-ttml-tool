@@ -30,13 +30,13 @@ import { useAtomValue, useSetAtom, useStore } from "jotai";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { useTranslation } from "react-i18next";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import semverGt from "semver/functions/gt";
 import styles from "./App.module.css";
 import DarkThemeDetector from "./components/DarkThemeDetector";
 import RibbonBar from "./components/RibbonBar";
 import { TitleBar } from "./components/TitleBar";
-import { useFileOpener } from "./hooks/useFileOpener.ts";
+import { AUDIO_EXTENSIONS, useFileOpener } from "./hooks/useFileOpener.ts";
 import AudioControls from "./modules/audio/components/index.tsx";
 import { useAudioFeedback } from "./modules/audio/hooks/useAudioFeedback.ts";
 import { SyncKeyBinding } from "./modules/lyric-editor/components/sync-keybinding.tsx";
@@ -264,10 +264,23 @@ function App() {
 			e.preventDefault();
 			setIsGlobalDragging(false);
 
-			const files = e.dataTransfer?.files;
-			if (files && files.length > 0) {
-				openFile(files[0]);
+			const file = e.dataTransfer?.files?.[0];
+			if (!file) return;
+
+			// 音声ファイルの読み込みはメニューバー（ファイル → 音声を読み込む）に限定する。
+			// ドラッグ＆ドロップでの音声読み込みはブロックし、歌詞ファイルのみ受け付ける。
+			const ext = file.name.split(".").pop()?.toLowerCase() || "";
+			if (AUDIO_EXTENSIONS.has(ext)) {
+				toast.info(
+					t(
+						"error.audioDropDisabled",
+						"音声ファイルはメニューバーの「ファイル」→「音声を読み込む」から読み込んでください",
+					),
+				);
+				return;
 			}
+
+			openFile(file);
 		};
 
 		window.addEventListener("dragenter", handleDragEnter);
@@ -281,7 +294,7 @@ function App() {
 			window.removeEventListener("dragleave", handleDragLeave);
 			window.removeEventListener("drop", handleDrop);
 		};
-	}, [setIsGlobalDragging, openFile]);
+	}, [setIsGlobalDragging, openFile, t]);
 
 	return (
 		<Theme

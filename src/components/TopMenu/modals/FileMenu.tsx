@@ -29,6 +29,9 @@ const FileMenuItems = () => {
 			>
 				<Trans i18nKey="topBar.menu.openLyric">歌詞を開く</Trans>
 			</DropdownMenu.Item>
+			<DropdownMenu.Item onSelect={menu.onLoadAudio}>
+				<Trans i18nKey="topBar.menu.loadAudio">音声を読み込む</Trans>
+			</DropdownMenu.Item>
 			<DropdownMenu.Item
 				onSelect={menu.onSaveFile}
 				shortcut={formatKeyBindings(menu.saveFileKey)}

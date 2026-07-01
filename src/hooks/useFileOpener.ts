@@ -44,7 +44,7 @@ const LYRIC_PARSERS: Record<string, (text: string) => LyricLine[]> = {
 	lys: parseLys,
 };
 
-const AUDIO_EXTENSIONS = new Set([
+export const AUDIO_EXTENSIONS = new Set([
 	"opus",
 	"flac",
 	"webm",

@@ -26,6 +26,11 @@ import {
 import { isDarkThemeAtom, lyricLinesAtom } from "$/states/main.ts";
 import styles from "./index.module.css";
 
+// プレビューの歌詞表示を音源より 0.1 秒だけ先行させるためのリード時間（ミリ秒）。
+// LyricPlayer は与えられた時刻の状態を描画するため、再生位置にこのリード分を
+// 加算することで、行遷移・ワイプ（wipe）の両方が音源より少し早く始まる。
+const PREVIEW_LEAD_MS = 100;
+
 export const AMLLWrapper = memo(() => {
 	const originalLyricLines = useAtomValue(lyricLinesAtom);
 	const currentTime = useAtomValue(currentTimeAtom);
@@ -65,7 +70,7 @@ export const AMLLWrapper = memo(() => {
 					audioEngine.seekMusic(evt.line.getLine().startTime / 1000);
 				}}
 				lyricLines={lyricLines}
-				currentTime={currentTime}
+				currentTime={currentTime + PREVIEW_LEAD_MS}
 				playing={isPlaying}
 				// maskObsceneWordsMode={
 				// 	hideObsceneWords
