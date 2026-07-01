@@ -78,10 +78,10 @@ const plugins: Plugin[] = [
 	VitePWA({
 		injectRegister: null,
 		disable: !!process.env.TAURI_PLATFORM,
-		workbox: {
-			globPatterns: ["**/*.{js,css,html,wasm}"],
-			maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
-		},
+		// ServiceWorker / PWA は廃止。
+		// selfDestroying により、既存ユーザーに残っている ServiceWorker と
+		// キャッシュを自動的に解除・削除する自己破棄型 SW を配信する。
+		selfDestroying: true,
 		manifest: {
 			name: "Apple Music-like lyrics TTML Tool",
 			id: "amll-ttml-tool",
