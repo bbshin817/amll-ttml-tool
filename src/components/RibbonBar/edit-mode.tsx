@@ -692,7 +692,7 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 	(_props, ref) => {
 		const editLyricLines = useSetImmerAtom(lyricLinesAtom);
 		const { t } = useTranslation();
-		const { onAutoSegment, onMoraSegment } = useTopMenuActions();
+		const { onMoraSegment } = useTopMenuActions();
 
 		return (
 			<RibbonFrame ref={ref}>
@@ -713,13 +713,6 @@ export const EditModeRibbonBar: FC = forwardRef<HTMLDivElement>(
 				</RibbonSection>
 				<RibbonSection label={t("ribbonBar.editMode.segment", "分割")}>
 					<Grid columns="1" gap="1" gapY="1" flexGrow="1" align="center">
-						<Button
-							size="1"
-							variant="soft"
-							onClick={() => onAutoSegment()}
-						>
-							{t("ribbonBar.editMode.autoSegment", "自動分割")}
-						</Button>
 						<Button
 							size="1"
 							variant="soft"

@@ -403,7 +403,7 @@ export const useTopMenuActions = () => {
 
 	const onMoraSegment = useCallback(async () => {
 		// 日本語（ひらがな・カタカナ・漢字）をモーラ（拍）単位で分割する。
-		// 拗音・促音・長音符は直前の仮名と結合させる（分割エンジン側で処理）。
+		// 拗音・促音・長音符・撥音「ん」は直前の仮名と結合させる（分割エンジン側で処理）。
 		// 英語の音節分割用に、ハイフネーション辞書を必要に応じて読み込む。
 		const hyphenator =
 			segmentationConfig.hyphenator ??
