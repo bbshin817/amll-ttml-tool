@@ -135,7 +135,10 @@ export default defineConfig({
 	base: process.env.TAURI_ENV_PLATFORM
 		? "/"
 		: process.env.NODE_ENV === "production"
-			? "/amll-ttml-tool"
+			? // Cloudflare Pages (amll-ttml-tool.bshin.dev) はサブドメイン直下に
+				// 配信するため base はルート "/"。GitHub Pages のサブパス配信
+				// ("/amll-ttml-tool/") から移行済み。
+				"/"
 			: "./",
 	clearScreen: false,
 	server: {

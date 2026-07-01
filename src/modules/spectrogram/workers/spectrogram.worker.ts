@@ -16,7 +16,18 @@ async function initializeWasm() {
 	if (!wasmInitialized) {
 		wasmInitialized = (async () => {
 			await init();
-			await initThreadPool(navigator.hardwareConcurrency);
+			// wasm-bindgen-rayon のスレッドプールは SharedArrayBuffer を使うため、
+			// cross-origin isolation (COOP/COEP ヘッダ) が有効な環境でのみ初期化する。
+			// 未対応環境（ヘッダを設定できないホスト等）で initThreadPool を呼ぶと
+			// startWorkers 内の postMessage が DataCloneError を投げ、以降の
+			// タイル生成が全て失敗するため、その場合はスキップする。
+			if (self.crossOriginIsolated) {
+				await initThreadPool(navigator.hardwareConcurrency);
+			} else {
+				console.warn(
+					"[Spectrogram] cross-origin isolation が無効なため、マルチスレッドを無効化します（COOP/COEP ヘッダを設定してください）",
+				);
+			}
 		})();
 	}
 	await wasmInitialized;

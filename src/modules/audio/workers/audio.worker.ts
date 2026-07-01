@@ -10,9 +10,23 @@ let ffmpegModulePromise: Promise<AudioDecoderModule> | null = null;
 
 function getModule(): Promise<AudioDecoderModule> {
 	if (!ffmpegModulePromise) {
+		// Vite の base（Tauri: "/"、GitHub Pages 本番: "/amll-ttml-tool/"、
+		// dev: "./"）を考慮して WASM の絶対 URL を組み立てる。
+		// 以前はドメイン直下の "/decode-audio.wasm" を決め打ちしていたため、
+		// サブパス配信の本番ビルドでは 404（HTML が返る）となり、
+		// "expected magic word 00 61 73 6d" で WASM の初期化に失敗していた。
+		// ALAC などブラウザがデコードできない形式でのみこの WASM を通るため、
+		// 症状は「ALAC の変換が始まらない」形で顕在化していた。
+		// BASE_URL は末尾スラッシュ無しの場合がある（vite.config の base が
+		// "/amll-ttml-tool" のため）ので、確実にスラッシュ 1 個で連結する。
+		const baseUrl = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+		const wasmUrl = new URL(
+			`${baseUrl}decode-audio.wasm`,
+			self.location.origin,
+		).href;
 		ffmpegModulePromise = createAudioDecoderCore({
 			locateFile: (path: string) =>
-				path.endsWith(".wasm") ? "/decode-audio.wasm" : path,
+				path.endsWith(".wasm") ? wasmUrl : path,
 			print: (text: string) => console.log("[WASM]", text),
 			printErr: (text: string) => console.error("[WASM Error]", text),
 		}) as Promise<AudioDecoderModule>;
